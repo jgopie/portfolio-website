@@ -3,8 +3,14 @@ import { useState } from 'react';
 
 export const Navbar = () => {
     const [isChecked, setChecked] = useState(false);
+    const [menuImgSrc, setMenuImgSrc] = useState('/bars-solid.svg');
     const burgerCheck = () => {
         setChecked(!isChecked);
+        if (isChecked) {
+            setMenuImgSrc('/bars-solid.svg');
+        } else {
+            setMenuImgSrc('/x-solid.svg');
+        }
     };
     return (
         <>
@@ -14,7 +20,7 @@ export const Navbar = () => {
                     className='hidden'
                     onClick={burgerCheck}>
                     <img
-                        src='/bars-solid.svg'
+                        src={menuImgSrc}
                         className='bars'
                     />
                 </button>
@@ -31,15 +37,6 @@ export const Navbar = () => {
                 </ul>
                 {isChecked && (
                     <div className='ghost'>
-                        {/* <button
-                            type='button'
-                            className='hidden'
-                            onClick={burgerCheck}>
-                            <img
-                                src='/bars-solid.svg'
-                                className='bars'
-                            />
-                        </button> */}
                         <ul className='mobile-list'>
                             <li>
                                 <a href='/'>Home</a>
