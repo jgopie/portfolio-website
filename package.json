@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^2.2.0",
+    "@headlessui/react": "^1.7.14",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "astro": "^2.4.1",

@@ -6,8 +6,58 @@
     margin-top: 2.5%;
 }
 
-.navbar>a {
+ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.navbar>ul>li>a {
     text-decoration: none;
     color: white;
     padding-left: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+@media only screen and (max-width: 435px) {
+    .navbar {
+        align-items: flex-end;
+    }
+
+    .hidden {
+        display: inline-block;
+        width: 10vw;
+        height: 10vh;
+        border: none;
+        background-color: black;
+    }
+
+    .desktop-list {
+        display: none;
+    }
+
+    .ghost {
+        width: 80vw;
+        height: 10vh;
+        background-color: black;
+        display: inline-block;
+    }
+
+    .mobile-list {
+        color: white;
+        display: inline-flex;
+        width: 50vw;
+        height: 50vh;
+        text-decoration: none;
+        justify-content: space-between;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 }
