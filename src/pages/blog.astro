@@ -3,15 +3,26 @@ import {getCollection} from 'astro:content'
 const blogPosts = await getCollection("blog")
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
+<style>
+    a{
+        text-decoration: none;
+        color: white;
+    }
+    a:hover{
+        color: blue;
+    }
+</style>
 <BaseLayout title='Blog'>
     <main>
         <h1>For all my ramblings, musings, and thoughts about stuff</h1>
+        <ul>
         {
             blogPosts.map((post) => (
-                <h2>
+                <li>
                     <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-                </h2>
+                </li>
             ))
         }
+        </ul>
     </main>
 </BaseLayout>
