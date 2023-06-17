@@ -44,7 +44,7 @@ ul {
         width: 80vw;
         height: 10vh;
         background-color: black;
-        display: inline-block;
+        display: inline-flex;
     }
 
     .mobile-list {
@@ -54,6 +54,7 @@ ul {
         height: 50vh;
         text-decoration: none;
         justify-content: space-between;
+        padding-top: 4%;
     }
 
     a {
