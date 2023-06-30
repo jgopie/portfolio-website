@@ -11,7 +11,7 @@ export const BlogCard = (props: BlogProps) => {
             <div className='blog-container'>
                 <img
                     className='blogImage'
-                    src={props.image}
+                    src={`/${props.image}`}
                     alt={props.title}
                 />
                 <div className='link-container'>
