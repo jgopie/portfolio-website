@@ -5,7 +5,7 @@ isDraft: false
 publishedDate: 17/06/2023
 tags:
  - Rambling
-image: none
+image: blog-pic.jpg
 ---
 
 # Hello World

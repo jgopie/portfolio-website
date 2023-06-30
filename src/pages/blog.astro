@@ -2,6 +2,7 @@
 import {getCollection} from 'astro:content'
 const blogPosts = await getCollection("blog")
 import BaseLayout from '../layouts/BaseLayout.astro';
+import {BlogCard} from '../components/blog-card/blog-card'
 ---
 <style>
     a{
@@ -15,6 +16,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         display: flex;
         flex-direction: column;
     }
+
 </style>
 <BaseLayout title='Blog'>
     <main>
@@ -23,7 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         {
             blogPosts.map((post) => (
                 <li>
-                    <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+                    <BlogCard title={post.data.title} image={post.data.image} slug={post.slug}/>
                 </li>
             ))
         }
