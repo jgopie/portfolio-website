@@ -1,5 +1,5 @@
 ---
-title: My Experience with Javascript
+title: What I'm Working On
 author: Jordan Gopie
 isDraft: false
 publishedDate: 17/06/2023
@@ -10,6 +10,8 @@ tags:
 image: pexels-markus-spiske-1089440.jpg
 ---
 
-# My Experience with javascript
+# What I've been working on
 
-Where do I even begin. Javascript is an experience unlike any other. A bit of history: my first taste of programming came in the mid 2000s with Pascal in secondary school, then C and C++ through my first few years in University before I made the, poor, decision to switch degrees from Computer Science to Business Management. Python was easy to pick up. (Note: If you've come upon this post then Hi! but this isn't finished yet :>)
+Hello! Welcome, bienvenue and valkommen to an update on what I've been up to for the past few weeks. In addition to my normal day job which is, *barely*, keeping the lights on, I've had the pleasure to be working on an entire fullstack application. By myself. Well, not entirely by myself. Thank goodness. My good friends, Paul, and Jairaj have been great helpers and motivators.
+
+I've got to say, working a full time job and solo-developing a fullstack application, whose calculations and logic mostly deal with **dates**, has been a bit of a pain, but it's definitely provided me with an opportunity to approach software development from all angles. Everything from identifying the real problem that needs to be solved, how to create and maintain a positive relationship with clients, the importance of data modeling, and how much learning never really ends.
