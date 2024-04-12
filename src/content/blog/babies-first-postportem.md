@@ -1,5 +1,5 @@
 ---
-title: What I'm Working On
+title: Getting Started
 author: Jordan Gopie
 isDraft: false
 publishedDate: 06/09/2023
