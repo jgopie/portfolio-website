@@ -2,7 +2,7 @@
 title: Hello World
 author: Jordan Gopie
 isDraft: false
-publishedDate: 17/06/2023
+publishedDate: 06/17/2023
 tags:
  - Rambling
 image: blog-pic.jpg

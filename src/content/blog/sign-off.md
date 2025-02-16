@@ -2,13 +2,13 @@
 title: Done and done!
 author: Jordan Gopie
 isDraft: false
-publishedDate: 16/02/2025
+publishedDate: 02/16/2025
 tags:
  - Projects
  - Dart
  - Flutter
  - Programming
-image: pexels-markus-spiske-1089440.jpg
+image: fotis-fotopoulos-6sAl6aQ4OWI-unsplash.jpg
 ---
 
 # Building an Email Client with Flutter and Riverpod: Lessons Learned
@@ -24,9 +24,9 @@ State management can make or break any project, and Riverpod proved to be an exc
 
 Working with email protocols (IMAP, SMTP) in Flutter was an interesting challenge. While Flutter's ecosystem has some email-related packages, I learned that they often need customization for production use. Here's what worked well:
 
-1. Creating abstract interfaces for email operations, allowing for easy switching between different email providers
-2. Implementing background synchronization using Flutter's isolates to prevent UI freezes during email fetches
-3. Building a robust caching system to maintain smooth performance even with large mailboxes
+- Creating abstract interfaces for email operations, allowing for easy switching between different email providers
+- Implementing background synchronization using Flutter's isolates to prevent UI freezes during email fetches
+- Building a robust caching system to maintain smooth performance even with large mailboxes
 
 ## Performance Optimization Lessons
 

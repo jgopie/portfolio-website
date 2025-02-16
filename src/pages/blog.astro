@@ -3,6 +3,10 @@ import {getCollection} from 'astro:content'
 const blogPosts = await getCollection("blog")
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {BlogCard} from '../components/blog-card/blog-card'
+// Can't just let me sort by date, can you Javascript?
+const sortedPosts = blogPosts.sort((a, b) => {
+    return a.data.publishedDate.getTime() - b.data.publishedDate.getTime();
+})
 ---
 <style>
     a{
@@ -23,7 +27,7 @@ import {BlogCard} from '../components/blog-card/blog-card'
         <h1>For all my ramblings, musings, and thoughts about stuff</h1>
         <ul>
         {
-            blogPosts.map((post) => (
+            sortedPosts.map((post) => (
                 <li>
                     <BlogCard title={post.data.title} image={post.data.image} slug={post.slug}/>
                 </li>

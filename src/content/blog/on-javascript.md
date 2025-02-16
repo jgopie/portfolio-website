@@ -2,7 +2,7 @@
 title: What I'm Working On
 author: Jordan Gopie
 isDraft: false
-publishedDate: 17/06/2023
+publishedDate: 06/17/2023
 tags:
  - Opinion
  - Javascript

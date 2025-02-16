@@ -1,0 +1,104 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import '../styles/global.css';
+// BlogLayout.astro
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+<BaseLayout title={title}>
+<article class="max-w-3xl mx-auto px-4 py-8">
+  <div class="prose prose-lg prose-slate max-w-none">
+    <slot />
+  </div>
+</article>
+</BaseLayout>
+
+<style is:global>
+    @reference "../styles/global.css";
+    .prose h1 {
+      @apply text-4xl font-bold mb-8 text-sky-400;
+    }
+    
+    .prose h2 {
+      @apply text-2xl font-semibold mb-4 mt-8 text-sky-400;
+    }
+    
+    .prose p {
+      @apply text-sky-50 leading-relaxed mb-4;
+    }
+    
+    /* Enhanced list styling */
+    .prose ul {
+      @apply my-6;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      list-style-type: none !important;
+      padding-left: 0 !important;
+    }
+    
+    .prose ul li {
+      @apply pl-4 relative;
+      display: block !important;
+      margin: 0 !important;
+    }
+    
+    .prose ul li::before {
+      content: "•";
+      @apply absolute left-0 text-sky-600;
+    }
+    
+    /* Force list items to break onto new lines */
+    .prose ul li p {
+      display: block !important;
+      margin: 0 !important;
+    }
+    
+    /* Code blocks */
+    .prose code {
+      @apply bg-sky-100 px-1 py-0.5 rounded text-sm font-mono;
+    }
+    
+    .prose pre {
+      @apply bg-sky-100 p-4 rounded-lg overflow-x-auto;
+    }
+    
+    /* Links */
+    .prose a {
+      @apply text-blue-600 hover:text-blue-800 underline;
+    }
+    
+    /* Additional spacing and typography refinements */
+    .prose {
+      @apply text-base leading-7;
+    }
+    
+    .prose > * + * {
+      @apply mt-6;
+    }
+    
+    .prose h3 {
+      @apply text-xl font-semibold mb-3 mt-6 text-sky-400;
+    }
+    
+    .prose blockquote {
+      @apply pl-4 border-l-4 border-sky-300 italic text-sky-600;
+    }
+    
+    .prose img {
+      @apply rounded-lg my-8;
+    }
+    
+    /* Reset any Tailwind prose list styles that might interfere */
+    .prose ul > li::marker {
+      content: none !important;
+    }
+    
+    .prose ul > li {
+      padding-left: 1rem !important;
+      @apply text-sky-50;
+    }
+  </style>

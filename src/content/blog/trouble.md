@@ -2,7 +2,7 @@
 title: Life is Pain
 author: Jordan Gopie
 isDraft: false
-publishedDate: 01/08/2023
+publishedDate: 08/01/2023
 tags:
  - Opinion
  - Javascript
