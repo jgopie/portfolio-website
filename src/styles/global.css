@@ -78,12 +78,12 @@
   filter: invert(0);
 }
 
-[data-theme="light"] .hero-image {
-  box-shadow: 0 0 30px rgba(138, 46, 255, 0.15);
+[data-theme="light"] .hero-logo {
+  filter: drop-shadow(0 0 20px rgba(138, 46, 255, 0.2));
 }
 
-[data-theme="light"] .hero-image:hover {
-  box-shadow: 0 0 40px rgba(138, 46, 255, 0.25);
+[data-theme="light"] .hero-logo:hover {
+  filter: drop-shadow(0 0 30px rgba(138, 46, 255, 0.35));
 }
 
 /* ============================================

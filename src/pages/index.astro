@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import heroPhoto from '../images/photo.png';
 ---
 <BaseLayout title='Home'>
     <div class="hero-container">
@@ -19,7 +17,7 @@ import heroPhoto from '../images/photo.png';
             </div>
         </div>
         <div class="hero-image-container">
-            <Image src={heroPhoto} alt="Jordan Gopie" class="hero-image" width={280} height={280} />
+            <img src="/logo.svg" alt="Jordan Gopie Logo" class="hero-logo" />
         </div>
     </div>
 
@@ -112,25 +110,23 @@ import heroPhoto from '../images/photo.png';
         flex-shrink: 0;
     }
 
-    .hero-image {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid var(--border-color);
-        box-shadow: 0 0 30px rgba(0, 194, 255, 0.2);
-        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    .hero-logo {
+        width: 240px;
+        height: auto;
+        max-height: 240px;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: drop-shadow(0 0 20px rgba(0, 194, 255, 0.3));
     }
 
-    .hero-image:hover {
-        border-color: var(--color-electric-blue);
-        box-shadow: 0 0 40px rgba(0, 194, 255, 0.3);
+    .hero-logo:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(0, 194, 255, 0.5));
     }
 
     @media (min-width: 768px) {
-        .hero-image {
-            width: 280px;
-            height: 280px;
+        .hero-logo {
+            width: 340px;
+            max-height: 340px;
         }
     }
 
