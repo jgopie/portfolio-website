@@ -1,6 +1,7 @@
 ---
-import { Footer } from '../components/footer/footer';
-import { Navbar } from '../components/navbar/navbar';
+import Footer from '../components/footer/Footer.astro';
+import Navbar from '../components/navbar/Navbar.astro';
+import '../styles/global.css';
 const { title } = Astro.props;
 ---
 
@@ -22,32 +23,55 @@ const { title } = Astro.props;
         <meta property="og:image" content="https://avatars.githubusercontent.com/u/8053192?s=400&u=8c6e231070c1e1b78f13f94bc26a4b67432e90c3&v=4"/>
         <meta property="og:description" content="Software Developer with a focus on Web Development and an interest in all things tech."/>
         <title>{title}</title>
-        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet">
-        <style>
-            *{
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            body{
-                font-family: 'Satoshi', sans-serif;
-                color: white;
-                background-color: black;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                height: 100vh;
-                margin-left: 5%;
-                margin-right: 5%;
-            }
-        </style>
+
+        <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- Theme initialization script - runs before page renders to prevent flash -->
+        <script is:inline>
+            (function() {
+                const storedTheme = localStorage.getItem('theme');
+                const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const theme = storedTheme || systemTheme;
+                document.documentElement.setAttribute('data-theme', theme);
+            })();
+        </script>
     </head>
     <body>
-        <Navbar client:load/>
-        <main>
-            <slot />
-        </main>
-        <Footer />
+        <div class="site-wrapper">
+            <Navbar />
+            <main class="main-content">
+                <slot />
+            </main>
+            <Footer />
+        </div>
     </body>
 </html>
+
+<style is:global>
+    .site-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .main-content {
+        flex: 1;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+        padding-top: var(--spacing-xl);
+        padding-bottom: var(--spacing-2xl);
+    }
+
+    @media (min-width: 768px) {
+        .main-content {
+            padding-left: var(--spacing-lg);
+            padding-right: var(--spacing-lg);
+        }
+    }
+</style>

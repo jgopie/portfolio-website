@@ -1,39 +1,83 @@
 .navbar {
     display: flex;
-    justify-content: flex-end;
-    width: 100vw;
-    margin-left: -10%;
-    margin-top: 2.5%;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--bg-main);
 }
 
-ul {
+.navbar ul {
     list-style-type: none;
     display: flex;
+    gap: var(--spacing-xl);
+    margin: 0;
+    padding: 0;
 }
 
-.navbar>ul>li>a {
+.navbar > ul > li > a {
     text-decoration: none;
-    color: white;
-    padding-left: 50px;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-button);
+    transition: color 0.2s ease, background-color 0.2s ease;
+    position: relative;
+}
+
+.navbar > ul > li > a:hover {
+    color: var(--color-electric-blue);
+}
+
+.navbar > ul > li > a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #00C2FF 0%, #8A2EFF 100%);
+    transition: width 0.3s ease;
+}
+
+.navbar > ul > li > a:hover::after {
+    width: 80%;
 }
 
 .hidden {
     display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-sm);
 }
 
+.bars {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);
+}
 
-
-@media only screen and (max-width: 435px) {
+/* Mobile styles */
+@media only screen and (max-width: 640px) {
     .navbar {
-        align-items: flex-end;
+        padding: var(--spacing-md);
+        position: relative;
     }
 
     .hidden {
-        display: inline-block;
-        width: 10vw;
-        height: 10vh;
-        border: none;
-        background-color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-button);
     }
 
     .desktop-list {
@@ -41,23 +85,42 @@ ul {
     }
 
     .ghost {
-        width: 80vw;
-        height: 10vh;
-        background-color: black;
-        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-card);
+        margin: var(--spacing-sm) var(--spacing-md);
+        padding: var(--spacing-md);
+        box-shadow: var(--shadow-card-hover);
+        z-index: 100;
     }
 
     .mobile-list {
-        color: white;
-        display: inline-flex;
-        width: 50vw;
-        height: 50vh;
-        text-decoration: none;
-        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        width: 100%;
     }
 
-    a {
+    .mobile-list li {
+        width: 100%;
+    }
+
+    .mobile-list a {
+        display: block;
         text-decoration: none;
-        color: inherit;
+        color: var(--text-primary);
+        font-weight: 500;
+        padding: var(--spacing-md);
+        border-radius: var(--radius-button);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .mobile-list a:hover {
+        background-color: rgba(0, 194, 255, 0.1);
+        color: var(--color-electric-blue);
     }
 }

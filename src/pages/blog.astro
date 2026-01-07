@@ -2,30 +2,20 @@
 import {getCollection} from 'astro:content'
 const blogPosts = await getCollection("blog")
 import BaseLayout from '../layouts/BaseLayout.astro';
-import {BlogCard} from '../components/blog-card/blog-card'
+import BlogCard from '../components/blog-card/BlogCard.astro'
 // Can't just let me sort by date, can you Javascript?
 const sortedPosts = blogPosts.sort((a, b) => {
     return a.data.publishedDate.getTime() - b.data.publishedDate.getTime();
 })
 ---
-<style>
-    a{
-        text-decoration: none;
-        color: white;
-    }
-    a:hover{
-        color: blue;
-    }
-    ul {
-        display: flex;
-        flex-direction: column;
-    }
-
-</style>
 <BaseLayout title='Blog'>
-    <main>
-        <h1>For all my ramblings, musings, and thoughts about stuff</h1>
-        <ul>
+    <div class="blog-container">
+        <header class="blog-header">
+            <h1>Blog</h1>
+            <p class="blog-subtitle">For all my ramblings, musings, and thoughts about stuff</p>
+        </header>
+
+        <ul class="blog-list">
         {
             sortedPosts.map((post) => (
                 <li>
@@ -34,5 +24,41 @@ const sortedPosts = blogPosts.sort((a, b) => {
             )).reverse()
         }
         </ul>
-    </main>
+    </div>
 </BaseLayout>
+
+<style>
+    .blog-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: var(--spacing-xl) 0;
+    }
+
+    .blog-header {
+        margin-bottom: var(--spacing-2xl);
+        padding-bottom: var(--spacing-lg);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .blog-header h1 {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .blog-subtitle {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+    }
+
+    .blog-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .blog-list li {
+        list-style: none;
+    }
+</style>

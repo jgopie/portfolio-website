@@ -1,33 +1,158 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import heroPhoto from '../images/photo.png';
 ---
+<BaseLayout title='Home'>
+    <div class="hero-container">
+        <div class="hero-content">
+            <p class="hero-tagline">Architecting the Future</p>
+            <h1 class="hero-title">Jordan Gopie</h1>
+            <p class="hero-subtitle">Full-Stack Developer & Flutter Specialist</p>
+            <p class="hero-description">
+                I'm a freelance developer who specializes in developing mobile and web applications
+                with Flutter. Building scalable, modern solutions with clean code.
+            </p>
+            <div class="hero-cta">
+                <a href="/blog" class="btn-primary">Read My Blog</a>
+                <a href="/resume" class="btn-secondary">View Resume</a>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <Image src={heroPhoto} alt="Jordan Gopie" class="hero-image" width={280} height={280} />
+        </div>
+    </div>
+
+    <section class="about-section">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p class="body-large">
+                👋 Welcome to my corner of the internet.
+            </p>
+            <p>
+                I love learning new things. Even though I primarily work with Flutter nowadays, my programming journey started many years ago with Pascal,
+                before moving on to C, C++, Python, and, most recently, Javascript and Typescript along with Dart and Flutter.
+            </p>
+        </div>
+    </section>
+</BaseLayout>
+
 <style>
-    img{
-        max-width: 40vw;
-        max-height: 50vh;
-        border-radius: 50%;
-    }
-    main{
+    .hero-container {
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: center;
+        gap: var(--spacing-xl);
+        padding: var(--spacing-2xl) 0;
         text-align: center;
     }
+
+    @media (min-width: 768px) {
+        .hero-container {
+            flex-direction: row;
+            text-align: left;
+            gap: var(--spacing-3xl);
+            padding: var(--spacing-3xl) 0;
+        }
+    }
+
+    .hero-content {
+        flex: 1;
+    }
+
+    .hero-tagline {
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-electric-blue);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 3.5rem;
+        }
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .hero-description {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        margin-bottom: var(--spacing-xl);
+        max-width: 500px;
+    }
+
+    .hero-cta {
+        display: flex;
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+        .hero-cta {
+            justify-content: flex-start;
+        }
+    }
+
+    .hero-image-container {
+        flex-shrink: 0;
+    }
+
+    .hero-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--border-color);
+        box-shadow: 0 0 30px rgba(0, 194, 255, 0.2);
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .hero-image:hover {
+        border-color: var(--color-electric-blue);
+        box-shadow: 0 0 40px rgba(0, 194, 255, 0.3);
+    }
+
+    @media (min-width: 768px) {
+        .hero-image {
+            width: 280px;
+            height: 280px;
+        }
+    }
+
+    .about-section {
+        padding: var(--spacing-2xl) 0;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .about-section h2 {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .about-content {
+        max-width: 700px;
+    }
+
+    .about-content p {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .about-content .body-large {
+        font-size: 1.25rem;
+        color: var(--text-primary);
+    }
 </style>
-<BaseLayout title='Home'>
-    <main>
-    <h2>Jordan Gopie's Personal Presence</h2>
-        <img src="photo.png" alt="AI-generated image of Jordan Gopie"/>
-        <h2>👋 My name is Jordan and welcome to my corner of the internet.</h2>
-            <div>
-                <p>
-                    I'm a freelance developer who specializes in developing mobile and web applications
-                    with Flutter.
-                </p>
-                <p>
-                    I love learning new things. Even though I primarily work with Flutter nowadays, My programming journey started many years ago with Pascal,
-                    before then moving on to C, C++, Python, and, most recently, Javascript and Typescript along with Dart and Flutter.
-                </p>
-            </div>
-    </main>
-</BaseLayout>

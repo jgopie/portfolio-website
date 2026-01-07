@@ -1,2 +1,356 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* ============================================
+   JORDAN GOPIE PORTFOLIO - DESIGN SYSTEM
+   Based on style-guide.md specifications
+   ============================================ */
+
+/* Custom Design Tokens */
+@theme {
+  /* Primary Brand Colors */
+  --color-electric-blue: #00C2FF;
+  --color-vibrant-purple: #8A2EFF;
+
+  /* Dark Theme (Default) */
+  --color-dark-bg: #0A0A0A;
+  --color-dark-surface: #161616;
+  --color-dark-text-primary: #EDEDED;
+  --color-dark-text-secondary: #A1A1AA;
+  --color-dark-border: #333333;
+
+  /* Light Theme */
+  --color-light-bg: #F8F9FA;
+  --color-light-surface: #FFFFFF;
+  --color-light-text-primary: #111827;
+  --color-light-text-secondary: #4B5563;
+  --color-light-border: #E5E7EB;
+
+  /* Spacing Scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 64px;
+  --spacing-3xl: 96px;
+
+  /* Border Radius */
+  --radius-button: 8px;
+  --radius-card: 12px;
+  --radius-pill: 50px;
+
+  /* Shadows */
+  --shadow-glow-blue: 0px 4px 15px rgba(0, 194, 255, 0.3);
+  --shadow-card-hover: 0 0 20px rgba(0, 194, 255, 0.15);
+  --shadow-light-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  /* Font Families */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* CSS Custom Properties for easy theming */
+:root {
+  /* Brand Gradient */
+  --gradient-brand: linear-gradient(135deg, #00C2FF 0%, #8A2EFF 100%);
+
+  /* Dark theme as default */
+  --bg-main: #0A0A0A;
+  --bg-surface: #161616;
+  --text-primary: #EDEDED;
+  --text-secondary: #A1A1AA;
+  --border-color: #333333;
+}
+
+/* Light theme override */
+[data-theme="light"] {
+  --bg-main: #F8F9FA;
+  --bg-surface: #FFFFFF;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --border-color: #E5E7EB;
+}
+
+/* Light theme specific adjustments */
+[data-theme="light"] .menu-icon,
+[data-theme="light"] .svgCard img {
+  filter: invert(0);
+}
+
+[data-theme="light"] .hero-image {
+  box-shadow: 0 0 30px rgba(138, 46, 255, 0.15);
+}
+
+[data-theme="light"] .hero-image:hover {
+  box-shadow: 0 0 40px rgba(138, 46, 255, 0.25);
+}
+
+/* ============================================
+   THEME TRANSITION
+   ============================================ */
+
+/* Smooth transitions for theme switching */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              fill 0.3s ease !important;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}
+
+/* ============================================
+   TYPOGRAPHY HIERARCHY
+   ============================================ */
+
+/* H1 Hero: Bold 3.5rem, -0.02em letter spacing */
+.h1-hero, h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* H2 Section: SemiBold 2.25rem, -0.01em letter spacing */
+.h2-section, h2 {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* H3 Card Title: Medium 1.5rem */
+.h3-card, h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+/* Body Large: Regular 1.125rem */
+.body-large {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Body Base: Regular 1rem */
+.body-base, p {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Code/Tag: Medium 0.875rem */
+.code-tag, code {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   LAYOUT & CONTAINER
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+}
+
+/* Section spacing */
+.section {
+  padding-top: var(--spacing-2xl);
+  padding-bottom: var(--spacing-2xl);
+}
+
+.hero-section {
+  margin-bottom: var(--spacing-3xl);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+/* Primary Button (CTA) with gradient */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: var(--gradient-brand);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius-button);
+  box-shadow: var(--shadow-glow-blue);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 20px rgba(0, 194, 255, 0.4);
+}
+
+/* Secondary/Ghost Button */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-electric-blue);
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-electric-blue);
+}
+
+/* ============================================
+   TECH STACK TAGS
+   ============================================ */
+
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+
+a {
+  color: var(--color-electric-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-vibrant-purple);
+}
+
+/* Nav links special styling */
+.nav-link {
+  color: var(--text-primary);
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--color-electric-blue);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-brand);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.gradient-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.bg-surface {
+  background-color: var(--bg-surface);
+}
+
+.bg-main {
+  background-color: var(--bg-main);
+}

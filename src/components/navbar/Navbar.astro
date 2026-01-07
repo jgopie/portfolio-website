@@ -1,0 +1,330 @@
+---
+import { Image } from 'astro:assets';
+import barsIcon from '/public/bars-solid.svg';
+import xIcon from '/public/x-solid.svg';
+---
+<nav class="navbar">
+    <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+        <Image src={barsIcon} alt="Menu" width={24} height={24} class="menu-icon" id="menu-icon" />
+    </button>
+    <ul class="desktop-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/resume">Resume</a></li>
+        <li><a href="/blog">Blog</a></li>
+    </ul>
+
+    <!-- Theme Toggle Button -->
+    <button
+        type="button"
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Toggle dark/light theme"
+        title="Toggle theme"
+    >
+        <!-- Sun icon (shown in dark mode) -->
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <div class="ghost" id="mobile-menu">
+        <ul class="mobile-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/resume">Resume</a></li>
+            <li><a href="/blog">Blog</a></li>
+        </ul>
+    </div>
+</nav>
+
+<script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon') as HTMLImageElement;
+
+    let isOpen = false;
+
+    menuBtn?.addEventListener('click', () => {
+        isOpen = !isOpen;
+        mobileMenu?.classList.toggle('open', isOpen);
+        if (menuIcon) {
+            menuIcon.src = isOpen ? '/x-solid.svg' : '/bars-solid.svg';
+        }
+    });
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+
+    function getStoredTheme(): string | null {
+        return localStorage.getItem('theme');
+    }
+
+    function getSystemTheme(): string {
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    function setTheme(theme: string) {
+        // Add transition class for smooth animation
+        document.documentElement.classList.add('theme-transition');
+
+        // Set the theme
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Update aria-label
+        const label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+        themeToggle?.setAttribute('aria-label', label);
+
+        // Store the preference
+        localStorage.setItem('theme', theme);
+
+        // Remove transition class after animation completes
+        setTimeout(() => {
+            document.documentElement.classList.remove('theme-transition');
+        }, 300);
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+    }
+
+    // Initialize theme on page load (this runs after the inline script in head)
+    function initTheme() {
+        const storedTheme = getStoredTheme();
+        const theme = storedTheme || getSystemTheme();
+        // Don't add transition on initial load
+        document.documentElement.setAttribute('data-theme', theme);
+        const label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+        themeToggle?.setAttribute('aria-label', label);
+    }
+
+    // Set up event listener
+    themeToggle?.addEventListener('click', toggleTheme);
+
+    // Handle keyboard navigation
+    themeToggle?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleTheme();
+        }
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+        // Only update if user hasn't set a preference
+        if (!getStoredTheme()) {
+            setTheme(e.matches ? 'light' : 'dark');
+        }
+    });
+
+    // Initialize
+    initTheme();
+</script>
+
+<style>
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--bg-main);
+    position: relative;
+}
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    gap: var(--spacing-xl);
+    margin: 0;
+    padding: 0;
+}
+
+.navbar > ul > li > a,
+.desktop-list a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-button);
+    transition: color 0.2s ease, background-color 0.2s ease;
+    position: relative;
+}
+
+.desktop-list a:hover {
+    color: var(--color-electric-blue);
+}
+
+.desktop-list a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #00C2FF 0%, #8A2EFF 100%);
+    transition: width 0.3s ease;
+}
+
+.desktop-list a:hover::after {
+    width: 80%;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-button);
+    cursor: pointer;
+    margin-left: var(--spacing-lg);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    color: var(--text-primary);
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-electric-blue);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--color-electric-blue);
+    outline-offset: 2px;
+}
+
+/* Sun icon - visible in dark mode */
+.icon-sun {
+    display: block;
+    color: #FDB813;
+}
+
+/* Moon icon - hidden in dark mode */
+.icon-moon {
+    display: none;
+    color: var(--color-vibrant-purple);
+}
+
+/* Light mode: show moon, hide sun */
+[data-theme="light"] .icon-sun {
+    display: none;
+}
+
+[data-theme="light"] .icon-moon {
+    display: block;
+}
+
+.ghost {
+    display: none;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 640px) {
+    .navbar {
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-button);
+        order: 1;
+    }
+
+    .theme-toggle {
+        margin-left: auto;
+        order: 0;
+    }
+
+    .desktop-list {
+        display: none;
+    }
+
+    .ghost {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-card);
+        margin: var(--spacing-sm) var(--spacing-md);
+        padding: var(--spacing-md);
+        box-shadow: var(--shadow-card-hover);
+        z-index: 100;
+        display: none;
+    }
+
+    .ghost.open {
+        display: block;
+    }
+
+    .mobile-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        width: 100%;
+    }
+
+    .mobile-list li {
+        width: 100%;
+    }
+
+    .mobile-list a {
+        display: block;
+        text-decoration: none;
+        color: var(--text-primary);
+        font-weight: 500;
+        padding: var(--spacing-md);
+        border-radius: var(--radius-button);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .mobile-list a:hover {
+        background-color: rgba(0, 194, 255, 0.1);
+        color: var(--color-electric-blue);
+    }
+}
+</style>
+

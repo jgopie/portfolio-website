@@ -1,3 +1,31 @@
+---
+interface Props {
+    title: string;
+    image: string | undefined;
+    slug: string;
+}
+
+const { title, image, slug } = Astro.props;
+---
+<a href={`/blog/${slug}`} class="blog-card-link">
+    <div class="blog-container">
+        {image && (
+            <img
+                class="blogImage"
+                src={`/${image}`}
+                alt={title}
+                width="120"
+                height="120"
+                loading="lazy"
+            />
+        )}
+        <div class="link-container">
+            <p>{title}</p>
+        </div>
+    </div>
+</a>
+
+<style>
 .blog-container {
     display: flex;
     align-items: center;
@@ -42,8 +70,7 @@
     color: var(--color-electric-blue);
 }
 
-/* Card link wrapper */
-a.blog-card-link {
+.blog-card-link {
     text-decoration: none;
     display: block;
 }
@@ -54,9 +81,11 @@ a.blog-card-link {
         align-items: flex-start;
         gap: var(--spacing-md);
     }
-
+    
     .blogImage {
         width: 100%;
         height: 200px;
     }
 }
+</style>
+

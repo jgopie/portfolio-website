@@ -1,3 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import githubIcon from '/public/github.svg';
+import linkedinIcon from '/public/linkedin.svg';
+---
+<footer class="footer">
+    <div class="svgCard">
+        <a href="https://github.com/jgopie" aria-label="GitHub">
+            <Image src={githubIcon} alt="GitHub" width={20} height={20} />
+        </a>
+        <a href="https://www.linkedin.com/in/jordan-gopie-429904239/" aria-label="LinkedIn">
+            <Image src={linkedinIcon} alt="LinkedIn" width={20} height={20} />
+        </a>
+    </div>
+    <p>© Jordan Gopie {new Date().getFullYear()}</p>
+</footer>
+
+<style>
 .footer {
     display: flex;
     flex-direction: column;
@@ -48,3 +66,5 @@
     color: var(--text-secondary);
     font-size: 0.875rem;
 }
+</style>
+
