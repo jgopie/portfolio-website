@@ -12,7 +12,10 @@
     min-height: 65vh;
     display: grid;
     place-items: center;
-    padding: var(--spacing-2xl) var(--spacing-md);
+    padding: calc(var(--spacing-2xl) + env(safe-area-inset-top))
+        calc(var(--spacing-md) + env(safe-area-inset-right))
+        calc(var(--spacing-2xl) + env(safe-area-inset-bottom))
+        calc(var(--spacing-md) + env(safe-area-inset-left));
     color: var(--valentinesday-text-strong);
     background:
         radial-gradient(60% 60% at 20% 15%, rgba(0, 194, 255, 0.14), transparent 60%),
@@ -77,6 +80,7 @@
     background: var(--valentinesday-field-bg);
     color: var(--valentinesday-text-strong);
     font-size: 1rem;
+    min-height: 44px;
     box-shadow: var(--valentinesday-field-shadow);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -98,6 +102,7 @@
     justify-content: center;
     gap: var(--spacing-sm);
     padding: 12px 20px;
+    min-height: 44px;
     border: none;
     border-radius: 999px;
     font-size: 1rem;
@@ -244,15 +249,46 @@
 @media (max-width: 520px) {
     .valentinesday {
         min-height: 60vh;
+        padding: calc(var(--spacing-xl) + env(safe-area-inset-top))
+            calc(var(--spacing-md) + env(safe-area-inset-right))
+            calc(var(--spacing-xl) + env(safe-area-inset-bottom))
+            calc(var(--spacing-md) + env(safe-area-inset-left));
     }
 
     .valentinesday__card {
-        padding: 22px;
+        padding: 20px;
+        gap: var(--spacing-md);
     }
 
     .valentinesday__rose {
         width: 96px;
         height: 96px;
+    }
+
+    .valentinesday__question {
+        font-size: 1.15rem;
+    }
+
+    .valentinesday__actions {
+        min-height: 120px;
+    }
+
+    .valentinesday__button--yes {
+        width: min(220px, 90vw);
+    }
+
+    .valentinesday__button--no {
+        min-width: 88px;
+    }
+}
+
+@media (max-width: 380px) {
+    .valentinesday__card {
+        padding: 18px;
+    }
+
+    .valentinesday__question {
+        font-size: 1.05rem;
     }
 }
 
