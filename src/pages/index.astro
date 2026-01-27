@@ -1,154 +1,361 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout title='Home'>
-    <div class="hero-container">
-        <div class="hero-content">
-            <p class="hero-tagline">Architecting the Future</p>
-            <h1 class="hero-title">Jordan Gopie</h1>
-            <p class="hero-subtitle">Full-Stack Developer & Flutter Specialist</p>
-            <p class="hero-description">
-                I'm a freelance developer who specializes in developing mobile and web applications
-                with Flutter. Building scalable, modern solutions with clean code.
-            </p>
-            <div class="hero-cta">
-                <a href="/blog" class="btn-primary">Read My Blog</a>
-                <a href="/resume" class="btn-secondary">View Resume</a>
-            </div>
-        </div>
-        <div class="hero-image-container">
-            <img src="/logo.svg" alt="Jordan Gopie Logo" class="hero-logo" />
-        </div>
-    </div>
 
-    <section class="about-section">
-        <h2>About Me</h2>
-        <div class="about-content">
-            <p class="body-large">
-                👋 Welcome to my corner of the internet.
-            </p>
-            <p>
-                I love learning new things. Even though I primarily work with Flutter nowadays, my programming journey started many years ago with Pascal,
-                before moving on to C, C++, Python, and, most recently, Javascript and Typescript along with Dart and Flutter.
-            </p>
-        </div>
-    </section>
+<BaseLayout title="Home">
+  <div class="hero-container">
+    <div class="hero-content">
+      <p class="hero-tagline">Architecting the Future</p>
+      <h1 class="hero-title">Jordan Gopie</h1>
+      <p class="hero-subtitle">Full-Stack Developer</p>
+      <p class="hero-description">
+        I build software that makes work easier. Lately that's meant modern web
+        apps, cloud services, and automation that runs reliably at scale.
+      </p>
+      <div class="hero-cta">
+        <a href="/blog" class="btn-primary">Read My Blog</a>
+        <a href="#projects" class="btn-secondary">View Projects</a>
+      </div>
+    </div>
+    <div class="hero-image-container">
+      <div class="hero-logo" role="img" aria-label="JG logo">
+        <span class="hero-logo-letter hero-logo-j" aria-hidden="true">J</span>
+        <span class="hero-logo-letter hero-logo-g" aria-hidden="true">G</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="about-section">
+    <h2>About Me</h2>
+    <div class="about-content">
+      <div class="about-stack">
+        <p class="about-lede">
+          I like building software that removes friction. Most of my recent work
+          has been turning messy, manual workflows into systems that run reliably
+          in the background.
+        </p>
+        <p>
+          That usually means full-stack web apps, cloud services, automation, and
+          data pipelines. I have built browser-driven systems that log in, navigate
+          complex sites, download and validate files, and push results into the
+          tools teams use every day. I have also worked on AI-powered training
+          experiences and messaging-based intake flows where consistency and edge
+          cases matter.
+        </p>
+        <ul class="about-list">
+          <li>Automation and data workflows that reduce manual steps.</li>
+          <li>Reliable web apps and APIs built for scale and clarity.</li>
+          <li>Polished cross-platform UIs when the product needs them.</li>
+        </ul>
+        <p>
+          I started programming years ago with Pascal, then C and C++. Over time I
+          moved into Python, JavaScript, and TypeScript. These days I use Dart and
+          Flutter when a project needs a polished cross-platform UI, but I am most
+          comfortable owning the whole product from interface to backend to
+          deployment.
+        </p>
+        <p>
+          I am always learning, and I care a lot about clean code, testing, and
+          software that holds up in production.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section" id="projects">
+    <h2>Projects</h2>
+    <p class="projects-intro">
+      A quick look at the systems and products I have built. These cards are
+      summaries you can scan, and I can expand any of them into full case studies.
+    </p>
+    <div class="projects-grid">
+      <article class="card project-card">
+        <h3>Workflow Automation Suite</h3>
+        <p>
+          Browser-driven automation that logs in, downloads files, validates data,
+          and routes results into team tools on a schedule.
+        </p>
+        <ul class="project-tags">
+          <li>Automation</li>
+          <li>Data Pipelines</li>
+          <li>Cloud</li>
+        </ul>
+      </article>
+      <article class="card project-card">
+        <h3>Operations Command Center</h3>
+        <p>
+          Full-stack dashboard that replaced manual spreadsheets with real-time
+          visibility, alerts, and role-based workflows.
+        </p>
+        <ul class="project-tags">
+          <li>Web App</li>
+          <li>APIs</li>
+          <li>Monitoring</li>
+        </ul>
+      </article>
+      <article class="card project-card">
+        <h3>AI Training Platform</h3>
+        <p>
+          Structured learning experience powered by AI, with progress tracking and
+          resilient handling of edge cases at scale.
+        </p>
+        <ul class="project-tags">
+          <li>AI</li>
+          <li>UX</li>
+          <li>Scale</li>
+        </ul>
+      </article>
+      <article class="card project-card">
+        <h3>Cross-Platform Product UI</h3>
+        <p>
+          Dart and Flutter build for a polished, consistent UI across mobile and
+          desktop, with fast iteration and shared components.
+        </p>
+        <ul class="project-tags">
+          <li>Flutter</li>
+          <li>Design System</li>
+          <li>Product</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
+  .hero-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-2xl) 0;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
     .hero-container {
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: var(--spacing-xl);
-        padding: var(--spacing-2xl) 0;
-        text-align: center;
+      flex-direction: row;
+      text-align: left;
+      gap: var(--spacing-xl);
+      padding: var(--spacing-3xl) 0;
     }
+  }
 
-    @media (min-width: 768px) {
-        .hero-container {
-            flex-direction: row;
-            text-align: left;
-            gap: var(--spacing-3xl);
-            padding: var(--spacing-3xl) 0;
-        }
-    }
+  .hero-content {
+    flex: 1;
+  }
 
-    .hero-content {
-        flex: 1;
-    }
+  .hero-tagline {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-electric-blue);
+    margin-bottom: var(--spacing-sm);
+  }
 
-    .hero-tagline {
-        font-size: 0.875rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--color-electric-blue);
-        margin-bottom: var(--spacing-sm);
-    }
+  .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+  }
 
+  @media (min-width: 768px) {
     .hero-title {
-        font-size: 2.5rem;
-        margin-bottom: var(--spacing-sm);
+      font-size: 3.5rem;
     }
+  }
 
-    @media (min-width: 768px) {
-        .hero-title {
-            font-size: 3.5rem;
-        }
-    }
+  .hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+  }
 
-    .hero-subtitle {
-        font-size: 1.25rem;
-        font-weight: 500;
-        color: var(--text-secondary);
-        margin-bottom: var(--spacing-lg);
-    }
+  .hero-description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+    max-width: 500px;
+  }
 
-    .hero-description {
-        font-size: 1.125rem;
-        line-height: 1.6;
-        color: var(--text-secondary);
-        margin-bottom: var(--spacing-xl);
-        max-width: 500px;
-    }
+  .hero-cta {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
+  @media (min-width: 768px) {
     .hero-cta {
-        display: flex;
-        gap: var(--spacing-md);
-        flex-wrap: wrap;
-        justify-content: center;
+      justify-content: flex-start;
     }
+  }
 
-    @media (min-width: 768px) {
-        .hero-cta {
-            justify-content: flex-start;
-        }
-    }
+  .hero-image-container {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .hero-image-container {
-        flex-shrink: 0;
-    }
+  .hero-logo {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.12em;
+    font-family: var(--font-logo);
+    font-size: 6.5rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: transform 0.3s ease;
+  }
 
+  .hero-logo-letter {
+    display: inline-block;
+  }
+
+  .hero-logo-j {
+    color: var(--color-electric-blue);
+    text-shadow: 0 0 24px rgba(0, 194, 255, 0.35);
+  }
+
+  .hero-logo-g {
+    color: var(--color-vibrant-purple);
+    text-shadow: 0 0 24px rgba(138, 46, 255, 0.35);
+  }
+
+  .hero-logo:hover {
+    transform: scale(1.04);
+  }
+
+  .hero-logo:hover .hero-logo-j {
+    text-shadow: 0 0 34px rgba(0, 194, 255, 0.55);
+  }
+
+  .hero-logo:hover .hero-logo-g {
+    text-shadow: 0 0 34px rgba(138, 46, 255, 0.55);
+  }
+
+  @media (min-width: 768px) {
     .hero-logo {
-        width: 240px;
-        height: auto;
-        max-height: 240px;
-        transition: transform 0.3s ease, filter 0.3s ease;
-        filter: drop-shadow(0 0 20px rgba(0, 194, 255, 0.3));
+      font-size: 10rem;
     }
+  }
 
-    .hero-logo:hover {
-        transform: scale(1.05);
-        filter: drop-shadow(0 0 30px rgba(0, 194, 255, 0.5));
-    }
+  [data-theme="light"] .hero-logo-j {
+    text-shadow: 0 0 18px rgba(0, 194, 255, 0.25);
+  }
 
-    @media (min-width: 768px) {
-        .hero-logo {
-            width: 340px;
-            max-height: 340px;
-        }
-    }
+  [data-theme="light"] .hero-logo-g {
+    text-shadow: 0 0 18px rgba(138, 46, 255, 0.25);
+  }
 
-    .about-section {
-        padding: var(--spacing-2xl) 0;
-        border-top: 1px solid var(--border-color);
-    }
+  [data-theme="light"] .hero-logo:hover .hero-logo-j {
+    text-shadow: 0 0 26px rgba(0, 194, 255, 0.4);
+  }
 
-    .about-section h2 {
-        margin-bottom: var(--spacing-lg);
-    }
+  [data-theme="light"] .hero-logo:hover .hero-logo-g {
+    text-shadow: 0 0 26px rgba(138, 46, 255, 0.4);
+  }
 
-    .about-content {
-        max-width: 700px;
-    }
+  .about-section {
+    padding: var(--spacing-2xl) 0;
+    border-top: 1px solid var(--border-color);
+  }
 
-    .about-content p {
-        margin-bottom: var(--spacing-md);
-    }
+  .about-section h2 {
+    margin-bottom: var(--spacing-lg);
+  }
 
-    .about-content .body-large {
-        font-size: 1.25rem;
-        color: var(--text-primary);
+  .about-content {
+    max-width: 720px;
+  }
+
+  .about-stack {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  .about-content .body-large {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .about-lede {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+  }
+
+  .about-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--text-secondary);
+    display: grid;
+    gap: var(--spacing-sm);
+  }
+
+  .about-list li {
+    line-height: 1.6;
+  }
+
+  .projects-section {
+    padding: var(--spacing-2xl) 0;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .projects-section h2 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .projects-intro {
+    max-width: 720px;
+    margin-bottom: var(--spacing-xl);
+    color: var(--text-secondary);
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: 768px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+  }
+
+  .project-card {
+    display: grid;
+    gap: var(--spacing-sm);
+    min-height: 100%;
+  }
+
+  .project-card h3 {
+    margin-bottom: 0;
+  }
+
+  .project-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .project-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    padding: 0;
+    margin: 0;
+  }
+
+  .project-tags li {
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-color);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.02);
+  }
 </style>

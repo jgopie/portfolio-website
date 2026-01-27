@@ -29,7 +29,6 @@ export const Navbar = () => {
                         <a href='/'>Home</a>{' '}
                     </li>
                     <li>
-                        <a href='/resume'>Resume</a>
                     </li>
                     <li>
                         <a href='/blog'>Blog</a>
@@ -42,7 +41,6 @@ export const Navbar = () => {
                                 <a href='/'>Home</a>
                             </li>
                             <li>
-                                <a href='/resume'>Resume</a>
                             </li>
                             <li>
                                 <a href='/blog'>Blog</a>

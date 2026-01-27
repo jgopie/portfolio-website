@@ -48,6 +48,7 @@
   /* Font Families */
   --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-logo: 'Doto', 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
 }
 
 /* CSS Custom Properties for easy theming */
@@ -76,14 +77,6 @@
 [data-theme="light"] .menu-icon,
 [data-theme="light"] .svgCard img {
   filter: invert(0);
-}
-
-[data-theme="light"] .hero-logo {
-  filter: drop-shadow(0 0 20px rgba(138, 46, 255, 0.2));
-}
-
-[data-theme="light"] .hero-logo:hover {
-  filter: drop-shadow(0 0 30px rgba(138, 46, 255, 0.35));
 }
 
 /* ============================================
