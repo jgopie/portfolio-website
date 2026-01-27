@@ -7,7 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "static",
   adapter: netlify(),
   integrations: [react()],
   server: {host: "127.0.0.1"},
