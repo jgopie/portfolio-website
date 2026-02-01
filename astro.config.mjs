@@ -12,6 +12,6 @@ export default defineConfig({
   integrations: [react()],
   server: {host: "127.0.0.1"},
   vite: {
-    plugins: [tailwindcss(), import('@tailwindcss/typography')],
+    plugins: [tailwindcss()],
   }
 });

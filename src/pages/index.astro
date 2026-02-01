@@ -65,56 +65,168 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="projects-section" id="projects">
     <h2>Projects</h2>
     <p class="projects-intro">
-      A quick look at the systems and products I have built. These cards are
-      summaries you can scan, and I can expand any of them into full case studies.
+      A quick look at the systems and products I have built. Confidential
+      details are omitted to respect privacy agreements with my employer.
     </p>
     <div class="projects-grid">
       <article class="card project-card">
-        <h3>Workflow Automation Suite</h3>
+        <h3>MLS Broker Portal (Deal Claim & Creation Workflow)</h3>
         <p>
-          Browser-driven automation that logs in, downloads files, validates data,
-          and routes results into team tools on a schedule.
+          Built a broker-facing portal that lets authenticated agents browse MLS
+          inventory, exclusively claim listings, and create or reuse CRM deals
+          with guardrails to prevent double-claims and duplicates.
         </p>
+        <dl class="project-meta">
+          <div>
+            <dt>Role</dt>
+            <dd>Full-stack developer (backend + frontend)</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>
+              React, TypeScript, Vite, Python, Flask, Firebase Auth, Firestore,
+              Cloud Run, Cloud Tasks, Google Cloud Storage, CRM API, MLS data API
+            </dd>
+          </div>
+          <div>
+            <dt>Timeframe</dt>
+            <dd>2025-2026</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>
+              Delivered an internal portal with atomic claim+deal creation,
+              conflict handling (e.g., already-claimed), and scalable list/detail
+              browsing with cached images and async background processing.
+            </dd>
+          </div>
+        </dl>
         <ul class="project-tags">
-          <li>Automation</li>
-          <li>Data Pipelines</li>
-          <li>Cloud</li>
+          <li>Full-stack</li>
+          <li>Real estate</li>
+          <li>GCP</li>
         </ul>
       </article>
       <article class="card project-card">
-        <h3>Operations Command Center</h3>
+        <h3>Permit &amp; Property Data Verification Pipeline</h3>
         <p>
-          Full-stack dashboard that replaced manual spreadsheets with real-time
-          visibility, alerts, and role-based workflows.
+          Built a multi-source scraping and verification system that collects
+          property details and checks permit records to identify roof-related
+          activity, with production scheduling and reliability hardening. Added
+          automated tests (including live/integration coverage) to prevent
+          regressions as new jurisdictions and workflows were introduced.
         </p>
+        <dl class="project-meta">
+          <div>
+            <dt>Role</dt>
+            <dd>Lead engineer (solo)</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>
+              Python, TypeScript, FastAPI, Playwright-based browser automation,
+              PostgreSQL + ORM, Docker
+            </dd>
+          </div>
+          <div>
+            <dt>Timeframe</dt>
+            <dd>Jan 2026 - Present</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>
+              Deployed an automated pipeline with scheduled scraping/verification
+              runs, expanded jurisdiction support, and increased test coverage
+              (including live runs) to reduce breakage during ongoing development.
+            </dd>
+          </div>
+        </dl>
         <ul class="project-tags">
-          <li>Web App</li>
-          <li>APIs</li>
-          <li>Monitoring</li>
+          <li>Web scraping</li>
+          <li>Test automation</li>
+          <li>Data pipeline</li>
         </ul>
       </article>
       <article class="card project-card">
-        <h3>AI Training Platform</h3>
+        <h3>AI-Powered Real-Estate Acquisitions Training Curriculum</h3>
         <p>
-          Structured learning experience powered by AI, with progress tracking and
-          resilient handling of edge cases at scale.
+          Designed a structured, multi-module training curriculum for an
+          acquisitions team, spanning rapport-building with distressed sellers,
+          underwriting/comping, negotiation, closing, and disposition handoff.
+          Packaged the material to support consistent execution and AI roleplay
+          based practice.
         </p>
+        <dl class="project-meta">
+          <div>
+            <dt>Role</dt>
+            <dd>Lead curriculum designer and roleplay/prompt architect</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>
+              ChatGPT, Second Nature (AI roleplay platform), Google Docs/Microsoft
+              Word, PDF/DOCX production workflow
+            </dd>
+          </div>
+          <div>
+            <dt>Timeframe</dt>
+            <dd>Dec 2025 - Jan 2026</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>
+              Delivered a submission-ready curriculum set (DTS Categories 3-9)
+              with SOP-style checklists, scripts, and playbooks to standardize
+              acquisitions execution and handoffs.
+            </dd>
+          </div>
+        </dl>
         <ul class="project-tags">
-          <li>AI</li>
-          <li>UX</li>
-          <li>Scale</li>
+          <li>Sales enablement</li>
+          <li>Instructional design</li>
+          <li>AI roleplay</li>
         </ul>
       </article>
       <article class="card project-card">
-        <h3>Cross-Platform Product UI</h3>
+        <h3>WhatsApp-First AI Intake and Triage Automation (Legal Intake MVP)</h3>
         <p>
-          Dart and Flutter build for a polished, consistent UI across mobile and
-          desktop, with fast iteration and shared components.
+          Built an opt-in WhatsApp intake assistant that collects immigration
+          pre-screening answers conversationally, applies rules-based triage, and
+          packages each lead for staff review with reliable handoff and human
+          takeover.
         </p>
+        <dl class="project-meta">
+          <div>
+            <dt>Role</dt>
+            <dd>Lead developer and technical owner (end-to-end build)</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>
+              Next.js, TypeScript, PostgreSQL, Prisma, WhatsApp Cloud API, OpenAI
+              API, OAuth 2.0
+            </dd>
+          </div>
+          <div>
+            <dt>Timeframe</dt>
+            <dd>Jan 2026 - Feb 2026</dd>
+          </div>
+          <div>
+            <dt>Outcome</dt>
+            <dd>
+              Delivered an MVP that handles multiple concurrent chats, persists
+              full transcripts, interprets multi-message bursts as a single
+              conversational context, computes Good Fit/Maybe/No-Go
+              recommendations with auditable reasons, notifies staff for
+              escalations, and syncs qualified leads into a case-management
+              system with an attached intake summary.
+            </dd>
+          </div>
+        </dl>
         <ul class="project-tags">
-          <li>Flutter</li>
-          <li>Design System</li>
-          <li>Product</li>
+          <li>WhatsApp Automation</li>
+          <li>LegalTech</li>
+          <li>AI Workflow</li>
         </ul>
       </article>
     </div>
@@ -341,6 +453,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     line-height: 1.6;
   }
 
+  .project-meta {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--spacing-xs);
+  }
+
+  .project-meta div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .project-meta dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+  }
+
+  .project-meta dd {
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+
   .project-tags {
     list-style: none;
     display: flex;
@@ -358,4 +496,5 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     color: var(--text-secondary);
     background: rgba(255, 255, 255, 0.02);
   }
+
 </style>
