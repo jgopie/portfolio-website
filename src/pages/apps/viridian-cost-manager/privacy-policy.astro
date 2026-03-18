@@ -1,0 +1,115 @@
+---
+import LegalPageShell from '../../../components/legal/LegalPageShell.astro';
+import {
+  viridianCostManagerCanonicalUrls,
+  viridianCostManagerLegal,
+} from '../../../data/viridianCostManagerLegal';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const supportHref = `mailto:${viridianCostManagerLegal.supportEmail}`;
+---
+
+<BaseLayout
+  title={`${viridianCostManagerLegal.appName} Privacy Policy`}
+  description={`Public privacy policy for ${viridianCostManagerLegal.appName}, including Firebase, receipt capture, diagnostics, and AdMob-related disclosures.`}
+  canonicalUrl={viridianCostManagerCanonicalUrls.privacyPolicy}
+>
+  <LegalPageShell
+    eyebrow="Privacy Policy"
+    title={`Privacy policy for ${viridianCostManagerLegal.appName}`}
+    summary={`This policy explains what information ${viridianCostManagerLegal.publisher} handles when you use ${viridianCostManagerLegal.appName}, how that information is used, and what choices you have.`}
+    metaItems={[
+      { label: 'Effective date', value: viridianCostManagerLegal.effectiveDate },
+      { label: 'Publisher', value: viridianCostManagerLegal.publisher },
+      {
+        label: 'Support contact',
+        value: viridianCostManagerLegal.supportEmail,
+        href: supportHref,
+      },
+    ]}
+    relatedLinks={viridianCostManagerLegal.directLinks}
+    footerNote={`Public privacy policy for ${viridianCostManagerLegal.appName}. Effective ${viridianCostManagerLegal.effectiveDate}.`}
+  >
+    <article class="legal-section">
+      <h2>What we collect</h2>
+      <p>
+        We collect the information needed to authenticate users, create and manage
+        workspaces, operate budgeting and transaction features, process receipt
+        capture, generate exports, and support future advertising-related consent
+        and delivery behavior.
+      </p>
+      <ul>
+        {
+          viridianCostManagerLegal.dataHandled.map((item) => <li>{item}</li>)
+        }
+      </ul>
+    </article>
+
+    <article class="legal-section">
+      <h2>How we use data</h2>
+      <ul>
+        {
+          viridianCostManagerLegal.privacyUses.map((item) => <li>{item}</li>)
+        }
+      </ul>
+    </article>
+
+    <article class="legal-section">
+      <h2>Sharing and processors</h2>
+      <p>
+        We do not sell personal information. Data may be processed by service
+        providers required to operate the app, including Firebase services for
+        authentication, database synchronization, storage, analytics, and crash
+        reporting.
+      </p>
+      <p>
+        The app also uses Google Sign-In. Planned Google AdMob support will be
+        disclosed as part of the advertising experience, including consent-driven
+        ad delivery and measurement where applicable.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Your choices</h2>
+      <ul>
+        {
+          viridianCostManagerLegal.privacyChoices.map((item) => <li>{item}</li>)
+        }
+      </ul>
+      <p>
+        For signed-in users, account deletion runs immediately from Settings
+        after the required confirmation step. If sign-in is unavailable, the
+        public deletion page and support inbox remain available.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Contact</h2>
+      <p>
+        Privacy questions can be sent to
+        <a href={supportHref}>{viridianCostManagerLegal.supportEmail}</a>.
+      </p>
+    </article>
+
+    <Fragment slot="aside">
+      <article class="legal-aside-card">
+        <h2>Services in scope</h2>
+        <ul>
+          {
+            viridianCostManagerLegal.serviceDisclosures.map((item) => (
+              <li>{item}</li>
+            ))
+          }
+        </ul>
+      </article>
+
+      <article class="legal-aside-card">
+        <h2>Play Console note</h2>
+        <p>
+          This public page is intended to serve as the canonical privacy policy
+          URL for Google Play review and end-user transparency.
+        </p>
+      </article>
+    </Fragment>
+  </LegalPageShell>
+</BaseLayout>

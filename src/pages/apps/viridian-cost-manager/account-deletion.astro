@@ -1,0 +1,112 @@
+---
+import LegalPageShell from '../../../components/legal/LegalPageShell.astro';
+import {
+  viridianCostManagerCanonicalUrls,
+  viridianCostManagerLegal,
+} from '../../../data/viridianCostManagerLegal';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const supportHref = `mailto:${viridianCostManagerLegal.supportEmail}`;
+const deletionRequestHref = `mailto:${viridianCostManagerLegal.supportEmail}?subject=${encodeURIComponent(
+  `${viridianCostManagerLegal.appName} account deletion`,
+)}`;
+---
+
+<BaseLayout
+  title={`${viridianCostManagerLegal.appName} Account Deletion`}
+  description={`Public account deletion guidance for ${viridianCostManagerLegal.appName}, including the in-app flow and fallback email path for locked-out users.`}
+  canonicalUrl={viridianCostManagerCanonicalUrls.accountDeletion}
+>
+  <LegalPageShell
+    eyebrow="Account Deletion"
+    title="Delete your account without guessing the process."
+    summary={`${viridianCostManagerLegal.appName} supports account deletion from inside the app and from this public page. If you can still sign in, the in-app path deletes the account immediately after confirmation.`}
+    metaItems={[
+      {
+        label: 'Normal turnaround',
+        value: viridianCostManagerLegal.deletionTurnaround,
+      },
+      {
+        label: 'Support inbox',
+        value: viridianCostManagerLegal.supportEmail,
+        href: supportHref,
+      },
+      { label: 'Publisher', value: viridianCostManagerLegal.publisher },
+    ]}
+    relatedLinks={viridianCostManagerLegal.directLinks}
+    footerNote={`Public deletion guidance for ${viridianCostManagerLegal.appName}.`}
+  >
+    <article class="legal-section">
+      <h2>If you can still sign in</h2>
+      <ol>
+        {
+          viridianCostManagerLegal.accountDeletionSteps.map((step) => (
+            <li>{step}</li>
+          ))
+        }
+      </ol>
+      <div class="legal-callout">
+        Important: {viridianCostManagerLegal.ownershipTransferSummary}
+      </div>
+    </article>
+
+    <article class="legal-section">
+      <h2>If you cannot sign in</h2>
+      <p>
+        Send a deletion request to <a href={deletionRequestHref}>the support inbox</a>
+        from the email address associated with your account. Include the
+        following details so the request can be verified safely:
+      </p>
+      <ul>
+        <li>Your Google sign-in email address.</li>
+        <li>Your full name if your profile used a different display name.</li>
+        <li>The organization name you last used, if applicable.</li>
+        <li>A short note confirming that you want the account deleted.</li>
+      </ul>
+    </article>
+
+    <article class="legal-section">
+      <h2>What deletion covers</h2>
+      <ul>
+        <li>Removal of your app sign-in access.</li>
+        <li>Deletion of your user profile document.</li>
+        <li>Automatic transfer of organization ownership when another member can safely become the new owner.</li>
+        <li>Removal of direct organization membership where that can be completed safely.</li>
+        <li>Preservation of records that must remain for legal, fraud-prevention, tax, accounting, or organization-history reasons.</li>
+      </ul>
+    </article>
+
+    <article class="legal-section">
+      <h2>Need help?</h2>
+      <p>
+        Contact <a href={supportHref}>{viridianCostManagerLegal.supportEmail}</a>
+        if you are locked out, need help with the public support path,
+        or must transfer ownership before deletion can be completed.
+      </p>
+    </article>
+
+    <Fragment slot="aside">
+      <article class="legal-aside-card">
+        <h2>Why deletion may be blocked</h2>
+        <p>
+          Signed-in deletion runs on demand. The app only blocks deletion when
+          an owned organization has no remaining eligible member to promote to
+          owner, or when records must be retained for operational or legal
+          reasons.
+        </p>
+      </article>
+
+      <article class="legal-aside-card">
+        <h2>Related resources</h2>
+        <ul>
+          <li>
+            <a href={viridianCostManagerLegal.routes.privacyPolicy}>Read the privacy policy</a>
+          </li>
+          <li>
+            <a href={viridianCostManagerLegal.routes.legalNotice}>Read the legal notice</a>
+          </li>
+        </ul>
+      </article>
+    </Fragment>
+  </LegalPageShell>
+</BaseLayout>

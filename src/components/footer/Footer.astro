@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import githubIcon from '/public/github.svg';
 import linkedinIcon from '/public/linkedin.svg';
+import { viridianCostManagerLegal } from '../../data/viridianCostManagerLegal';
 ---
 <footer class="footer">
     <div class="svgCard">
@@ -12,7 +13,17 @@ import linkedinIcon from '/public/linkedin.svg';
             <Image src={linkedinIcon} alt="LinkedIn" width={20} height={20} />
         </a>
     </div>
-    <p>© Jordan Gopie {new Date().getFullYear()}</p>
+    <div class="legal-links" aria-label="Viridian Cost Manager legal links">
+        <span class="legal-links-label">{viridianCostManagerLegal.appName} legal</span>
+        <div class="legal-links-list">
+            {
+                viridianCostManagerLegal.directLinks.map((link) => (
+                    <a href={link.href}>{link.label}</a>
+                ))
+            }
+        </div>
+    </div>
+    <p>&copy; Jordan Gopie {new Date().getFullYear()}</p>
 </footer>
 
 <style>
@@ -62,9 +73,51 @@ import linkedinIcon from '/public/linkedin.svg';
     opacity: 1;
 }
 
+.legal-links {
+    display: grid;
+    gap: var(--spacing-sm);
+    justify-items: center;
+    text-align: center;
+}
+
+.legal-links-label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.legal-links-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.legal-links-list a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0.625rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-button);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.legal-links-list a:hover,
+.legal-links-list a:focus-visible {
+    border-color: var(--color-electric-blue);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+}
+
 .footer p {
     color: var(--text-secondary);
     font-size: 0.875rem;
 }
 </style>
-

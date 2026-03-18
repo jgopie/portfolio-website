@@ -2,7 +2,22 @@
 import Footer from '../components/footer/Footer.astro';
 import Navbar from '../components/navbar/Navbar.astro';
 import '../styles/global.css';
-const { title } = Astro.props;
+
+interface Props {
+    title: string;
+    description?: string;
+    canonicalUrl?: string;
+    ogImage?: string;
+    ogType?: string;
+}
+
+const {
+    title,
+    description = 'Software Developer with a focus on Web Development and an interest in all things tech.',
+    canonicalUrl = 'https://www.jgopie.com',
+    ogImage = 'https://avatars.githubusercontent.com/u/8053192?s=400&u=8c6e231070c1e1b78f13f94bc26a4b67432e90c3&v=4',
+    ogType = 'website',
+} = Astro.props as Props;
 ---
 
 <!DOCTYPE html>
@@ -17,11 +32,13 @@ const { title } = Astro.props;
             name='viewport'
             content='width=device-width, initial-scale=1.0'
         />
-        <meta property="og:title" content="Jordan Gopie - Software Dev"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:url" content="https://www.jgopie.com"/>
-        <meta property="og:image" content="https://avatars.githubusercontent.com/u/8053192?s=400&u=8c6e231070c1e1b78f13f94bc26a4b67432e90c3&v=4"/>
-        <meta property="og:description" content="Software Developer with a focus on Web Development and an interest in all things tech."/>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={title}/>
+        <meta property="og:type" content={ogType}/>
+        <meta property="og:url" content={canonicalUrl}/>
+        <meta property="og:image" content={ogImage}/>
+        <meta property="og:description" content={description}/>
         <title>{title}</title>
 
         <!-- Favicon -->

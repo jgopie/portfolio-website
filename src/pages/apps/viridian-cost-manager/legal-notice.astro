@@ -1,0 +1,113 @@
+---
+import LegalPageShell from '../../../components/legal/LegalPageShell.astro';
+import {
+  viridianCostManagerCanonicalUrls,
+  viridianCostManagerLegal,
+} from '../../../data/viridianCostManagerLegal';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const supportHref = `mailto:${viridianCostManagerLegal.supportEmail}`;
+---
+
+<BaseLayout
+  title={`${viridianCostManagerLegal.appName} Legal Notice`}
+  description={`General legal notice for ${viridianCostManagerLegal.appName}, including publisher identity, intellectual property, contact details, and service disclaimers.`}
+  canonicalUrl={viridianCostManagerCanonicalUrls.legalNotice}
+>
+  <LegalPageShell
+    eyebrow="Legal Notice"
+    title={`Legal notice for ${viridianCostManagerLegal.appName}`}
+    summary={`This page identifies the public operator for ${viridianCostManagerLegal.appName} and outlines ownership, service, and liability notices for the product and its public legal pages.`}
+    metaItems={[
+      { label: 'Operator', value: viridianCostManagerLegal.publisher },
+      { label: 'App purpose', value: viridianCostManagerLegal.purpose },
+      {
+        label: 'Support / privacy',
+        value: viridianCostManagerLegal.supportEmail,
+        href: supportHref,
+      },
+    ]}
+    relatedLinks={viridianCostManagerLegal.directLinks}
+    footerNote={`General legal notice for ${viridianCostManagerLegal.appName}.`}
+  >
+    <article class="legal-section">
+      <h2>Publisher and scope</h2>
+      <p>
+        The public legal pages for {viridianCostManagerLegal.appName} are
+        published by {viridianCostManagerLegal.publisher}. They exist to provide
+        compliance information, contact details, and plain-language guidance for
+        the app&apos;s public-facing legal requirements.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Intellectual property</h2>
+      <p>
+        The app name, text, design, and related site materials are protected by
+        applicable intellectual property laws. Unless a third-party component or
+        service states otherwise, the content on these pages may not be copied,
+        republished, or redistributed in a misleading way without permission.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Service availability and warranty</h2>
+      <p>
+        {viridianCostManagerLegal.appName} is provided on an as-is and
+        as-available basis. Features, integrations, and supported workflows may
+        change over time as the product evolves.
+      </p>
+      <div class="legal-callout">
+        This site and app content are intended for product information and
+        compliance transparency. They are not financial, tax, accounting, or
+        legal advice.
+      </div>
+    </article>
+
+    <article class="legal-section">
+      <h2>Liability and third-party services</h2>
+      <p>
+        Reasonable efforts are made to keep the product and these public pages
+        accurate and available, but uninterrupted access, absolute accuracy, and
+        compatibility with every device or integration cannot be guaranteed.
+      </p>
+      <p>
+        Parts of the product rely on third-party services and platforms such as
+        Firebase, Google Sign-In, and future AdMob delivery systems. Those
+        providers may apply their own terms, availability limits, or privacy
+        practices in addition to this notice and the privacy policy.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Contact</h2>
+      <p>
+        Questions about the app, this legal notice, or privacy-related matters
+        can be sent to
+        <a href={supportHref}>{viridianCostManagerLegal.supportEmail}</a>.
+      </p>
+    </article>
+
+    <Fragment slot="aside">
+      <article class="legal-aside-card">
+        <h2>App profile</h2>
+        <p>
+          {viridianCostManagerLegal.appName} supports budgeting, transaction
+          tracking, receipt capture with OCR, shared organization workflows, and
+          reporting.
+        </p>
+      </article>
+
+      <article class="legal-aside-card">
+        <h2>Notice highlights</h2>
+        <ul>
+          {
+            viridianCostManagerLegal.legalNoticeHighlights.map((item) => (
+              <li>{item}</li>
+            ))
+          }
+        </ul>
+      </article>
+    </Fragment>
+  </LegalPageShell>
+</BaseLayout>
