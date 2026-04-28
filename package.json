@@ -2,6 +2,10 @@
   "name": "pink-phase",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=11"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,19 +14,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.6.4",
-    "@astrojs/react": "^4.4.2",
-    "@headlessui/react": "^1.7.14",
-    "@tailwindcss/vite": "^4.0.6",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
-    "astro": "^5.16.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^4.0.6",
-    "vite-plugin-commonjs": "^0.10.4"
+    "@astrojs/netlify": "^7.0.7",
+    "@astrojs/react": "^5.0.3",
+    "@tailwindcss/vite": "^4.2.3",
+    "astro": "^6.1.8",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.2.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16"
+    "@astrojs/check": "^0.9.8",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "typescript": "^5.9.3"
   }
 }

@@ -1,314 +1,292 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { buildCanonicalUrl, siteConfig } from "../data/site";
+
+const proofPoints = [
+  {
+    label: "End-to-end delivery",
+    value: "Frontend, backend, automation, and deployment owned together.",
+  },
+  {
+    label: "Workflow automation",
+    value: "Systems built to remove repetitive work and survive messy edge cases.",
+  },
+  {
+    label: "Production mindset",
+    value: "Testing, observability, and reliability matter as much as shipping fast.",
+  },
+];
+
+const caseStudies = [
+  {
+    title: "MLS Broker Portal",
+    problem:
+      "Agents needed a fast way to browse MLS inventory, claim listings safely, and create CRM deals without duplicate work.",
+    role: "Full-stack developer across backend and frontend",
+    stack:
+      "React, TypeScript, Python, Flask, Firebase Auth, Firestore, Cloud Run, Cloud Tasks, Google Cloud Storage",
+    outcome:
+      "Delivered atomic claim-and-create flows, scalable listing detail views, and async processing that reduced operational conflicts.",
+    linkLabel: "Request walkthrough",
+    linkHref: `mailto:${siteConfig.contactEmail}?subject=MLS%20Broker%20Portal%20walkthrough`,
+  },
+  {
+    title: "Permit & Property Verification Pipeline",
+    problem:
+      "The business needed roof-related permit verification across multiple jurisdictions without relying on fragile manual research.",
+    role: "Lead engineer building the pipeline solo",
+    stack:
+      "Python, TypeScript, FastAPI, Playwright-based browser automation, PostgreSQL, Docker",
+    outcome:
+      "Shipped scheduled verification runs, expanded jurisdiction support, and added live/integration coverage to reduce production regressions.",
+    linkLabel: "Discuss implementation",
+    linkHref: `mailto:${siteConfig.contactEmail}?subject=Permit%20Verification%20Pipeline%20walkthrough`,
+  },
+  {
+    title: "WhatsApp AI Intake Automation",
+    problem:
+      "A legal intake workflow needed structured triage, human handoff, and auditable summaries without forcing leads through a traditional form.",
+    role: "Technical owner from product shape to delivery",
+    stack:
+      "Next.js, TypeScript, PostgreSQL, Prisma, WhatsApp Cloud API, OpenAI API, OAuth 2.0",
+    outcome:
+      "Delivered concurrent chat handling, recommendation logic with reasons, escalation paths, and case-management syncing for qualified leads.",
+    linkLabel: "Talk through the system",
+    linkHref: `mailto:${siteConfig.contactEmail}?subject=WhatsApp%20AI%20Intake%20walkthrough`,
+  },
+];
+
+const contactLinks = [
+  { label: "Email", href: `mailto:${siteConfig.contactEmail}` },
+  { label: "GitHub", href: siteConfig.githubUrl },
+  { label: "LinkedIn", href: siteConfig.linkedinUrl },
+];
 ---
 
-<BaseLayout title="Home">
-  <div class="hero-container">
-    <div class="hero-content">
-      <p class="hero-tagline">Architecting the Future</p>
-      <h1 class="hero-title">Jordan Gopie</h1>
-      <p class="hero-subtitle">Full-Stack Developer</p>
+<BaseLayout
+  title="Portfolio"
+  description="Jordan Gopie is a full-stack developer focused on product engineering, workflow automation, and reliable web systems."
+  canonicalUrl={buildCanonicalUrl('/')}
+>
+  <section class="hero-section">
+    <div class="hero-copy">
+      <p class="hero-tagline">Full-stack developer</p>
+      <h1>Shipping reliable software for teams that need less friction and more throughput.</h1>
       <p class="hero-description">
-        I build software that makes work easier. Lately that's meant modern web
-        apps, cloud services, and automation that runs reliably at scale.
+        I build web apps, backend services, and automation systems that replace repetitive
+        manual work with software that teams can trust in production.
       </p>
       <div class="hero-cta">
-        <a href="/blog" class="btn-primary">Read My Blog</a>
-        <a href="#projects" class="btn-secondary">View Projects</a>
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-secondary">Contact Me</a>
       </div>
+      <p class="hero-supporting">
+        Recent work spans broker tooling, browser automation, AI-assisted intake workflows,
+        and internal systems with tight operational constraints.
+      </p>
     </div>
-    <div class="hero-image-container">
-      <div class="hero-logo" role="img" aria-label="JG logo">
-        <span class="hero-logo-letter hero-logo-j" aria-hidden="true">J</span>
-        <span class="hero-logo-letter hero-logo-g" aria-hidden="true">G</span>
-      </div>
-    </div>
-  </div>
 
-  <section class="about-section">
-    <h2>About Me</h2>
-    <div class="about-content">
-      <div class="about-stack">
-        <p class="about-lede">
-          I like building software that removes friction. Most of my recent work
-          has been turning messy, manual workflows into systems that run reliably
-          in the background.
-        </p>
-        <p>
-          That usually means full-stack web apps, cloud services, automation, and
-          data pipelines. I have built browser-driven systems that log in, navigate
-          complex sites, download and validate files, and push results into the
-          tools teams use every day. I have also worked on AI-powered training
-          experiences and messaging-based intake flows where consistency and edge
-          cases matter.
-        </p>
-        <ul class="about-list">
-          <li>Automation and data workflows that reduce manual steps.</li>
-          <li>Reliable web apps and APIs built for scale and clarity.</li>
-          <li>Polished cross-platform UIs when the product needs them.</li>
-        </ul>
-        <p>
-          I started programming years ago with Pascal, then C and C++. Over time I
-          moved into Python, JavaScript, and TypeScript. These days I use Dart and
-          Flutter when a project needs a polished cross-platform UI, but I am most
-          comfortable owning the whole product from interface to backend to
-          deployment.
-        </p>
-        <p>
-          I am always learning, and I care a lot about clean code, testing, and
-          software that holds up in production.
-        </p>
+    <div class="hero-identity" aria-hidden="true">
+      <div class="hero-logo">
+        <span class="hero-logo-letter hero-logo-j">J</span>
+        <span class="hero-logo-letter hero-logo-g">G</span>
+      </div>
+      <div class="hero-status">
+        <span>Product engineering</span>
+        <span>Automation systems</span>
+        <span>Client work</span>
       </div>
     </div>
   </section>
 
-  <section class="projects-section" id="projects">
-    <h2>Projects</h2>
-    <p class="projects-intro">
-      A quick look at the systems and products I have built. Confidential
-      details are omitted to respect privacy agreements with my employer.
-    </p>
+  <section class="about-section" aria-labelledby="about-title">
+    <div class="section-heading">
+      <p class="section-kicker">About</p>
+      <h2 id="about-title">A product-minded engineer who likes untangling operational mess.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-copy">
+        <p class="about-lede">
+          Most of my recent work has been about taking a process that is slow, brittle, or
+          hard to scale and turning it into something software can handle consistently.
+        </p>
+        <p>
+          That usually means full-stack delivery across interface, API, automation, data
+          handling, and deployment. I am most useful where the work touches both product
+          decisions and implementation details, especially when reliability matters more than
+          novelty.
+        </p>
+      </div>
+
+      <div class="proof-grid">
+        {
+          proofPoints.map((point) => (
+            <article class="proof-card">
+              <h3>{point.label}</h3>
+              <p>{point.value}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section" id="projects" aria-labelledby="projects-title">
+    <div class="section-heading">
+      <p class="section-kicker">Selected Work</p>
+      <h2 id="projects-title">Three projects that show how I work.</h2>
+      <p class="section-summary">
+        Client-sensitive details stay private, but these summaries reflect the kind of
+        systems I design and ship.
+      </p>
+    </div>
+
     <div class="projects-grid">
-      <article class="card project-card">
-        <h3>MLS Broker Portal (Deal Claim & Creation Workflow)</h3>
+      {
+        caseStudies.map((study) => (
+          <article class="card project-card">
+            <div class="project-header">
+              <h3>{study.title}</h3>
+              <a href={study.linkHref} class="project-link">
+                {study.linkLabel}
+              </a>
+            </div>
+            <div class="project-section">
+              <span>Problem</span>
+              <p>{study.problem}</p>
+            </div>
+            <div class="project-section">
+              <span>Role</span>
+              <p>{study.role}</p>
+            </div>
+            <div class="project-section">
+              <span>Stack</span>
+              <p>{study.stack}</p>
+            </div>
+            <div class="project-section">
+              <span>Outcome</span>
+              <p>{study.outcome}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="writing-section" aria-labelledby="writing-title">
+    <div class="writing-card">
+      <div>
+        <p class="section-kicker">Writing</p>
+        <h2 id="writing-title">The blog is still here, just not driving the homepage.</h2>
         <p>
-          Built a broker-facing portal that lets authenticated agents browse MLS
-          inventory, exclusively claim listings, and create or reuse CRM deals
-          with guardrails to prevent double-claims and duplicates.
+          I use it for engineering notes, postmortems, and reflections on real project work.
         </p>
-        <dl class="project-meta">
-          <div>
-            <dt>Role</dt>
-            <dd>Full-stack developer (backend + frontend)</dd>
-          </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>
-              React, TypeScript, Vite, Python, Flask, Firebase Auth, Firestore,
-              Cloud Run, Cloud Tasks, Google Cloud Storage, CRM API, MLS data API
-            </dd>
-          </div>
-          <div>
-            <dt>Timeframe</dt>
-            <dd>2025-2026</dd>
-          </div>
-          <div>
-            <dt>Outcome</dt>
-            <dd>
-              Delivered an internal portal with atomic claim+deal creation,
-              conflict handling (e.g., already-claimed), and scalable list/detail
-              browsing with cached images and async background processing.
-            </dd>
-          </div>
-        </dl>
-        <ul class="project-tags">
-          <li>Full-stack</li>
-          <li>Real estate</li>
-          <li>GCP</li>
-        </ul>
-      </article>
-      <article class="card project-card">
-        <h3>Permit &amp; Property Data Verification Pipeline</h3>
-        <p>
-          Built a multi-source scraping and verification system that collects
-          property details and checks permit records to identify roof-related
-          activity, with production scheduling and reliability hardening. Added
-          automated tests (including live/integration coverage) to prevent
-          regressions as new jurisdictions and workflows were introduced.
-        </p>
-        <dl class="project-meta">
-          <div>
-            <dt>Role</dt>
-            <dd>Lead engineer (solo)</dd>
-          </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>
-              Python, TypeScript, FastAPI, Playwright-based browser automation,
-              PostgreSQL + ORM, Docker
-            </dd>
-          </div>
-          <div>
-            <dt>Timeframe</dt>
-            <dd>Jan 2026 - Present</dd>
-          </div>
-          <div>
-            <dt>Outcome</dt>
-            <dd>
-              Deployed an automated pipeline with scheduled scraping/verification
-              runs, expanded jurisdiction support, and increased test coverage
-              (including live runs) to reduce breakage during ongoing development.
-            </dd>
-          </div>
-        </dl>
-        <ul class="project-tags">
-          <li>Web scraping</li>
-          <li>Test automation</li>
-          <li>Data pipeline</li>
-        </ul>
-      </article>
-      <article class="card project-card">
-        <h3>AI-Powered Real-Estate Acquisitions Training Curriculum</h3>
-        <p>
-          Designed a structured, multi-module training curriculum for an
-          acquisitions team, spanning rapport-building with distressed sellers,
-          underwriting/comping, negotiation, closing, and disposition handoff.
-          Packaged the material to support consistent execution and AI roleplay
-          based practice.
-        </p>
-        <dl class="project-meta">
-          <div>
-            <dt>Role</dt>
-            <dd>Lead curriculum designer and roleplay/prompt architect</dd>
-          </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>
-              ChatGPT, Second Nature (AI roleplay platform), Google Docs/Microsoft
-              Word, PDF/DOCX production workflow
-            </dd>
-          </div>
-          <div>
-            <dt>Timeframe</dt>
-            <dd>Dec 2025 - Jan 2026</dd>
-          </div>
-          <div>
-            <dt>Outcome</dt>
-            <dd>
-              Delivered a submission-ready curriculum set (DTS Categories 3-9)
-              with SOP-style checklists, scripts, and playbooks to standardize
-              acquisitions execution and handoffs.
-            </dd>
-          </div>
-        </dl>
-        <ul class="project-tags">
-          <li>Sales enablement</li>
-          <li>Instructional design</li>
-          <li>AI roleplay</li>
-        </ul>
-      </article>
-      <article class="card project-card">
-        <h3>WhatsApp-First AI Intake and Triage Automation (Legal Intake MVP)</h3>
-        <p>
-          Built an opt-in WhatsApp intake assistant that collects immigration
-          pre-screening answers conversationally, applies rules-based triage, and
-          packages each lead for staff review with reliable handoff and human
-          takeover.
-        </p>
-        <dl class="project-meta">
-          <div>
-            <dt>Role</dt>
-            <dd>Lead developer and technical owner (end-to-end build)</dd>
-          </div>
-          <div>
-            <dt>Stack</dt>
-            <dd>
-              Next.js, TypeScript, PostgreSQL, Prisma, WhatsApp Cloud API, OpenAI
-              API, OAuth 2.0
-            </dd>
-          </div>
-          <div>
-            <dt>Timeframe</dt>
-            <dd>Jan 2026 - Feb 2026</dd>
-          </div>
-          <div>
-            <dt>Outcome</dt>
-            <dd>
-              Delivered an MVP that handles multiple concurrent chats, persists
-              full transcripts, interprets multi-message bursts as a single
-              conversational context, computes Good Fit/Maybe/No-Go
-              recommendations with auditable reasons, notifies staff for
-              escalations, and syncs qualified leads into a case-management
-              system with an attached intake summary.
-            </dd>
-          </div>
-        </dl>
-        <ul class="project-tags">
-          <li>WhatsApp Automation</li>
-          <li>LegalTech</li>
-          <li>AI Workflow</li>
-        </ul>
-      </article>
+      </div>
+      <a href="/blog" class="btn-secondary">Read the Blog</a>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact" aria-labelledby="contact-title">
+    <div class="section-heading">
+      <p class="section-kicker">Contact</p>
+      <h2 id="contact-title">Need someone who can own the product and the implementation?</h2>
+      <p class="section-summary">
+        Email is the fastest way to reach me. GitHub and LinkedIn are here if you want a
+        quick sanity check first.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      {
+        contactLinks.map((link) => (
+          <a
+            href={link.href}
+            class="contact-card"
+            target={link.href.startsWith('http') ? '_blank' : undefined}
+            rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+          >
+            <span>{link.label}</span>
+            <span class="contact-arrow" aria-hidden="true">-&gt;</span>
+          </a>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .hero-container {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    gap: var(--spacing-xl);
+  .hero-section,
+  .about-section,
+  .projects-section,
+  .writing-section,
+  .contact-section {
     padding: var(--spacing-2xl) 0;
-    text-align: center;
   }
 
-  @media (min-width: 768px) {
-    .hero-container {
-      flex-direction: row;
-      text-align: left;
-      gap: var(--spacing-xl);
-      padding: var(--spacing-3xl) 0;
-    }
+  .about-section,
+  .projects-section,
+  .contact-section {
+    border-top: 1px solid var(--border-color);
   }
 
-  .hero-content {
-    flex: 1;
+  .hero-section {
+    display: grid;
+    gap: var(--spacing-2xl);
+    align-items: center;
   }
 
-  .hero-tagline {
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  .hero-copy {
+    display: grid;
+    gap: var(--spacing-md);
+  }
+
+  .hero-copy h1 {
+    max-width: 12ch;
+    margin: 0;
+  }
+
+  .hero-tagline,
+  .section-kicker {
     color: var(--color-electric-blue);
-    margin-bottom: var(--spacing-sm);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .hero-title {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  @media (min-width: 768px) {
-    .hero-title {
-      font-size: 3.5rem;
-    }
-  }
-
-  .hero-subtitle {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-lg);
+  .hero-description,
+  .hero-supporting,
+  .section-summary,
+  .about-copy p,
+  .writing-card p {
+    max-width: 42rem;
+    line-height: 1.7;
   }
 
   .hero-description {
     font-size: 1.125rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-xl);
-    max-width: 500px;
+    color: var(--text-primary);
   }
 
   .hero-cta {
     display: flex;
-    gap: var(--spacing-md);
     flex-wrap: wrap;
-    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
   }
 
-  @media (min-width: 768px) {
-    .hero-cta {
-      justify-content: flex-start;
-    }
-  }
-
-  .hero-image-container {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .hero-identity {
+    display: grid;
+    gap: var(--spacing-md);
+    justify-items: start;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid var(--border-color);
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at top right, rgba(0, 194, 255, 0.12), transparent 34%),
+      radial-gradient(circle at bottom left, rgba(138, 46, 255, 0.12), transparent 34%),
+      var(--bg-surface);
   }
 
   .hero-logo {
@@ -316,11 +294,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     align-items: baseline;
     gap: 0.12em;
     font-family: var(--font-logo);
-    font-size: 6.5rem;
+    font-size: clamp(5rem, 14vw, 8rem);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
-    transition: transform 0.3s ease;
   }
 
   .hero-logo-letter {
@@ -337,164 +314,172 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     text-shadow: 0 0 24px rgba(138, 46, 255, 0.35);
   }
 
-  .hero-logo:hover {
-    transform: scale(1.04);
+  .hero-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
   }
 
-  .hero-logo:hover .hero-logo-j {
-    text-shadow: 0 0 34px rgba(0, 194, 255, 0.55);
+  .hero-status span,
+  .project-section span {
+    display: inline-flex;
+    width: fit-content;
+    padding: 0.4rem 0.7rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
-  .hero-logo:hover .hero-logo-g {
-    text-shadow: 0 0 34px rgba(138, 46, 255, 0.55);
+  .section-heading {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
   }
 
-  @media (min-width: 768px) {
-    .hero-logo {
-      font-size: 10rem;
-    }
+  .section-heading h2 {
+    max-width: 18ch;
+    margin: 0;
   }
 
-  [data-theme="light"] .hero-logo-j {
-    text-shadow: 0 0 18px rgba(0, 194, 255, 0.25);
-  }
-
-  [data-theme="light"] .hero-logo-g {
-    text-shadow: 0 0 18px rgba(138, 46, 255, 0.25);
-  }
-
-  [data-theme="light"] .hero-logo:hover .hero-logo-j {
-    text-shadow: 0 0 26px rgba(0, 194, 255, 0.4);
-  }
-
-  [data-theme="light"] .hero-logo:hover .hero-logo-g {
-    text-shadow: 0 0 26px rgba(138, 46, 255, 0.4);
-  }
-
-  .about-section {
-    padding: var(--spacing-2xl) 0;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .about-section h2 {
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .about-content {
-    max-width: 720px;
-  }
-
-  .about-stack {
+  .about-grid {
     display: grid;
     gap: var(--spacing-lg);
   }
 
-  .about-content .body-large {
-    font-size: 1.25rem;
-    color: var(--text-primary);
+  .about-copy {
+    display: grid;
+    gap: var(--spacing-md);
+    max-width: 44rem;
   }
 
   .about-lede {
-    font-size: 1.125rem;
-    line-height: 1.7;
     color: var(--text-primary);
+    font-size: 1.125rem;
   }
 
-  .about-list {
-    margin: 0;
-    padding-left: 1.25rem;
-    color: var(--text-secondary);
-    display: grid;
-    gap: var(--spacing-sm);
-  }
-
-  .about-list li {
-    line-height: 1.6;
-  }
-
-  .projects-section {
-    padding: var(--spacing-2xl) 0;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .projects-section h2 {
-    margin-bottom: var(--spacing-md);
-  }
-
-  .projects-intro {
-    max-width: 720px;
-    margin-bottom: var(--spacing-xl);
-    color: var(--text-secondary);
-  }
-
-  .projects-grid {
+  .proof-grid,
+  .projects-grid,
+  .contact-grid {
     display: grid;
     gap: var(--spacing-lg);
   }
 
-  @media (min-width: 768px) {
-    .projects-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .proof-card {
+    padding: var(--spacing-lg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    background: var(--bg-surface);
+  }
+
+  .proof-card h3,
+  .project-card h3 {
+    margin-bottom: 0.6rem;
+  }
+
+  .proof-card p,
+  .project-card p {
+    line-height: 1.7;
   }
 
   .project-card {
     display: grid;
-    gap: var(--spacing-sm);
-    min-height: 100%;
+    gap: var(--spacing-md);
   }
 
-  .project-card h3 {
-    margin-bottom: 0;
-  }
-
-  .project-card p {
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
-
-  .project-meta {
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: var(--spacing-xs);
-  }
-
-  .project-meta div {
-    display: grid;
-    gap: 2px;
-  }
-
-  .project-meta dt {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-secondary);
-  }
-
-  .project-meta dd {
-    margin: 0;
-    color: var(--text-primary);
-    line-height: 1.5;
-  }
-
-  .project-tags {
-    list-style: none;
+  .project-header {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-xs);
-    padding: 0;
-    margin: 0;
+    gap: var(--spacing-sm);
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .project-tags li {
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
+  .project-link {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .project-section {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .writing-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(1.5rem, 3vw, 2rem);
     border: 1px solid var(--border-color);
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.02);
+    border-radius: 24px;
+    background: var(--bg-surface);
   }
 
+  .contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    min-height: 72px;
+    padding: var(--spacing-lg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .contact-card:hover {
+    border-color: var(--color-electric-blue);
+  }
+
+  .contact-card:focus-visible {
+    border-color: var(--color-electric-blue);
+  }
+
+  .contact-arrow {
+    color: var(--color-electric-blue);
+  }
+
+  @media (min-width: 820px) {
+    .hero-section {
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
+    }
+
+    .about-grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      align-items: start;
+    }
+
+    .proof-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .projects-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .contact-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-logo {
+      transition: transform 0.3s ease;
+    }
+
+    .hero-logo:hover {
+      transform: scale(1.03);
+    }
+  }
 </style>

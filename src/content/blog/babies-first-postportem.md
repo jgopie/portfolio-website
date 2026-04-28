@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+excerpt: "Wrapping up a long-running full-stack project and learning that finishing work is harder, and more valuable, than it first looks."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 06/09/2023

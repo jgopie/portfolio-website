@@ -1,5 +1,6 @@
 ---
 title: AI for small businesses
+excerpt: "A practical look at the mismatch between AI hype and the way small businesses should actually evaluate these tools."
 author: Jordan Gopie
 isDraft: true
 publishedDate: 04/02/2025

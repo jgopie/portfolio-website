@@ -1,5 +1,6 @@
 ---
 title: Life is Pain
+excerpt: "Notes from the messy part of solo development: shipping is close, but deployment constraints are doing their best to get in the way."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 08/01/2023

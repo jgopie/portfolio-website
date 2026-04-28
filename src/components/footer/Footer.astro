@@ -2,26 +2,26 @@
 import { Image } from 'astro:assets';
 import githubIcon from '/public/github.svg';
 import linkedinIcon from '/public/linkedin.svg';
-import { viridianCostManagerLegal } from '../../data/viridianCostManagerLegal';
+import { siteConfig } from '../../data/site';
 ---
 <footer class="footer">
-    <div class="svgCard">
-        <a href="https://github.com/jgopie" aria-label="GitHub">
-            <Image src={githubIcon} alt="GitHub" width={20} height={20} />
-        </a>
-        <a href="https://www.linkedin.com/in/jordan-gopie-429904239/" aria-label="LinkedIn">
-            <Image src={linkedinIcon} alt="LinkedIn" width={20} height={20} />
-        </a>
+    <div class="footer-copy">
+        <p class="footer-kicker">Available for full-stack roles and contract work.</p>
+        <p>
+            I build product-focused web apps, automation systems, and reliable backend services.
+            Reach out if you want a walkthrough of selected client work or project experience.
+        </p>
     </div>
-    <div class="legal-links" aria-label="Viridian Cost Manager legal links">
-        <span class="legal-links-label">{viridianCostManagerLegal.appName} legal</span>
-        <div class="legal-links-list">
-            {
-                viridianCostManagerLegal.directLinks.map((link) => (
-                    <a href={link.href}>{link.label}</a>
-                ))
-            }
-        </div>
+    <div class="svgCard" aria-label="Social and contact links">
+        <a href={`mailto:${siteConfig.contactEmail}`} aria-label="Email Jordan Gopie">
+            <span class="contact-badge">Email</span>
+        </a>
+        <a href={siteConfig.githubUrl} aria-label="Jordan Gopie's GitHub" target="_blank" rel="noreferrer">
+            <Image src={githubIcon} alt="" width={20} height={20} aria-hidden="true" />
+        </a>
+        <a href={siteConfig.linkedinUrl} aria-label="Jordan Gopie's LinkedIn" target="_blank" rel="noreferrer">
+            <Image src={linkedinIcon} alt="" width={20} height={20} aria-hidden="true" />
+        </a>
     </div>
     <p>&copy; Jordan Gopie {new Date().getFullYear()}</p>
 </footer>
@@ -38,17 +38,36 @@ import { viridianCostManagerLegal } from '../../data/viridianCostManagerLegal';
     width: 100%;
 }
 
+.footer-copy {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 42rem;
+    text-align: center;
+}
+
+.footer-kicker {
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
 .svgCard {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--spacing-lg);
+    align-items: center;
+    justify-content: center;
 }
 
 .svgCard a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
+    min-width: 44px;
     height: 44px;
+    padding: 0 0.95rem;
     border-radius: var(--radius-button);
     border: 1px solid var(--border-color);
     background-color: var(--bg-surface);
@@ -61,6 +80,12 @@ import { viridianCostManagerLegal } from '../../data/viridianCostManagerLegal';
     transform: translateY(-2px);
 }
 
+.contact-badge {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
 .svgCard img {
     width: 20px;
     height: 20px;
@@ -71,49 +96,6 @@ import { viridianCostManagerLegal } from '../../data/viridianCostManagerLegal';
 
 .svgCard a:hover img {
     opacity: 1;
-}
-
-.legal-links {
-    display: grid;
-    gap: var(--spacing-sm);
-    justify-items: center;
-    text-align: center;
-}
-
-.legal-links-label {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.legal-links-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-sm);
-}
-
-.legal-links-list a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 38px;
-    padding: 0.625rem 0.9rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-button);
-    background-color: var(--bg-surface);
-    color: var(--text-primary);
-    font-size: 0.875rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.legal-links-list a:hover,
-.legal-links-list a:focus-visible {
-    border-color: var(--color-electric-blue);
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-1px);
 }
 
 .footer p {

@@ -1,27 +1,126 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import '../styles/global.css';
-// BlogLayout.astro
+
 interface Props {
-  title?: string;
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  publishedDate: Date;
+  author: string;
+  tags: string[];
+  ogImage?: string;
 }
 
-const { title } = Astro.props;
+const { title, description, canonicalUrl, publishedDate, author, tags, ogImage } =
+  Astro.props as Props;
+
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+}).format(publishedDate);
 ---
-<BaseLayout title={title}>
-<article class="blog-article">
-  <div class="prose prose-lg max-w-none">
-    <slot />
-  </div>
-</article>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalUrl={canonicalUrl}
+  ogImage={ogImage}
+  ogType="article"
+>
+  <article class="blog-article">
+    <header class="post-intro">
+      <span class="post-eyebrow">Journal</span>
+      <div class="post-meta">
+        <span>{author}</span>
+        <span aria-hidden="true">|</span>
+        <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
+      </div>
+      <ul class="post-tags" aria-label="Post topics">
+        {
+          tags.map((tag) => (
+            <li>{tag}</li>
+          ))
+        }
+      </ul>
+    </header>
+    <div class="prose prose-lg max-w-none">
+      <slot />
+    </div>
+  </article>
 </BaseLayout>
 
 <style>
-    .blog-article {
-        max-width: 48rem;
-        margin: 0 auto;
-        padding: var(--spacing-xl) var(--spacing-md);
+  .blog-article {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .post-intro {
+    display: grid;
+    gap: 0.7rem;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .post-eyebrow {
+    color: var(--color-electric-blue);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-tags li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-chip);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    background: rgba(255, 255, 255, 0.02);
+    text-transform: uppercase;
+  }
+
+  [data-theme='light'] .post-tags li {
+    border-color: rgba(17, 24, 39, 0.08);
+    background: rgba(17, 24, 39, 0.03);
+  }
+
+  @media (max-width: 640px) {
+    .post-tags {
+      gap: 0.4rem;
     }
+
+    .post-tags li {
+      min-height: 1.9rem;
+      padding: 0.28rem 0.65rem;
+    }
+  }
 </style>
 
 <style is:global>

@@ -1,28 +1,43 @@
 ---
 interface Props {
-    title: string;
-    image: string | undefined;
-    slug: string;
+  title: string;
+  excerpt: string;
+  image: string | undefined;
+  publishedDate: Date;
+  slug: string;
+  tags: string[];
 }
 
-const { title, image, slug } = Astro.props;
+const { title, excerpt, image, publishedDate, slug, tags } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+}).format(publishedDate);
 ---
 <a href={`/blog/${slug}`} class="blog-card-link">
-    <div class="blog-container">
+    <article class="blog-container">
         {image && (
             <img
                 class="blogImage"
                 src={`/${image}`}
-                alt={title}
+                alt=""
                 width="120"
                 height="120"
                 loading="lazy"
+                aria-hidden="true"
             />
         )}
         <div class="link-container">
-            <p>{title}</p>
+            <div class="blog-meta">
+                <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
+                <span aria-hidden="true">|</span>
+                <span>{tags.join(' / ')}</span>
+            </div>
+            <h2>{title}</h2>
+            <p class="blog-excerpt">{excerpt}</p>
         </div>
-    </div>
+    </article>
 </a>
 
 <style>
@@ -55,24 +70,47 @@ const { title, image, slug } = Astro.props;
 
 .link-container {
     flex: 1;
+    display: grid;
+    gap: 0.75rem;
 }
 
-.link-container p {
-    font-size: 1.25rem;
-    font-weight: 500;
+.blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.link-container h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
     color: var(--text-primary);
     margin: 0;
     line-height: 1.4;
     transition: color 0.2s ease;
 }
 
-.blog-container:hover .link-container p {
+.blog-excerpt {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.blog-container:hover .link-container h2 {
     color: var(--color-electric-blue);
 }
 
 .blog-card-link {
     text-decoration: none;
     display: block;
+}
+
+.blog-card-link:focus-visible .blog-container {
+    border-color: var(--color-electric-blue);
+    box-shadow: var(--shadow-card-hover);
 }
 
 @media (max-width: 640px) {
@@ -88,4 +126,3 @@ const { title, image, slug } = Astro.props;
     }
 }
 </style>
-

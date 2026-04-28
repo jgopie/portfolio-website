@@ -1,5 +1,6 @@
 ---
 title: Hello World
+excerpt: "A quick note on launching the site, choosing Astro, and surviving the JavaScript ecosystem long enough to ship."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 06/17/2023

@@ -1,27 +1,43 @@
 ---
-import {getCollection} from 'astro:content'
-const blogPosts = await getCollection("blog")
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogCard from '../components/blog-card/BlogCard.astro'
-// Can't just let me sort by date, can you Javascript?
-const sortedPosts = blogPosts.sort((a, b) => {
-    return a.data.publishedDate.getTime() - b.data.publishedDate.getTime();
-})
+import BlogCard from '../components/blog-card/BlogCard.astro';
+import { buildCanonicalUrl } from '../data/site';
+
+const blogPosts = await getCollection('blog');
+const publishedPosts = blogPosts
+  .filter((post) => !post.data.isDraft)
+  .sort((a, b) => b.data.publishedDate.getTime() - a.data.publishedDate.getTime());
 ---
-<BaseLayout title='Blog'>
+<BaseLayout
+  title="Blog"
+  description="Writing on full-stack development, automation, product engineering, and lessons from client work."
+  canonicalUrl={buildCanonicalUrl('/blog')}
+>
     <div class="blog-container">
         <header class="blog-header">
-            <h1>Blog</h1>
-            <p class="blog-subtitle">For all my ramblings, musings, and thoughts about stuff</p>
+            <p class="blog-eyebrow">Writing</p>
+            <h1>Notes on shipping software that holds up in production.</h1>
+            <p class="blog-subtitle">
+                Essays, project reflections, and engineering notes from building full-stack products,
+                automation systems, and client work.
+            </p>
         </header>
 
         <ul class="blog-list">
         {
-            sortedPosts.map((post) => (
+            publishedPosts.map((post) => (
                 <li>
-                    <BlogCard title={post.data.title} image={post.data.image} slug={post.slug}/>
+                    <BlogCard
+                      title={post.data.title}
+                      excerpt={post.data.excerpt}
+                      image={post.data.image}
+                      publishedDate={post.data.publishedDate}
+                      slug={post.id}
+                      tags={post.data.tags}
+                    />
                 </li>
-            )).reverse()
+            ))
         }
         </ul>
     </div>
@@ -35,9 +51,19 @@ const sortedPosts = blogPosts.sort((a, b) => {
     }
 
     .blog-header {
+        display: grid;
+        gap: var(--spacing-sm);
         margin-bottom: var(--spacing-2xl);
         padding-bottom: var(--spacing-lg);
         border-bottom: 1px solid var(--border-color);
+    }
+
+    .blog-eyebrow {
+        color: var(--color-electric-blue);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
     }
 
     .blog-header h1 {
@@ -49,6 +75,7 @@ const sortedPosts = blogPosts.sort((a, b) => {
     .blog-subtitle {
         font-size: 1.125rem;
         color: var(--text-secondary);
+        max-width: 42rem;
     }
 
     .blog-list {

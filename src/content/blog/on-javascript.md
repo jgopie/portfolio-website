@@ -1,5 +1,6 @@
 ---
 title: What I'm Working On
+excerpt: "A progress update on building a full-stack application solo while balancing a day job, client needs, and real-world product tradeoffs."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 06/17/2023

@@ -1,18 +1,38 @@
 ---
-import { Image } from 'astro:assets';
-import barsIcon from '/public/bars-solid.svg';
-import xIcon from '/public/x-solid.svg';
+import { siteConfig } from '../../data/site';
+
+const pathname = Astro.url.pathname;
+const navLinks = [
+  { href: '/', label: 'Home', isCurrent: pathname === '/' },
+  { href: '/#projects', label: 'Projects', isCurrent: pathname === '/' && Astro.url.hash === '#projects' },
+  { href: '/blog', label: 'Blog', isCurrent: pathname === '/blog' || pathname.startsWith('/blog/') },
+  { href: '/#contact', label: 'Contact', isCurrent: pathname === '/' && Astro.url.hash === '#contact' },
+];
 ---
-<nav class="navbar">
-    <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-        <Image src={barsIcon} alt="Menu" width={24} height={24} class="menu-icon" id="menu-icon" />
+<nav class="navbar" aria-label="Primary">
+    <a class="navbar-brand" href="/">Jordan Gopie</a>
+    <button
+        type="button"
+        class="mobile-menu-btn"
+        id="mobile-menu-btn"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-navigation"
+    >
+        <img src="/bars-solid.svg" alt="" class="menu-icon" id="menu-icon" aria-hidden="true" />
     </button>
     <ul class="desktop-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/blog">Blog</a></li>
+        {
+            navLinks.map((link) => (
+                <li>
+                    <a href={link.href} aria-current={link.isCurrent ? 'page' : undefined}>
+                        {link.label}
+                    </a>
+                </li>
+            ))
+        }
     </ul>
 
-    <!-- Theme Toggle Button -->
     <button
         type="button"
         class="theme-toggle"
@@ -20,7 +40,6 @@ import xIcon from '/public/x-solid.svg';
         aria-label="Toggle dark/light theme"
         title="Toggle theme"
     >
-        <!-- Sun icon (shown in dark mode) -->
         <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -32,37 +51,83 @@ import xIcon from '/public/x-solid.svg';
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
-        <!-- Moon icon (shown in light mode) -->
         <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
     </button>
 
-    <div class="ghost" id="mobile-menu">
+    <div class="ghost" id="mobile-navigation" aria-hidden="true">
         <ul class="mobile-list">
-            <li><a href="/">Home</a></li>
-            <li><a href="/blog">Blog</a></li>
+            {
+                navLinks.map((link) => (
+                    <li>
+                        <a href={link.href} aria-current={link.isCurrent ? 'page' : undefined}>
+                            {link.label}
+                        </a>
+                    </li>
+                ))
+            }
+            <li>
+                <a href={`mailto:${siteConfig.contactEmail}`} class="mobile-contact-link">
+                    Email Me
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
 
 <script>
-    // Mobile menu toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon') as HTMLImageElement;
+    const mobileMenu = document.getElementById('mobile-navigation');
+    const menuIcon = document.getElementById('menu-icon');
+    const navbar = document.querySelector('.navbar');
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
 
     let isOpen = false;
 
+    function syncMenu() {
+        mobileMenu?.classList.toggle('open', isOpen);
+        mobileMenu?.setAttribute('aria-hidden', String(!isOpen));
+        menuBtn?.setAttribute('aria-expanded', String(isOpen));
+        if (menuIcon instanceof HTMLImageElement) {
+            menuIcon.src = isOpen ? '/x-solid.svg' : '/bars-solid.svg';
+        }
+    }
+
+    function closeMenu() {
+        if (!isOpen) {
+            return;
+        }
+
+        isOpen = false;
+        syncMenu();
+    }
+
     menuBtn?.addEventListener('click', () => {
         isOpen = !isOpen;
-        mobileMenu?.classList.toggle('open', isOpen);
-        if (menuIcon) {
-            menuIcon.src = isOpen ? '/x-solid.svg' : '/bars-solid.svg';
+        syncMenu();
+    });
+
+    mobileLinks?.forEach((link) => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeMenu();
         }
     });
 
-    // Theme toggle functionality
+    document.addEventListener('click', (event) => {
+        if (!isOpen || !(event.target instanceof Node)) {
+            return;
+        }
+
+        if (!navbar?.contains(event.target)) {
+            closeMenu();
+        }
+    });
+
     const themeToggle = document.getElementById('theme-toggle');
 
     function getStoredTheme(): string | null {
@@ -74,20 +139,11 @@ import xIcon from '/public/x-solid.svg';
     }
 
     function setTheme(theme: string) {
-        // Add transition class for smooth animation
         document.documentElement.classList.add('theme-transition');
-
-        // Set the theme
         document.documentElement.setAttribute('data-theme', theme);
-
-        // Update aria-label
         const label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
         themeToggle?.setAttribute('aria-label', label);
-
-        // Store the preference
         localStorage.setItem('theme', theme);
-
-        // Remove transition class after animation completes
         setTimeout(() => {
             document.documentElement.classList.remove('theme-transition');
         }, 300);
@@ -99,37 +155,24 @@ import xIcon from '/public/x-solid.svg';
         setTheme(newTheme);
     }
 
-    // Initialize theme on page load (this runs after the inline script in head)
     function initTheme() {
         const storedTheme = getStoredTheme();
         const theme = storedTheme || getSystemTheme();
-        // Don't add transition on initial load
         document.documentElement.setAttribute('data-theme', theme);
         const label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
         themeToggle?.setAttribute('aria-label', label);
     }
 
-    // Set up event listener
     themeToggle?.addEventListener('click', toggleTheme);
 
-    // Handle keyboard navigation
-    themeToggle?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleTheme();
-        }
-    });
-
-    // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-        // Only update if user hasn't set a preference
         if (!getStoredTheme()) {
             setTheme(e.matches ? 'light' : 'dark');
         }
     });
 
-    // Initialize
     initTheme();
+    syncMenu();
 </script>
 
 <style>
@@ -137,12 +180,20 @@ import xIcon from '/public/x-solid.svg';
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: var(--spacing-md);
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--spacing-md) var(--spacing-lg);
     background-color: var(--bg-main);
     position: relative;
+}
+
+.navbar-brand {
+    margin-right: auto;
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .navbar ul {
@@ -166,6 +217,10 @@ import xIcon from '/public/x-solid.svg';
 }
 
 .desktop-list a:hover {
+    color: var(--color-electric-blue);
+}
+
+.desktop-list a[aria-current="page"] {
     color: var(--color-electric-blue);
 }
 
@@ -199,7 +254,6 @@ import xIcon from '/public/x-solid.svg';
     filter: invert(1);
 }
 
-/* Theme Toggle Button */
 .theme-toggle {
     display: flex;
     align-items: center;
@@ -226,19 +280,16 @@ import xIcon from '/public/x-solid.svg';
     outline-offset: 2px;
 }
 
-/* Sun icon - visible in dark mode */
 .icon-sun {
     display: block;
     color: #FDB813;
 }
 
-/* Moon icon - hidden in dark mode */
 .icon-moon {
     display: none;
     color: var(--color-vibrant-purple);
 }
 
-/* Light mode: show moon, hide sun */
 [data-theme="light"] .icon-sun {
     display: none;
 }
@@ -251,11 +302,14 @@ import xIcon from '/public/x-solid.svg';
     display: none;
 }
 
-/* Mobile styles */
 @media only screen and (max-width: 640px) {
     .navbar {
         padding: var(--spacing-md);
         gap: var(--spacing-sm);
+    }
+
+    .navbar-brand {
+        font-size: 0.95rem;
     }
 
     .mobile-menu-btn {
@@ -319,9 +373,18 @@ import xIcon from '/public/x-solid.svg';
         transition: background-color 0.2s ease, color 0.2s ease;
     }
 
+    .mobile-list a[aria-current="page"] {
+        color: var(--color-electric-blue);
+        background-color: rgba(0, 194, 255, 0.08);
+    }
+
     .mobile-list a:hover {
         background-color: rgba(0, 194, 255, 0.1);
         color: var(--color-electric-blue);
+    }
+
+    .mobile-contact-link {
+        border: 1px solid var(--border-color);
     }
 }
 </style>

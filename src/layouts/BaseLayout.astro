@@ -1,97 +1,122 @@
 ---
 import Footer from '../components/footer/Footer.astro';
 import Navbar from '../components/navbar/Navbar.astro';
+import { siteConfig } from '../data/site';
 import '../styles/global.css';
 
 interface Props {
-    title: string;
-    description?: string;
-    canonicalUrl?: string;
-    ogImage?: string;
-    ogType?: string;
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  ogImage?: string;
+  ogType?: string;
 }
 
 const {
-    title,
-    description = 'Software Developer with a focus on Web Development and an interest in all things tech.',
-    canonicalUrl = 'https://www.jgopie.com',
-    ogImage = 'https://avatars.githubusercontent.com/u/8053192?s=400&u=8c6e231070c1e1b78f13f94bc26a4b67432e90c3&v=4',
-    ogType = 'website',
+  title,
+  description,
+  canonicalUrl,
+  ogImage = siteConfig.defaultOgImage,
+  ogType = 'website',
 } = Astro.props as Props;
+
+const pageTitle = `${title} | ${siteConfig.ownerName}`;
 ---
 
 <!DOCTYPE html>
 <html lang='en'>
-    <head>
-        <meta charset='UTF-8' />
-        <meta
-            http-equiv='X-UA-Compatible'
-            content='IE=edge'
-        />
-        <meta
-            name='viewport'
-            content='width=device-width, initial-scale=1.0'
-        />
-        <meta name="description" content={description} />
-        <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={title}/>
-        <meta property="og:type" content={ogType}/>
-        <meta property="og:url" content={canonicalUrl}/>
-        <meta property="og:image" content={ogImage}/>
-        <meta property="og:description" content={description}/>
-        <title>{title}</title>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta name='description' content={description} />
+    <meta name='color-scheme' content='dark light' />
+    <link rel='canonical' href={canonicalUrl} />
+    <meta property='og:title' content={pageTitle} />
+    <meta property='og:type' content={ogType} />
+    <meta property='og:url' content={canonicalUrl} />
+    <meta property='og:image' content={ogImage} />
+    <meta property='og:description' content={description} />
+    <meta property='og:site_name' content={siteConfig.ownerName} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:title' content={pageTitle} />
+    <meta name='twitter:description' content={description} />
+    <meta name='twitter:image' content={ogImage} />
+    <title>{pageTitle}</title>
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'120'%20height%3D'120'%20viewBox%3D'0%200%20120%20120'%3E%3Ctext%20x%3D'12'%20y%3D'86'%20font-family%3D'Doto%2C%20sans-serif'%20font-size%3D'88'%20font-weight%3D'700'%3E%3Ctspan%20fill%3D'%2300C2FF'%3EJ%3C%2Ftspan%3E%3Ctspan%20fill%3D'%238A2EFF'%3EG%3C%2Ftspan%3E%3C%2Ftext%3E%3C%2Fsvg%3E" />
+    <link rel='icon' type='image/svg+xml' href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'120'%20height%3D'120'%20viewBox%3D'0%200%20120%20120'%3E%3Ctext%20x%3D'12'%20y%3D'86'%20font-family%3D'Doto%2C%20sans-serif'%20font-size%3D'88'%20font-weight%3D'700'%3E%3Ctspan%20fill%3D'%2300C2FF'%3EJ%3C%2Ftspan%3E%3Ctspan%20fill%3D'%238A2EFF'%3EG%3C%2Ftspan%3E%3C%2Ftext%3E%3C%2Fsvg%3E" />
 
-        <!-- Google Fonts: Doto, Inter, Plus Jakarta Sans -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link href='https://fonts.googleapis.com/css2?family=Doto:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap' rel='stylesheet' />
 
-        <!-- Theme initialization script - runs before page renders to prevent flash -->
-        <script is:inline>
-            (function() {
-                const storedTheme = localStorage.getItem('theme');
-                const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-                const theme = storedTheme || systemTheme;
-                document.documentElement.setAttribute('data-theme', theme);
-            })();
-        </script>
-    </head>
-    <body>
-        <div class="site-wrapper">
-            <Navbar />
-            <main class="main-content">
-                <slot />
-            </main>
-            <Footer />
-        </div>
-    </body>
+    <script is:inline>
+      (function() {
+        const storedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        const theme = storedTheme || systemTheme;
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class='skip-link' href='#main-content'>Skip to content</a>
+    <div class='site-wrapper'>
+      <Navbar />
+      <main class='main-content' id='main-content' tabindex='-1'>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
 </html>
 
 <style is:global>
-    .site-wrapper {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        width: 100%;
-    }
+  .skip-link {
+    position: absolute;
+    top: 0;
+    left: var(--spacing-md);
+    z-index: 200;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-button);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--color-electric-blue);
+    transform: translateY(-140%);
+    transition: transform 0.2s ease;
+  }
 
+  .skip-link:focus-visible {
+    transform: translateY(var(--spacing-sm));
+  }
+
+  .site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+  }
+
+  .main-content {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-2xl);
+  }
+
+  @media (min-width: 768px) {
     .main-content {
-        flex: 1;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 var(--spacing-md);
-        padding-top: var(--spacing-xl);
-        padding-bottom: var(--spacing-2xl);
+      padding-left: var(--spacing-lg);
+      padding-right: var(--spacing-lg);
     }
+  }
 
-    @media (min-width: 768px) {
-        .main-content {
-            padding-left: var(--spacing-lg);
-            padding-right: var(--spacing-lg);
-        }
+  @media (prefers-reduced-motion: reduce) {
+    .skip-link {
+      transition: none;
     }
+  }
 </style>

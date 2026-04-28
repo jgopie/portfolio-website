@@ -1,10 +1,12 @@
+import { siteConfig } from './site';
+
 export const viridianCostManagerLegal = {
   appName: 'Viridian Cost Manager',
   publisher: 'jgopie.com / Jordan',
-  supportEmail: 'contact@jgopie.com',
+  supportEmail: siteConfig.contactEmail,
   effectiveDate: 'March 2, 2026',
   deletionTurnaround: 'within 10 business days',
-  siteUrl: 'https://www.jgopie.com',
+  siteUrl: siteConfig.siteUrl,
   purpose:
     'organization-based budgeting, transaction tracking, receipt capture, and reporting.',
   routes: {

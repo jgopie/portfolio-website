@@ -1,5 +1,6 @@
 ---
 title: Done and done!
+excerpt: "Lessons from building a custom Flutter email client with Riverpod, including state management, performance tuning, and production tradeoffs."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 02/16/2025

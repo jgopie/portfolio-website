@@ -38,6 +38,7 @@
   /* Border Radius */
   --radius-button: 8px;
   --radius-card: 12px;
+  --radius-chip: 14px;
   --radius-pill: 50px;
 
   /* Shadows */
@@ -55,6 +56,7 @@
 :root {
   /* Brand Gradient */
   --gradient-brand: linear-gradient(135deg, #00C2FF 0%, #8A2EFF 100%);
+  color-scheme: dark light;
 
   /* Dark theme as default */
   --bg-main: #0A0A0A;
@@ -84,15 +86,17 @@
    ============================================ */
 
 /* Smooth transitions for theme switching */
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *::before,
-html.theme-transition *::after {
-  transition: background-color 0.3s ease,
-              color 0.3s ease,
-              border-color 0.3s ease,
-              box-shadow 0.3s ease,
-              fill 0.3s ease !important;
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                fill 0.3s ease !important;
+  }
 }
 
 /* ============================================
@@ -107,6 +111,12 @@ html.theme-transition *::after {
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -295,6 +305,12 @@ a:hover {
   color: var(--color-vibrant-purple);
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-electric-blue);
+  outline-offset: 3px;
+}
+
 /* Nav links special styling */
 .nav-link {
   color: var(--text-primary);
@@ -346,4 +362,20 @@ a:hover {
 
 .bg-main {
   background-color: var(--bg-main);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-secondary,
+  .card,
+  a,
+  button {
+    transition: none;
+  }
+
+  .btn-primary:hover,
+  .svgCard a:hover,
+  .card:hover {
+    transform: none;
+  }
 }

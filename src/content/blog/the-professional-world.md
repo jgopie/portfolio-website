@@ -1,5 +1,6 @@
 ---
 title: Professional Development?
+excerpt: "Reflections on starting a company, landing a first client, and the shift from personal coding experiments to real product responsibility."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 04/11/2024
