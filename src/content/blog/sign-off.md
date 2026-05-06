@@ -1,6 +1,6 @@
 ---
-title: Done and done!
-excerpt: "Lessons from building a custom Flutter email client with Riverpod, including state management, performance tuning, and production tradeoffs."
+title: Riverpod, email clients, and lessons paid for in complexity
+excerpt: "A post-project note on building a custom Flutter email client, where state management, protocols, and production UX all had opinions."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 02/16/2025
@@ -11,8 +11,6 @@ tags:
  - Programming
 image: fotis-fotopoulos-6sAl6aQ4OWI-unsplash.jpg
 ---
-
-# Building an Email Client with Flutter and Riverpod: Lessons Learned
 
 It's been a long, long time since I wrote a blog post. Let alone a blog post of actual substance, but I promise there was a reason! I recently completed a challenging project for a client: building a custom email client using Flutter and Riverpod for state management. This project pushed me to explore the intricacies of both technologies while handling complex email protocols and user interactions. Here are my key takeaways from this journey.
 

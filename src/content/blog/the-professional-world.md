@@ -1,6 +1,6 @@
 ---
-title: Professional Development?
-excerpt: "Reflections on starting a company, landing a first client, and the shift from personal coding experiments to real product responsibility."
+title: First client, real stakes
+excerpt: "A transition note about starting Viridian Software, taking on client work, and learning how different production responsibility feels from personal experiments."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 04/11/2024
@@ -10,8 +10,6 @@ tags:
  - Programming
 image: cat-8633491_1280.png
 ---
-
-# We in the big leagues now
 
 It's been quite a long time since my last blog post, but I haven't given up. I've actually started
 my own company called Viridian Software and I've got my first real client! While I'd like to spill the beans and get real detailed about what I've been working on, the client is serious about their privacy so I'll have to keep it vague. What I can say is that it's a headless application and I'm responsible for building the frontend with Flutter. 

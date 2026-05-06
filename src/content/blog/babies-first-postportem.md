@@ -1,6 +1,6 @@
 ---
-title: Getting Started
-excerpt: "Wrapping up a long-running full-stack project and learning that finishing work is harder, and more valuable, than it first looks."
+title: The finish line moved, then I crossed it
+excerpt: "A short wrap-up after a long full-stack project, with a reminder that finishing software is a different skill from starting it."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 06/09/2023
@@ -10,8 +10,6 @@ tags:
  - Programming
 image: pexels-andrea-piacquadio-3767411.jpg
 ---
-
-# Finally done
 
 Blogging, like software development, is obviously difficult, but not in obvious ways. Like, when writing a
 post I thought that the hard part would be figuring out what I wanted to say. Turns out the real trouble is that I don't have as much to say as I thought. How much content is too much content? How much is too little? Is anyone even reading this? What's the point? Eh.

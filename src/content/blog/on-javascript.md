@@ -1,6 +1,6 @@
 ---
-title: What I'm Working On
-excerpt: "A progress update on building a full-stack application solo while balancing a day job, client needs, and real-world product tradeoffs."
+title: Dates, clients, and the solo-build tax
+excerpt: "A field note from building a full-stack application around date logic, client constraints, and the parts of solo work that do not show up in tidy diagrams."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 06/17/2023
@@ -10,8 +10,6 @@ tags:
  - Programming
 image: pexels-markus-spiske-1089440.jpg
 ---
-
-# What I've been working on
 
 Hello! Welcome, bienvenue and valkommen to an update on what I've been up to for the past few weeks. In addition to my normal day job which is, *barely*, keeping the lights on, I've had the pleasure to be working on an entire fullstack application. By myself. Well, not entirely by myself. Thank goodness. My good friends, Paul, and Jairaj have been great helpers and motivators.
 

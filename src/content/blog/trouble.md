@@ -1,6 +1,6 @@
 ---
-title: Life is Pain
-excerpt: "Notes from the messy part of solo development: shipping is close, but deployment constraints are doing their best to get in the way."
+title: Deployment is where optimism gets audited
+excerpt: "A note from the nearly-finished phase, where the product works locally and the remaining enemy is getting it deployed without spending money."
 author: Jordan Gopie
 isDraft: false
 publishedDate: 08/01/2023
@@ -10,8 +10,6 @@ tags:
  - Programming
 image: tired.png
 ---
-
-# I Want to Cry
 
 Okay, I'm being a bit overdramatic, but only a bit. I haven't quite given in to the despair just yet! I'm still working on the same time tracking application from my previous post. Actually, I'd say that the majority of the functionality is done and has been done for quite a bit. Not much of a surprise given that I've had quite a bit of experience with backend development. But, given that this is the first time I've ever worked on a project like this by myself, there have been a few setbacks.
 
