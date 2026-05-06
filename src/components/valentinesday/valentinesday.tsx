@@ -143,8 +143,8 @@ export const ValentinesDay = ({ initialCelebrated = false }: ValentinesDayProps)
                         <svg viewBox="0 0 120 120" role="img" aria-label="Rose illustration">
                             <defs>
                                 <linearGradient id="rosePetal" x1="0" y1="0" x2="1" y2="1">
-                                    <stop offset="0%" stopColor="#8A2EFF" />
-                                    <stop offset="100%" stopColor="#00C2FF" />
+                                    <stop offset="0%" stopColor="var(--annotation)" />
+                                    <stop offset="100%" stopColor="var(--accent)" />
                                 </linearGradient>
                                 <linearGradient id="roseStem" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="0%" stopColor="#1f8b4c" />
