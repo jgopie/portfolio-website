@@ -10,9 +10,10 @@ interface Props {
   author: string;
   tags: string[];
   ogImage?: string;
+  ogImageAlt?: string;
 }
 
-const { title, description, canonicalUrl, publishedDate, author, tags, ogImage } =
+const { title, description, canonicalUrl, publishedDate, author, tags, ogImage, ogImageAlt } =
   Astro.props as Props;
 
 const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -26,6 +27,7 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   description={description}
   canonicalUrl={canonicalUrl}
   ogImage={ogImage}
+  ogImageAlt={ogImageAlt ?? `${title} - Jordan Gopie field note.`}
   ogType="article"
 >
   <article class="blog-article">

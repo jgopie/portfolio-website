@@ -9,6 +9,10 @@ interface Props {
   description: string;
   canonicalUrl: string;
   ogImage?: string;
+  ogImageAlt?: string;
+  ogImageType?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   ogType?: string;
 }
 
@@ -17,10 +21,20 @@ const {
   description,
   canonicalUrl,
   ogImage = siteConfig.defaultOgImage,
+  ogImageAlt = siteConfig.defaultOgImageAlt,
+  ogImageType,
+  ogImageWidth = siteConfig.defaultOgImageWidth,
+  ogImageHeight = siteConfig.defaultOgImageHeight,
   ogType = 'website',
 } = Astro.props as Props;
 
 const pageTitle = `${title} | ${siteConfig.ownerName}`;
+
+const resolvedOgImageType =
+  ogImageType ??
+  (ogImage.toLowerCase().endsWith('.jpg') || ogImage.toLowerCase().endsWith('.jpeg')
+    ? 'image/jpeg'
+    : 'image/png');
 ---
 
 <!DOCTYPE html>
@@ -36,12 +50,18 @@ const pageTitle = `${title} | ${siteConfig.ownerName}`;
     <meta property='og:type' content={ogType} />
     <meta property='og:url' content={canonicalUrl} />
     <meta property='og:image' content={ogImage} />
+    <meta property='og:image:secure_url' content={ogImage} />
+    <meta property='og:image:type' content={resolvedOgImageType} />
+    <meta property='og:image:width' content={String(ogImageWidth)} />
+    <meta property='og:image:height' content={String(ogImageHeight)} />
+    <meta property='og:image:alt' content={ogImageAlt} />
     <meta property='og:description' content={description} />
     <meta property='og:site_name' content={siteConfig.ownerName} />
     <meta name='twitter:card' content='summary_large_image' />
     <meta name='twitter:title' content={pageTitle} />
     <meta name='twitter:description' content={description} />
     <meta name='twitter:image' content={ogImage} />
+    <meta name='twitter:image:alt' content={ogImageAlt} />
     <title>{pageTitle}</title>
 
     <link rel='icon' type='image/svg+xml' href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'120'%20height%3D'120'%20viewBox%3D'0%200%20120%20120'%3E%3Crect%20width%3D'120'%20height%3D'120'%20rx%3D'10'%20fill%3D'%2324211b'%2F%3E%3Ctext%20x%3D'18'%20y%3D'76'%20font-family%3D'Georgia%2C%20serif'%20font-size%3D'54'%20font-weight%3D'700'%20fill%3D'%23d1a35f'%3EJG%3C%2Ftext%3E%3Cpath%20d%3D'M18%2089h84'%20stroke%3D'%2378a685'%20stroke-width%3D'5'%2F%3E%3C%2Fsvg%3E" />
