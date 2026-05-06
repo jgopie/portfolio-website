@@ -10,23 +10,23 @@ const publishedPosts = blogPosts
   .sort((a, b) => b.data.publishedDate.getTime() - a.data.publishedDate.getTime());
 ---
 <BaseLayout
-  title="Blog"
-  description="Writing on full-stack development, automation, product engineering, and lessons from client work."
+  title="Notes"
+  description="Jordan Gopie's field notes on full-stack work, automation, client constraints, deployment pain, and practical engineering lessons."
   canonicalUrl={buildCanonicalUrl('/blog')}
 >
-    <div class="blog-container">
-        <header class="blog-header">
-            <p class="blog-eyebrow">Writing</p>
-            <h1>Notes on shipping software that holds up in production.</h1>
-            <p class="blog-subtitle">
-                Essays, project reflections, and engineering notes from building full-stack products,
-                automation systems, and client work.
+    <div class="notes-container">
+        <header class="notes-header">
+            <p class="blog-eyebrow">Notes index</p>
+            <h1>Things I learned while trying to make the software behave.</h1>
+            <p class="notes-subtitle">
+                Some posts are polished. Some are old enough to show the awkward phase. That is the point:
+                a record of shipped work, stuck work, and the judgment that accumulates between them.
             </p>
         </header>
 
-        <ul class="blog-list">
+        <ul class="notes-list">
         {
-            publishedPosts.map((post) => (
+            publishedPosts.map((post, index) => (
                 <li>
                     <BlogCard
                       title={post.data.title}
@@ -35,6 +35,7 @@ const publishedPosts = blogPosts
                       publishedDate={post.data.publishedDate}
                       slug={post.id}
                       tags={post.data.tags}
+                      index={index + 1}
                     />
                 </li>
             ))
@@ -44,50 +45,49 @@ const publishedPosts = blogPosts
 </BaseLayout>
 
 <style>
-    .blog-container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: var(--spacing-xl) 0;
-    }
-
-    .blog-header {
+    .notes-container {
         display: grid;
-        gap: var(--spacing-sm);
-        margin-bottom: var(--spacing-2xl);
-        padding-bottom: var(--spacing-lg);
-        border-bottom: 1px solid var(--border-color);
+        gap: clamp(1.4rem, 3.5vw, 2.75rem);
+        padding-block: clamp(2rem, 5vw, 4.5rem);
     }
 
-    .blog-eyebrow {
-        color: var(--color-electric-blue);
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+    .notes-header {
+        display: grid;
+        gap: clamp(0.8rem, 2vw, var(--spacing-md));
+        max-width: 68rem;
+        padding-bottom: clamp(1.1rem, 3vw, 2rem);
+        border-bottom: var(--rule);
     }
 
-    .blog-header h1 {
-        margin-bottom: var(--spacing-sm);
-        line-height: 1.2;
-        padding-bottom: 0.06em;
+    .notes-header h1 {
+        max-width: 13ch;
+        font-size: clamp(3.4rem, 7.4vw, 6.25rem);
+        line-height: 0.94;
     }
 
-    .blog-subtitle {
-        font-size: 1.125rem;
-        color: var(--text-secondary);
-        max-width: 42rem;
+    .notes-subtitle {
+        color: var(--text-primary);
+        max-width: 56rem;
+        font-size: clamp(1.02rem, 1.55vw, 1.28rem);
+        line-height: 1.55;
     }
 
-    .blog-list {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-lg);
+    .notes-list {
+        display: grid;
+        gap: 0.75rem;
         list-style: none;
         padding: 0;
         margin: 0;
     }
 
-    .blog-list li {
+    .notes-list li {
         list-style: none;
+    }
+
+    @media (max-width: 640px) {
+        .notes-header h1 {
+            max-width: 9ch;
+            font-size: clamp(3.25rem, 15vw, 4.9rem);
+        }
     }
 </style>

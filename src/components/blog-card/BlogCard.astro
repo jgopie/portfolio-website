@@ -6,123 +6,165 @@ interface Props {
   publishedDate: Date;
   slug: string;
   tags: string[];
+  index: number;
 }
 
-const { title, excerpt, image, publishedDate, slug, tags } = Astro.props;
+const { title, excerpt, image, publishedDate, slug, tags, index } = Astro.props;
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
 }).format(publishedDate);
 ---
-<a href={`/blog/${slug}`} class="blog-card-link">
-    <article class="blog-container">
+<a href={`/blog/${slug}`} class="note-card-link">
+    <article class="note-card">
+        <span class="note-index">{String(index).padStart(2, '0')}</span>
+        <div class="note-copy">
+            <div class="note-meta">
+                <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
+                <span>{tags.slice(0, 2).join(' / ')}</span>
+            </div>
+            <h2>{title}</h2>
+            <p>{excerpt}</p>
+        </div>
         {image && (
             <img
-                class="blogImage"
+                class="note-image"
                 src={`/${image}`}
                 alt=""
-                width="120"
-                height="120"
+                width="140"
+                height="110"
                 loading="lazy"
                 aria-hidden="true"
             />
         )}
-        <div class="link-container">
-            <div class="blog-meta">
-                <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
-                <span aria-hidden="true">|</span>
-                <span>{tags.join(' / ')}</span>
-            </div>
-            <h2>{title}</h2>
-            <p class="blog-excerpt">{excerpt}</p>
-        </div>
     </article>
 </a>
 
 <style>
-.blog-container {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-lg);
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-card);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    max-width: 800px;
+.note-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
 }
 
-.blog-container:hover {
-    box-shadow: var(--shadow-card-hover);
-    border-color: var(--color-electric-blue);
-    transform: translateY(-2px);
-}
-
-.blogImage {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: var(--radius-button);
-    flex-shrink: 0;
-}
-
-.link-container {
-    flex: 1;
+.note-card {
+    position: relative;
     display: grid;
-    gap: 0.75rem;
+    gap: var(--spacing-md);
+    align-items: start;
+    overflow: hidden;
+    padding: clamp(1rem, 2.6vw, 1.55rem);
+    border: var(--rule);
+    border-radius: var(--radius-card);
+    background:
+        linear-gradient(color-mix(in oklch, var(--border-color) 18%, transparent) 1px, transparent 1px) 0 0 / 100% 2rem,
+        color-mix(in oklch, var(--bg-surface) 84%, transparent);
 }
 
-.blog-meta {
+.note-card::after {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-bottom: var(--rule);
+    border-left: var(--rule);
+    background: color-mix(in oklch, var(--bg-main) 80%, var(--annotation) 8%);
+    content: "";
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+
+.note-card:hover .note-copy h2 {
+    color: var(--annotation);
+}
+
+.note-card:hover .note-image {
+    border-color: var(--annotation);
+}
+
+.note-index {
+    width: fit-content;
+    padding: 0.14rem 0.36rem;
+    border: 1px solid color-mix(in oklch, var(--border-color) 72%, transparent);
+    border-radius: var(--radius-chip);
+    color: var(--text-faint);
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-weight: 740;
+}
+
+.note-image {
+    width: 100%;
+    max-width: 140px;
+    aspect-ratio: 14 / 11;
+    border: var(--rule);
+    border-radius: calc(var(--radius-card) - 0.12rem);
+    object-fit: cover;
+    filter: saturate(0.76) contrast(1.05);
+}
+
+.note-copy {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.note-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.45rem;
-    color: var(--text-secondary);
-    font-size: 0.85rem;
+    gap: 0.5rem;
+    color: var(--annotation);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-weight: 740;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
-.link-container h2 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0;
-    line-height: 1.4;
-    transition: color 0.2s ease;
+.note-copy h2 {
+    max-width: 24ch;
+    font-size: clamp(1.45rem, 3.2vw, 2.45rem);
+    line-height: 1;
+    transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.blog-excerpt {
-    margin: 0;
-    color: var(--text-secondary);
-    line-height: 1.7;
+.note-copy p {
+    max-width: 56rem;
+    font-size: 1.02rem;
 }
 
-.blog-container:hover .link-container h2 {
-    color: var(--color-electric-blue);
-}
-
-.blog-card-link {
-    text-decoration: none;
-    display: block;
-}
-
-.blog-card-link:focus-visible .blog-container {
-    border-color: var(--color-electric-blue);
-    box-shadow: var(--shadow-card-hover);
-}
-
-@media (max-width: 640px) {
-    .blog-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-md);
+@media (min-width: 760px) {
+    .note-card {
+        grid-template-columns: 3rem minmax(0, 1fr) 132px;
     }
-    
-    .blogImage {
-        width: 100%;
-        height: 200px;
+}
+
+@media (max-width: 759px) {
+    .note-card {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+
+    .note-image {
+        grid-column: 2;
+        width: min(9rem, 44vw);
+        max-width: none;
+        margin-top: 0.25rem;
+    }
+
+    .note-copy {
+        grid-column: 2;
+    }
+
+    .note-copy h2 {
+        font-size: clamp(1.55rem, 8vw, 2.25rem);
+    }
+
+    .note-copy p {
+        font-size: 0.98rem;
+        line-height: 1.6;
     }
 }
 </style>

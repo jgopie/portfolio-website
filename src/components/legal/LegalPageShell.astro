@@ -75,40 +75,21 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
 
 <style>
   .legal-hero {
-    position: relative;
-    overflow: hidden;
     display: grid;
     gap: var(--spacing-lg);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    border: 1px solid var(--border-color);
-    border-radius: 24px;
-    background:
-      radial-gradient(circle at top right, rgba(0, 194, 255, 0.14), transparent 30%),
-      radial-gradient(circle at bottom left, rgba(138, 46, 255, 0.12), transparent 28%),
-      linear-gradient(160deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
-  }
-
-  [data-theme='light'] .legal-hero {
-    background:
-      radial-gradient(circle at top right, rgba(0, 194, 255, 0.12), transparent 30%),
-      radial-gradient(circle at bottom left, rgba(138, 46, 255, 0.1), transparent 28%),
-      linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(248, 249, 250, 0.92));
-    box-shadow: 0 20px 40px rgba(17, 24, 39, 0.08);
+    padding-block: clamp(2rem, 6vw, 4rem);
+    border-bottom: var(--rule);
   }
 
   .legal-eyebrow {
     display: inline-flex;
-    align-items: center;
     width: fit-content;
-    padding: 0.5rem 0.9rem;
-    border: 1px solid rgba(0, 194, 255, 0.24);
-    border-radius: var(--radius-pill);
-    background: rgba(0, 194, 255, 0.08);
-    color: var(--color-electric-blue);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    color: var(--annotation);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-weight: 760;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
@@ -119,7 +100,7 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   }
 
   .legal-hero-grid {
-    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.95fr);
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
     align-items: start;
   }
 
@@ -129,87 +110,107 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   }
 
   .legal-copy h1 {
-    max-width: 12ch;
-    margin-bottom: 0;
+    max-width: 11ch;
+    font-size: clamp(3rem, 8vw, 6rem);
   }
 
   .legal-copy p {
-    max-width: 60ch;
-    line-height: 1.7;
+    max-width: 62ch;
+    color: var(--text-primary);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    line-height: 1.55;
   }
 
   .legal-related-links {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
+    gap: 0.5rem;
   }
 
   .legal-related-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 42px;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-button);
-    background: rgba(255, 255, 255, 0.02);
+    min-height: 2.45rem;
+    padding: 0.55rem 0.75rem;
+    border: var(--rule);
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklch, var(--bg-surface) 72%, transparent);
     color: var(--text-primary);
-    font-weight: 500;
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 680;
+    text-decoration: none;
   }
 
   .legal-related-link:hover,
   .legal-related-link:focus-visible {
-    transform: translateY(-1px);
-    border-color: var(--color-electric-blue);
-    box-shadow: var(--shadow-card-hover);
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .legal-meta-panel,
   .legal-section,
   .legal-aside-card {
-    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    border: var(--rule);
     border-radius: var(--radius-card);
-    background: var(--bg-surface);
+    background:
+      linear-gradient(color-mix(in oklch, var(--border-color) 13%, transparent) 1px, transparent 1px) 0 0 / 100% 2.15rem,
+      color-mix(in oklch, var(--bg-surface) 86%, transparent);
+  }
+
+  .legal-meta-panel::after,
+  :global(.legal-section)::after,
+  :global(.legal-aside-card)::after {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-bottom: var(--rule);
+    border-left: var(--rule);
+    background: color-mix(in oklch, var(--bg-main) 82%, var(--annotation) 7%);
+    content: "";
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
   }
 
   .legal-meta-panel {
     display: grid;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    gap: 0.7rem;
+    padding: var(--spacing-md);
   }
 
   .legal-metric {
     display: grid;
-    gap: 0.35rem;
-    padding: 0.9rem 1rem;
-    border-radius: calc(var(--radius-card) - 4px);
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-  }
-
-  [data-theme='light'] .legal-metric {
-    background: rgba(17, 24, 39, 0.02);
-    border-color: rgba(17, 24, 39, 0.05);
+    gap: 0.25rem;
+    padding: 0.85rem;
+    border: 1px solid color-mix(in oklch, var(--border-color) 70%, transparent);
+    border-radius: calc(var(--radius-card) - 0.12rem);
+    background: color-mix(in oklch, var(--bg-inset) 46%, transparent);
   }
 
   .legal-metric-label {
-    color: var(--text-secondary);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    color: var(--annotation);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-weight: 740;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
   .legal-metric-value {
     color: var(--text-primary);
-    font-size: 1.05rem;
-    font-weight: 600;
-    line-height: 1.4;
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
+    font-weight: 640;
+    line-height: 1.35;
   }
 
   .legal-content-grid {
-    grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.95fr);
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
     margin-top: var(--spacing-xl);
   }
 
@@ -223,12 +224,13 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   .legal-footer {
     margin-top: var(--spacing-xl);
     padding-top: var(--spacing-md);
-    border-top: 1px solid var(--border-color);
+    border-top: var(--rule);
   }
 
   .legal-footer p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+    color: var(--text-faint);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
   }
 
   :global(.legal-section),
@@ -241,11 +243,12 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   :global(.legal-section h2),
   :global(.legal-aside-card h2) {
     margin-bottom: 0;
+    font-size: clamp(1.45rem, 3vw, 2.15rem);
   }
 
   :global(.legal-section h3) {
-    font-size: 1.05rem;
     margin-bottom: 0;
+    font-size: 1.05rem;
   }
 
   :global(.legal-section p),
@@ -270,15 +273,11 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   }
 
   :global(.legal-callout) {
-    padding: 1rem 1rem 1rem 1.1rem;
-    border-left: 3px solid var(--color-electric-blue);
-    border-radius: 10px;
-    background: rgba(0, 194, 255, 0.08);
+    padding: 1rem;
+    border: 1px solid color-mix(in oklch, var(--annotation) 42%, var(--border-color));
+    border-radius: var(--radius-card);
+    background: color-mix(in oklch, var(--annotation) 11%, var(--bg-surface));
     color: var(--text-primary);
-  }
-
-  [data-theme='light'] :global(.legal-callout) {
-    background: rgba(0, 194, 255, 0.07);
   }
 
   @media (max-width: 860px) {
@@ -289,25 +288,17 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .legal-hero,
+    .legal-meta-panel,
     :global(.legal-section),
     :global(.legal-aside-card) {
-      animation: legal-rise-in 0.55s ease both;
-    }
-
-    :global(.legal-section:nth-of-type(2)) {
-      animation-delay: 0.08s;
-    }
-
-    :global(.legal-section:nth-of-type(3)) {
-      animation-delay: 0.16s;
+      animation: legal-rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
   }
 
   @keyframes legal-rise-in {
     from {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(10px);
     }
 
     to {

@@ -40,7 +40,7 @@
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: linear-gradient(135deg, #00C2FF 0%, #8A2EFF 100%);
+    background: var(--gradient-brand);
     transition: width 0.3s ease;
 }
 

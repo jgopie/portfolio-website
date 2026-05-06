@@ -1,58 +1,43 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { buildCanonicalUrl, siteConfig } from "../data/site";
 
-const proofPoints = [
-  {
-    label: "End-to-end delivery",
-    value: "Frontend, backend, automation, and deployment owned together.",
-  },
-  {
-    label: "Workflow automation",
-    value: "Systems built to remove repetitive work and survive messy edge cases.",
-  },
-  {
-    label: "Production mindset",
-    value: "Testing, observability, and reliability matter as much as shipping fast.",
-  },
-];
+const blogPosts = await getCollection('blog');
+const publishedPosts = blogPosts
+  .filter((post) => !post.data.isDraft)
+  .sort((a, b) => b.data.publishedDate.getTime() - a.data.publishedDate.getTime());
 
-const caseStudies = [
+const featuredNote = publishedPosts[0];
+const featuredDate = featuredNote
+  ? new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    }).format(featuredNote.data.publishedDate)
+  : '';
+
+const workLedger = [
   {
     title: "MLS Broker Portal",
-    problem:
-      "Agents needed a fast way to browse MLS inventory, claim listings safely, and create CRM deals without duplicate work.",
-    role: "Full-stack developer across backend and frontend",
-    stack:
-      "React, TypeScript, Python, Flask, Firebase Auth, Firestore, Cloud Run, Cloud Tasks, Google Cloud Storage",
-    outcome:
-      "Delivered atomic claim-and-create flows, scalable listing detail views, and async processing that reduced operational conflicts.",
-    linkLabel: "Request walkthrough",
-    linkHref: `mailto:${siteConfig.contactEmail}?subject=MLS%20Broker%20Portal%20walkthrough`,
+    marker: "claim flow",
+    role: "Full-stack build across React, Python, Firebase, Cloud Run, and async tasking.",
+    note:
+      "Designed listing detail surfaces and atomic claim-to-CRM behavior for work where duplicate ownership would have caused real operational pain.",
   },
   {
     title: "Permit & Property Verification Pipeline",
-    problem:
-      "The business needed roof-related permit verification across multiple jurisdictions without relying on fragile manual research.",
-    role: "Lead engineer building the pipeline solo",
-    stack:
-      "Python, TypeScript, FastAPI, Playwright-based browser automation, PostgreSQL, Docker",
-    outcome:
-      "Shipped scheduled verification runs, expanded jurisdiction support, and added live/integration coverage to reduce production regressions.",
-    linkLabel: "Discuss implementation",
-    linkHref: `mailto:${siteConfig.contactEmail}?subject=Permit%20Verification%20Pipeline%20walkthrough`,
+    marker: "automation",
+    role: "Solo pipeline owner using Python, TypeScript, FastAPI, Playwright, PostgreSQL, and Docker.",
+    note:
+      "Turned brittle jurisdiction research into scheduled verification runs with integration coverage and fewer production surprises.",
   },
   {
     title: "WhatsApp AI Intake Automation",
-    problem:
-      "A legal intake workflow needed structured triage, human handoff, and auditable summaries without forcing leads through a traditional form.",
-    role: "Technical owner from product shape to delivery",
-    stack:
-      "Next.js, TypeScript, PostgreSQL, Prisma, WhatsApp Cloud API, OpenAI API, OAuth 2.0",
-    outcome:
-      "Delivered concurrent chat handling, recommendation logic with reasons, escalation paths, and case-management syncing for qualified leads.",
-    linkLabel: "Talk through the system",
-    linkHref: `mailto:${siteConfig.contactEmail}?subject=WhatsApp%20AI%20Intake%20walkthrough`,
+    marker: "handoff",
+    role: "Technical owner across Next.js, PostgreSQL, Prisma, WhatsApp Cloud API, OpenAI, and OAuth.",
+    note:
+      "Built structured triage, auditable summaries, human escalation, and case-management syncing for a conversational intake path.",
   },
 ];
 
@@ -64,136 +49,111 @@ const contactLinks = [
 ---
 
 <BaseLayout
-  title="Portfolio"
-  description="Jordan Gopie is a full-stack developer focused on product engineering, workflow automation, and reliable web systems."
+  title="Field Notes"
+  description="Jordan Gopie writes and builds from the messy middle of full-stack projects, automation, client constraints, and practical software work."
   canonicalUrl={buildCanonicalUrl('/')}
 >
-  <section class="hero-section">
-    <div class="hero-copy">
-      <p class="hero-tagline">Full-stack developer</p>
-      <h1>Shipping reliable software for teams that need less friction and more throughput.</h1>
-      <p class="hero-description">
-        I build web apps, backend services, and automation systems that replace repetitive
-        manual work with software that teams can trust in production.
+  <section class="desk-hero" aria-labelledby="home-title">
+    <div class="desk-copy">
+      <p class="hero-tagline">Late-night field notes</p>
+      <h1 id="home-title">Jordan Gopie</h1>
+      <p class="hero-statement">
+        I build software in the part of the job where product ideas meet dates, client pressure,
+        deployment constraints, and code that has to keep working after the demo.
       </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="#contact" class="btn-secondary">Contact Me</a>
+      <div class="hero-routes" aria-label="Primary routes">
+        <a href="/blog" class="btn-primary">Read the notes</a>
+        <a href="#work-ledger" class="btn-secondary">Scan the ledger</a>
       </div>
-      <p class="hero-supporting">
-        Recent work spans broker tooling, browser automation, AI-assisted intake workflows,
-        and internal systems with tight operational constraints.
-      </p>
     </div>
 
-    <div class="hero-identity" aria-hidden="true">
-      <div class="hero-logo">
-        <span class="hero-logo-letter hero-logo-j">J</span>
-        <span class="hero-logo-letter hero-logo-g">G</span>
-      </div>
-      <div class="hero-status">
-        <span>Product engineering</span>
-        <span>Automation systems</span>
-        <span>Client work</span>
-      </div>
+    <aside class="featured-note" aria-label="Featured note">
+      {featuredNote && (
+        <a href={`/blog/${featuredNote.id}`} class="hero-slip">
+          <span class="slip-label">Latest field slip</span>
+          <time class="slip-date" datetime={featuredNote.data.publishedDate.toISOString()}>
+            {featuredDate}
+          </time>
+          <strong>{featuredNote.data.title}</strong>
+          <span class="slip-copy">{featuredNote.data.excerpt}</span>
+          <span class="slip-margin">Filed after the tidy plan met the actual build.</span>
+        </a>
+      )}
+    </aside>
+  </section>
+
+  <section class="now-section" aria-labelledby="now-title">
+    <div class="section-heading">
+      <p class="section-kicker">Current margin note</p>
+      <h2 id="now-title">The useful work usually starts after the clean diagram stops being true.</h2>
+    </div>
+    <div class="note-columns">
+      <p>
+        This site is less a pitch than a record: what broke, what shipped, what I learned,
+        and where software helped a real workflow become less fragile.
+      </p>
+      <p>
+        The writing is intentionally uneven in age. Older notes stay visible because they show the
+        route, not just the current posture.
+      </p>
     </div>
   </section>
 
-  <section class="about-section" aria-labelledby="about-title">
+  <section class="work-section" id="work-ledger" aria-labelledby="work-title">
     <div class="section-heading">
-      <p class="section-kicker">About</p>
-      <h2 id="about-title">A product-minded engineer who likes untangling operational mess.</h2>
+      <p class="section-kicker">Ledger</p>
+      <h2 id="work-title">A few shipped things, compressed into their pressure points.</h2>
     </div>
 
-    <div class="about-grid">
-      <div class="about-copy">
-        <p class="about-lede">
-          Most of my recent work has been about taking a process that is slow, brittle, or
-          hard to scale and turning it into something software can handle consistently.
-        </p>
-        <p>
-          That usually means full-stack delivery across interface, API, automation, data
-          handling, and deployment. I am most useful where the work touches both product
-          decisions and implementation details, especially when reliability matters more than
-          novelty.
-        </p>
-      </div>
-
-      <div class="proof-grid">
-        {
-          proofPoints.map((point) => (
-            <article class="proof-card">
-              <h3>{point.label}</h3>
-              <p>{point.value}</p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="projects-section" id="projects" aria-labelledby="projects-title">
-    <div class="section-heading">
-      <p class="section-kicker">Selected Work</p>
-      <h2 id="projects-title">Three projects that show how I work.</h2>
-      <p class="section-summary">
-        Client-sensitive details stay private, but these summaries reflect the kind of
-        systems I design and ship.
-      </p>
-    </div>
-
-    <div class="projects-grid">
+    <div class="ledger-list">
       {
-        caseStudies.map((study) => (
-          <article class="card project-card">
-            <div class="project-header">
-              <h3>{study.title}</h3>
-              <a href={study.linkHref} class="project-link">
-                {study.linkLabel}
-              </a>
+        workLedger.map((entry, index) => (
+          <article class="ledger-entry">
+            <span class="ledger-number">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <p class="ledger-marker">{entry.marker}</p>
+              <h3>{entry.title}</h3>
             </div>
-            <div class="project-section">
-              <span>Problem</span>
-              <p>{study.problem}</p>
-            </div>
-            <div class="project-section">
-              <span>Role</span>
-              <p>{study.role}</p>
-            </div>
-            <div class="project-section">
-              <span>Stack</span>
-              <p>{study.stack}</p>
-            </div>
-            <div class="project-section">
-              <span>Outcome</span>
-              <p>{study.outcome}</p>
-            </div>
+            <p class="ledger-role">{entry.role}</p>
+            <p>{entry.note}</p>
           </article>
         ))
       }
     </div>
   </section>
 
-  <section class="writing-section" aria-labelledby="writing-title">
-    <div class="writing-card">
-      <div>
-        <p class="section-kicker">Writing</p>
-        <h2 id="writing-title">The blog is still here, just not driving the homepage.</h2>
-        <p>
-          I use it for engineering notes, postmortems, and reflections on real project work.
-        </p>
-      </div>
-      <a href="/blog" class="btn-secondary">Read the Blog</a>
+  <section class="notes-section" aria-labelledby="notes-title">
+    <div class="section-heading">
+      <p class="section-kicker">Notes index</p>
+      <h2 id="notes-title">Start with the post that still has dirt under its nails.</h2>
+    </div>
+
+    <div class="note-strip">
+      {
+        publishedPosts.slice(0, 3).map((post) => {
+          const date = new Intl.DateTimeFormat('en-US', {
+            month: 'short',
+            year: 'numeric',
+          }).format(post.data.publishedDate);
+
+          return (
+            <a href={`/blog/${post.id}`} class="note-strip-link">
+              {post.data.image && <img src={`/${post.data.image}`} alt="" loading="lazy" />}
+              <span>{date}</span>
+              <strong>{post.data.title}</strong>
+            </a>
+          );
+        })
+      }
     </div>
   </section>
 
   <section class="contact-section" id="contact" aria-labelledby="contact-title">
     <div class="section-heading">
-      <p class="section-kicker">Contact</p>
-      <h2 id="contact-title">Need someone who can own the product and the implementation?</h2>
-      <p class="section-summary">
-        Email is the fastest way to reach me. GitHub and LinkedIn are here if you want a
-        quick sanity check first.
+      <p class="section-kicker">Signal</p>
+      <h2 id="contact-title">If something here maps to a conversation, send a note.</h2>
+      <p>
+        Email is best. GitHub and LinkedIn are there for the usual context check.
       </p>
     </div>
 
@@ -207,7 +167,7 @@ const contactLinks = [
             rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
           >
             <span>{link.label}</span>
-            <span class="contact-arrow" aria-hidden="true">-&gt;</span>
+            <span aria-hidden="true">↗</span>
           </a>
         ))
       }
@@ -216,270 +176,328 @@ const contactLinks = [
 </BaseLayout>
 
 <style>
-  .hero-section,
-  .about-section,
-  .projects-section,
-  .writing-section,
+  .desk-hero,
+  .now-section,
+  .work-section,
+  .notes-section,
   .contact-section {
-    padding: var(--spacing-2xl) 0;
+    padding-block: clamp(3rem, 8vw, 7rem);
   }
 
-  .about-section,
-  .projects-section,
-  .contact-section {
-    border-top: 1px solid var(--border-color);
-  }
-
-  .hero-section {
+  .desk-hero {
     display: grid;
-    gap: var(--spacing-2xl);
+    min-height: min(760px, calc(100vh - 7rem));
     align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+    border-bottom: var(--rule);
   }
 
-  .hero-copy {
+  .desk-copy {
     display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  .desk-copy h1 {
+    max-width: 8ch;
+  }
+
+  .hero-statement {
+    max-width: 44rem;
+    color: var(--text-primary);
+    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+    line-height: 1.45;
+  }
+
+  .hero-routes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .featured-note {
+    display: grid;
+    align-content: start;
     gap: var(--spacing-md);
   }
 
-  .hero-copy h1 {
-    max-width: 12ch;
-    margin: 0;
+  .hero-slip {
+    position: relative;
+    display: grid;
+    min-height: clamp(23rem, 43vw, 32rem);
+    align-content: end;
+    gap: 0.7rem;
+    overflow: hidden;
+    padding: clamp(1.15rem, 3vw, 2rem);
+    border: var(--rule);
+    border-radius: var(--radius-card);
+    background:
+      linear-gradient(color-mix(in oklch, var(--border-color) 23%, transparent) 1px, transparent 1px) 0 0 / 100% 2.15rem,
+      color-mix(in oklch, var(--bg-surface) 88%, var(--annotation) 5%);
+    color: var(--text-secondary);
+    text-decoration: none;
+    box-shadow: var(--paper-shadow);
   }
 
-  .hero-tagline,
-  .section-kicker {
-    color: var(--color-electric-blue);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+  .hero-slip::before {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 4.3rem;
+    height: 4.3rem;
+    border-bottom: var(--rule);
+    border-left: var(--rule);
+    background: color-mix(in oklch, var(--bg-main) 82%, var(--annotation) 9%);
+    content: "";
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+  }
+
+  .hero-slip::after {
+    position: absolute;
+    top: 1.05rem;
+    left: 1.05rem;
+    width: 5rem;
+    height: 1.9rem;
+    border: 1px solid color-mix(in oklch, var(--annotation) 52%, transparent);
+    border-radius: 50%;
+    content: "";
+    opacity: 0.32;
+    transform: rotate(-8deg);
+  }
+
+  .hero-slip:hover {
+    border-color: var(--accent);
+  }
+
+  .slip-label,
+  .slip-date,
+  .slip-margin {
+    font-family: var(--font-sans);
+    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-weight: 740;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  .hero-description,
-  .hero-supporting,
-  .section-summary,
-  .about-copy p,
-  .writing-card p {
-    max-width: 42rem;
-    line-height: 1.7;
+  .slip-label {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    color: var(--annotation);
+    font-size: 0.68rem;
   }
 
-  .hero-description {
-    font-size: 1.125rem;
-    color: var(--text-primary);
-  }
-
-  .hero-cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-sm);
-  }
-
-  .hero-identity {
-    display: grid;
-    gap: var(--spacing-md);
-    justify-items: start;
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    border: 1px solid var(--border-color);
-    border-radius: 28px;
-    background:
-      radial-gradient(circle at top right, rgba(0, 194, 255, 0.12), transparent 34%),
-      radial-gradient(circle at bottom left, rgba(138, 46, 255, 0.12), transparent 34%),
-      var(--bg-surface);
-  }
-
-  .hero-logo {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.12em;
-    font-family: var(--font-logo);
-    font-size: clamp(5rem, 14vw, 8rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-
-  .hero-logo-letter {
-    display: inline-block;
-  }
-
-  .hero-logo-j {
-    color: var(--color-electric-blue);
-    text-shadow: 0 0 24px rgba(0, 194, 255, 0.35);
-  }
-
-  .hero-logo-g {
-    color: var(--color-vibrant-purple);
-    text-shadow: 0 0 24px rgba(138, 46, 255, 0.35);
-  }
-
-  .hero-status {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-
-  .hero-status span,
-  .project-section span {
-    display: inline-flex;
+  .slip-date {
     width: fit-content;
-    padding: 0.4rem 0.7rem;
-    border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    padding: 0.18rem 0.42rem;
+    border: 1px solid color-mix(in oklch, var(--border-color) 72%, transparent);
+    border-radius: var(--radius-chip);
+    color: var(--text-faint);
+    font-size: 0.72rem;
+  }
+
+  .hero-slip strong {
+    max-width: 14ch;
+    color: var(--text-primary);
+    font-family: var(--font-serif);
+    font-size: clamp(2.05rem, 5vw, 3.85rem);
+    line-height: 0.95;
+  }
+
+  .slip-copy {
+    max-width: 34rem;
+    color: var(--text-primary);
+    font-size: clamp(1rem, 1.6vw, 1.16rem);
+    line-height: 1.55;
+  }
+
+  .slip-margin {
+    max-width: 18rem;
+    margin-top: 0.35rem;
+    color: var(--annotation);
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .note-meta,
+  .ledger-marker,
+  .note-strip-link span {
+    color: var(--annotation);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-weight: 740;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
   .section-heading {
     display: grid;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-xl);
+    gap: 0.8rem;
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
   }
 
   .section-heading h2 {
     max-width: 18ch;
-    margin: 0;
   }
 
-  .about-grid {
+  .section-heading p:not(.section-kicker) {
+    font-size: 1.08rem;
+  }
+
+  .note-columns {
     display: grid;
     gap: var(--spacing-lg);
+    max-width: 64rem;
   }
 
-  .about-copy {
+  .note-columns p {
+    color: var(--text-primary);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    line-height: 1.52;
+  }
+
+  .ledger-list {
+    display: grid;
+    border-top: var(--rule);
+  }
+
+  .ledger-entry {
     display: grid;
     gap: var(--spacing-md);
-    max-width: 44rem;
+    padding: clamp(1.25rem, 3.5vw, 2.25rem) 0;
+    border-bottom: var(--rule);
   }
 
-  .about-lede {
+  .ledger-number {
+    color: var(--text-faint);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-variation-settings: "MONO" 1, "CASL" 0;
+  }
+
+  .ledger-role {
     color: var(--text-primary);
-    font-size: 1.125rem;
   }
 
-  .proof-grid,
-  .projects-grid,
+  .note-strip,
   .contact-grid {
     display: grid;
-    gap: var(--spacing-lg);
-  }
-
-  .proof-card {
-    padding: var(--spacing-lg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-card);
-    background: var(--bg-surface);
-  }
-
-  .proof-card h3,
-  .project-card h3 {
-    margin-bottom: 0.6rem;
-  }
-
-  .proof-card p,
-  .project-card p {
-    line-height: 1.7;
-  }
-
-  .project-card {
-    display: grid;
     gap: var(--spacing-md);
   }
 
-  .project-header {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .project-link {
-    color: var(--text-primary);
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 0.18em;
-  }
-
-  .project-section {
+  .note-strip-link {
+    position: relative;
     display: grid;
-    gap: 0.55rem;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 0.7rem 1rem;
+    align-items: center;
+    min-height: 112px;
+    padding: 0.7rem;
+    border: var(--rule);
+    border-radius: var(--radius-card);
+    background: color-mix(in oklch, var(--bg-surface) 82%, transparent);
+    color: var(--text-primary);
+    text-decoration: none;
   }
 
-  .writing-card {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-lg);
-    align-items: center;
-    justify-content: space-between;
-    padding: clamp(1.5rem, 3vw, 2rem);
-    border: 1px solid var(--border-color);
-    border-radius: 24px;
-    background: var(--bg-surface);
+  .note-strip-link::after {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-top: var(--rule);
+    border-right: var(--rule);
+    content: "";
+    opacity: 0.7;
+  }
+
+  .note-strip-link:hover {
+    border-color: var(--annotation);
+  }
+
+  .note-strip-link img {
+    grid-row: span 2;
+    width: 96px;
+    height: 96px;
+    border-radius: calc(var(--radius-card) - 0.1rem);
+    object-fit: cover;
+    filter: saturate(0.78) contrast(1.04);
+  }
+
+  .note-strip-link strong {
+    align-self: start;
+    font-size: 1.2rem;
+    line-height: 1.15;
   }
 
   .contact-card {
     display: flex;
+    min-height: 4.5rem;
     align-items: center;
     justify-content: space-between;
     gap: var(--spacing-md);
-    min-height: 72px;
     padding: var(--spacing-lg);
-    border: 1px solid var(--border-color);
+    border: var(--rule);
     border-radius: var(--radius-card);
-    background: var(--bg-surface);
+    background: color-mix(in oklch, var(--bg-surface) 82%, transparent);
     color: var(--text-primary);
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    text-decoration: none;
   }
 
   .contact-card:hover {
-    border-color: var(--color-electric-blue);
-  }
-
-  .contact-card:focus-visible {
-    border-color: var(--color-electric-blue);
-  }
-
-  .contact-arrow {
-    color: var(--color-electric-blue);
+    border-color: var(--accent);
   }
 
   @media (min-width: 820px) {
-    .hero-section {
-      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
+    .desk-hero {
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.75fr);
     }
 
-    .about-grid {
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-      align-items: start;
-    }
-
-    .proof-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .projects-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
+    .note-columns,
+    .note-strip,
     .contact-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    .ledger-entry {
+      grid-template-columns: 4rem minmax(180px, 0.8fr) minmax(240px, 1fr) minmax(240px, 1.1fr);
+      align-items: start;
+    }
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-logo {
-      transition: transform 0.3s ease;
+  @media (min-width: 1180px) {
+    .desk-hero {
+      width: min(calc(100vw - 4rem), 1360px);
+      margin-inline: 50%;
+      transform: translateX(-50%);
+      grid-template-columns: minmax(0, 1.22fr) minmax(360px, 0.78fr);
+    }
+  }
+
+  @media (min-width: 820px) and (max-width: 1020px) {
+    .desk-hero {
+      min-height: auto;
+      padding-block: clamp(3.25rem, 8vw, 5rem);
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.82fr);
     }
 
-    .hero-logo:hover {
-      transform: scale(1.03);
+    .now-section {
+      padding-top: clamp(2.5rem, 7vw, 4rem);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .note-strip-link {
+      grid-template-columns: 76px minmax(0, 1fr);
+      min-height: 96px;
+    }
+
+    .note-strip-link img {
+      width: 76px;
+      height: 76px;
     }
   }
 </style>
