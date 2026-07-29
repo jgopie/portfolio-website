@@ -1,0 +1,139 @@
+---
+import LegalPageShell from '../../../components/legal/LegalPageShell.astro';
+import {
+  slimefallArcadeLegal,
+  slimefallArcadePrivacyPolicyUrl,
+  slimefallArcadeSupportUrl,
+} from '../../../data/slimefallArcadeLegal';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
+---
+
+<BaseLayout
+  title={`${slimefallArcadeLegal.appName} Support`}
+  description={`Support and troubleshooting for ${slimefallArcadeLegal.appName} on Android, iPhone, and iPad.`}
+  canonicalUrl={slimefallArcadeSupportUrl}
+>
+  <LegalPageShell
+    eyebrow="Player Support"
+    title={`${slimefallArcadeLegal.appName} support`}
+    summary="Find help for gameplay, local progress, advertising privacy controls, and platform leaderboards."
+    metaItems={[
+      { label: 'Platforms', value: 'Android, iPhone, and iPad' },
+      {
+        label: 'Support email',
+        value: slimefallArcadeLegal.supportEmail,
+        href: supportHref,
+      },
+      { label: 'Publisher', value: slimefallArcadeLegal.publisher },
+    ]}
+    relatedLinks={[
+      { label: 'Privacy policy', href: slimefallArcadePrivacyPolicyUrl },
+      { label: 'Email support', href: supportHref },
+    ]}
+    footerNote={`Public support page for ${slimefallArcadeLegal.appName}.`}
+  >
+    <article class="legal-section">
+      <h2>Get help</h2>
+      <p>
+        Email <a href={supportHref}>{slimefallArcadeLegal.supportEmail}</a> with
+        a short description of what happened. Please do not send passwords,
+        account credentials, advertising identifiers, or other sensitive
+        information.
+      </p>
+      <div class="legal-callout">
+        Slimefall Arcade has no publisher-operated player account or cloud-save
+        service. Progress and settings are stored on your device.
+      </div>
+    </article>
+
+    <article class="legal-section">
+      <h2>Include these details</h2>
+      <ul>
+        <li>Your device model and Android or iOS/iPadOS version.</li>
+        <li>The Slimefall Arcade app version and build number.</li>
+        <li>The game mode you were playing: Arcade, Daily, or Cozy.</li>
+        <li>The steps that led to the issue and whether it happens repeatedly.</li>
+        <li>A screenshot or screen recording, when it can be shared safely.</li>
+      </ul>
+    </article>
+
+    <article class="legal-section">
+      <h2>Try these steps first</h2>
+      <ol>
+        <li>Close Slimefall Arcade completely and reopen it.</li>
+        <li>Check that the device has enough free storage and is not in low-power mode.</li>
+        <li>For rankings, confirm that you are signed in to Google Play Games or Game Center.</li>
+        <li>For online services or ads, retry on a stable internet connection.</li>
+        <li>Install the latest private or public version available to your account.</li>
+      </ol>
+      <p>
+        Clearing app data or uninstalling the game can remove local progress.
+        Try those steps only after deciding that the local data can be lost.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Rankings and score submissions</h2>
+      <p>
+        Arcade and Daily rankings use Google Play Games on Android and Game
+        Center on Apple devices. If you play while signed out or offline, an
+        eligible best score may remain queued on the device and retry after you
+        sign in, reconnect, resume the app, or finish a later run.
+      </p>
+      <p>
+        Cozy mode does not submit scores to an online leaderboard.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Ads and privacy options</h2>
+      <p>
+        Slimefall Arcade uses rewarded and interstitial ads and requests
+        non-personalized ads for the current release. Where privacy options are
+        available, reopen them from Settings in the game. A rewarded item is
+        granted only after the rewarded ad reports successful completion.
+      </p>
+      <p>
+        Read the <a href={slimefallArcadePrivacyPolicyUrl}>privacy policy</a> for
+        details about AdMob, Google Play Games, Game Center, and local game data.
+      </p>
+    </article>
+
+    <article class="legal-section">
+      <h2>Local progress</h2>
+      <p>
+        Scores, Bits, unlocked themes, settings, and related progress are stored
+        locally. Slimefall Arcade does not currently offer cross-device cloud
+        save or a publisher-operated account recovery service.
+      </p>
+    </article>
+
+    <Fragment slot="aside">
+      <article class="legal-aside-card">
+        <h2>Supported play modes</h2>
+        <ul>
+          <li>Arcade</li>
+          <li>Daily Challenge</li>
+          <li>Cozy</li>
+        </ul>
+      </article>
+
+      <article class="legal-aside-card">
+        <h2>Before deleting data</h2>
+        <p>
+          Uninstalling the app or clearing its storage can permanently remove
+          local scores, Bits, themes, settings, and queued leaderboard scores.
+        </p>
+      </article>
+
+      <article class="legal-aside-card">
+        <h2>Contact</h2>
+        <p>
+          <a href={supportHref}>{slimefallArcadeLegal.supportEmail}</a>
+        </p>
+      </article>
+    </Fragment>
+  </LegalPageShell>
+</BaseLayout>

@@ -4,9 +4,12 @@ export const slimefallArcadeLegal = {
   appName: 'Slimefall Arcade',
   publisher: 'Jordan Gopie / jgopie.com',
   supportEmail: siteConfig.contactEmail,
-  effectiveDate: 'July 12, 2026',
+  effectiveDate: 'July 28, 2026',
   siteUrl: siteConfig.siteUrl,
-  route: '/apps/slimefall-arcade/privacy-policy',
+  routes: {
+    privacyPolicy: '/apps/slimefall-arcade/privacy-policy',
+    support: '/apps/slimefall-arcade/support',
+  },
   localData: [
     'Game progress, scores, earned Bits, unlocked and selected themes, and puzzle progress.',
     'Preferences such as sound settings and the selected renderer.',
@@ -36,4 +39,7 @@ export const slimefallArcadeLegal = {
 } as const;
 
 export const slimefallArcadePrivacyPolicyUrl =
-  `${slimefallArcadeLegal.siteUrl}${slimefallArcadeLegal.route}`;
+  `${slimefallArcadeLegal.siteUrl}${slimefallArcadeLegal.routes.privacyPolicy}`;
+
+export const slimefallArcadeSupportUrl =
+  `${slimefallArcadeLegal.siteUrl}${slimefallArcadeLegal.routes.support}`;

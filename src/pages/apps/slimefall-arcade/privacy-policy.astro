@@ -3,6 +3,7 @@ import LegalPageShell from '../../../components/legal/LegalPageShell.astro';
 import {
   slimefallArcadeLegal,
   slimefallArcadePrivacyPolicyUrl,
+  slimefallArcadeSupportUrl,
 } from '../../../data/slimefallArcadeLegal';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
@@ -27,7 +28,10 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
         href: supportHref,
       },
     ]}
-    relatedLinks={slimefallArcadeLegal.thirdPartyLinks}
+    relatedLinks={[
+      { label: 'Support', href: slimefallArcadeSupportUrl },
+      ...slimefallArcadeLegal.thirdPartyLinks,
+    ]}
     footerNote={`Public privacy policy for ${slimefallArcadeLegal.appName}. Effective ${slimefallArcadeLegal.effectiveDate}.`}
   >
     <article class="legal-section">
@@ -67,10 +71,12 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
         {slimefallArcadeLegal.platformData.map((item) => <li>{item}</li>)}
       </ul>
       <p>
-        AdMob uses this information to request, deliver, limit, personalize or
-        measure ads, maintain ad security, prevent fraud, and diagnose service
-        problems. Ads may be personalized, non-personalized, or limited where
-        required by your choices, platform settings, or applicable law.
+        The current release requests non-personalized ads from AdMob. AdMob may
+        use contextual information, consent or privacy signals, and limited
+        device information to deliver and measure those ads, maintain ad
+        security, prevent fraud, and diagnose service problems. The game does
+        not request permission to track you across other companies' apps and
+        websites.
       </p>
     </article>
 
@@ -107,6 +113,11 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
       <ul>
         {slimefallArcadeLegal.choices.map((item) => <li>{item}</li>)}
       </ul>
+      <p>
+        Where required, the game uses Google's User Messaging Platform to
+        collect or update advertising privacy choices. You can reopen the
+        available privacy options from the game's Settings screen.
+      </p>
       <p>
         Depending on where you live, privacy law may provide additional rights
         concerning access, correction, deletion, restriction, objection, or
@@ -153,6 +164,8 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
       <p>
         Send questions or privacy requests to
         <a href={supportHref}>{slimefallArcadeLegal.supportEmail}</a>.
+        For gameplay or technical help, visit the
+        <a href={slimefallArcadeSupportUrl}>Slimefall Arcade support page</a>.
       </p>
     </article>
 
