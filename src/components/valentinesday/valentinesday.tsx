@@ -1,18 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import './valentinesday.styles.css';
 
-type ValentinesDayProps = {
-    initialCelebrated?: boolean;
-};
-
 const VALID_USERNAME = "dpoonburke";
 const VALID_PASSWORD = "prettyboobsin";
 
-export const ValentinesDay = ({ initialCelebrated = false }: ValentinesDayProps) => {
+export const ValentinesDay = () => {
     const [userInput, setUserInput] = useState("");
     const [password, setPassword] = useState("");
-    const [isLoggedIn, setLogIn] = useState(initialCelebrated);
-    const [hasCelebrated, setHasCelebrated] = useState(initialCelebrated);
+    const [isLoggedIn, setLogIn] = useState(false);
+    const [hasCelebrated, setHasCelebrated] = useState(false);
     const [loginError, setLoginError] = useState("");
     const [showHearts, setShowHearts] = useState(false);
     const [heartsKey, setHeartsKey] = useState(0);
@@ -59,6 +55,13 @@ export const ValentinesDay = ({ initialCelebrated = false }: ValentinesDayProps)
             })),
         [],
     );
+    useEffect(() => {
+        if (!hasValentinesCookie()) {
+            return;
+        }
+        setLogIn(true);
+        setHasCelebrated(true);
+    }, []);
     useEffect(() => {
         if (!isLoggedIn || hasCelebrated) {
             return;
@@ -194,6 +197,15 @@ function setValentinesCookie() {
         return;
     }
     document.cookie = "valentinesday_yes=1; Path=/; Max-Age=31536000; SameSite=Lax";
+}
+
+function hasValentinesCookie() {
+    if (typeof document === "undefined") {
+        return false;
+    }
+    return document.cookie
+        .split(";")
+        .some(cookie => cookie.trim() === "valentinesday_yes=1");
 }
 
 function getRandomNoPosition(button: HTMLButtonElement | null) {
