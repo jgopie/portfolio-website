@@ -49,83 +49,41 @@ const contactLinks = [
 ---
 
 <BaseLayout
-  title="Field Notes"
-  description="Jordan Gopie writes and builds from the messy middle of full-stack projects, automation, client constraints, and practical software work."
+  title="Home"
+  description="Jordan Gopie's writing and software projects."
   canonicalUrl={buildCanonicalUrl('/')}
 >
   <section class="desk-hero" aria-labelledby="home-title">
     <div class="desk-copy">
-      <p class="hero-tagline">Late-night field notes</p>
+      <p class="hero-tagline">Software development</p>
       <h1 id="home-title">Jordan Gopie</h1>
       <p class="hero-statement">
         I build software in the part of the job where product ideas meet dates, client pressure,
         deployment constraints, and code that has to keep working after the demo.
       </p>
       <div class="hero-routes" aria-label="Primary routes">
-        <a href="/blog" class="btn-primary">Read the notes</a>
-        <a href="#work-ledger" class="btn-secondary">Scan the ledger</a>
+        <a href="/blog" class="btn-primary">Read my writing</a>
+        <a href="#work-ledger" class="btn-secondary">View my work</a>
       </div>
     </div>
 
-    <aside class="featured-note" aria-label="Featured note">
+    <aside class="featured-note" aria-label="Featured article">
       {featuredNote && (
         <a href={`/blog/${featuredNote.id}`} class="hero-slip">
-          <span class="slip-label">Latest field slip</span>
+          <span class="slip-label">Latest post</span>
           <time class="slip-date" datetime={featuredNote.data.publishedDate.toISOString()}>
             {featuredDate}
           </time>
           <strong>{featuredNote.data.title}</strong>
           <span class="slip-copy">{featuredNote.data.excerpt}</span>
-          <span class="slip-margin">Filed after the tidy plan met the actual build.</span>
         </a>
       )}
     </aside>
   </section>
 
-  <section class="now-section" aria-labelledby="now-title">
-    <div class="section-heading">
-      <p class="section-kicker">Current margin note</p>
-      <h2 id="now-title">The useful work usually starts after the clean diagram stops being true.</h2>
-    </div>
-    <div class="note-columns">
-      <p>
-        This site is less a pitch than a record: what broke, what shipped, what I learned,
-        and where software helped a real workflow become less fragile.
-      </p>
-      <p>
-        The writing is intentionally uneven in age. Older notes stay visible because they show the
-        route, not just the current posture.
-      </p>
-    </div>
-  </section>
-
-  <section class="work-section" id="work-ledger" aria-labelledby="work-title">
-    <div class="section-heading">
-      <p class="section-kicker">Ledger</p>
-      <h2 id="work-title">A few shipped things, compressed into their pressure points.</h2>
-    </div>
-
-    <div class="ledger-list">
-      {
-        workLedger.map((entry, index) => (
-          <article class="ledger-entry">
-            <span class="ledger-number">{String(index + 1).padStart(2, '0')}</span>
-            <div>
-              <p class="ledger-marker">{entry.marker}</p>
-              <h3>{entry.title}</h3>
-            </div>
-            <p class="ledger-role">{entry.role}</p>
-            <p>{entry.note}</p>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
   <section class="notes-section" aria-labelledby="notes-title">
     <div class="section-heading">
-      <p class="section-kicker">Notes index</p>
-      <h2 id="notes-title">Start with the post that still has dirt under its nails.</h2>
+      <h2 id="notes-title">Writing</h2>
     </div>
 
     <div class="note-strip">
@@ -148,12 +106,47 @@ const contactLinks = [
     </div>
   </section>
 
+  <section class="now-section" aria-labelledby="now-title">
+    <div class="section-heading">
+      <h2 id="now-title">About this site</h2>
+    </div>
+    <div class="note-columns">
+      <p>
+        I write about projects, problems I've worked through, and what I've learned along the way.
+      </p>
+      <p>
+        Older posts remain here as a record of how my work has developed.
+      </p>
+    </div>
+  </section>
+
+  <section class="work-section" id="work-ledger" aria-labelledby="work-title">
+    <div class="section-heading">
+      <h2 id="work-title">Selected work</h2>
+    </div>
+
+    <div class="ledger-list">
+      {
+        workLedger.map((entry, index) => (
+          <article class="ledger-entry">
+            <span class="ledger-number">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <p class="ledger-marker">{entry.marker}</p>
+              <h3>{entry.title}</h3>
+            </div>
+            <p class="ledger-role">{entry.role}</p>
+            <p>{entry.note}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
   <section class="contact-section" id="contact" aria-labelledby="contact-title">
     <div class="section-heading">
-      <p class="section-kicker">Signal</p>
-      <h2 id="contact-title">If something here maps to a conversation, send a note.</h2>
+      <h2 id="contact-title">Contact</h2>
       <p>
-        Email is best. GitHub and LinkedIn are there for the usual context check.
+        Email is the best way to reach me. You can also find me on GitHub and LinkedIn.
       </p>
     </div>
 
@@ -176,17 +169,16 @@ const contactLinks = [
 </BaseLayout>
 
 <style>
-  .desk-hero,
   .now-section,
   .work-section,
   .notes-section,
   .contact-section {
-    padding-block: clamp(3rem, 8vw, 7rem);
+    padding-block: clamp(2.5rem, 5vw, 4rem);
   }
 
   .desk-hero {
     display: grid;
-    min-height: min(760px, calc(100vh - 7rem));
+    padding-block: clamp(3rem, 5vw, 5rem);
     align-items: center;
     gap: clamp(2rem, 6vw, 5rem);
     border-bottom: var(--rule);
@@ -194,18 +186,21 @@ const contactLinks = [
 
   .desk-copy {
     display: grid;
+    min-width: 0;
     gap: var(--spacing-lg);
   }
 
   .desk-copy h1 {
-    max-width: 8ch;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
   }
 
   .hero-statement {
     max-width: 44rem;
     color: var(--text-primary);
-    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
-    line-height: 1.45;
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    line-height: 1.6;
   }
 
   .hero-routes {
@@ -216,128 +211,84 @@ const contactLinks = [
 
   .featured-note {
     display: grid;
+    min-width: 0;
     align-content: start;
     gap: var(--spacing-md);
   }
 
   .hero-slip {
-    position: relative;
     display: grid;
-    min-height: clamp(23rem, 43vw, 32rem);
-    align-content: end;
+    align-content: start;
     gap: 0.7rem;
-    overflow: hidden;
-    padding: clamp(1.15rem, 3vw, 2rem);
-    border: var(--rule);
-    border-radius: var(--radius-card);
-    background:
-      linear-gradient(color-mix(in oklch, var(--border-color) 23%, transparent) 1px, transparent 1px) 0 0 / 100% 2.15rem,
-      color-mix(in oklch, var(--bg-surface) 88%, var(--annotation) 5%);
+    padding-block: 1.25rem;
+    border-top: var(--rule);
     color: var(--text-secondary);
     text-decoration: none;
-    box-shadow: var(--paper-shadow);
+    overflow-wrap: anywhere;
   }
 
-  .hero-slip::before {
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    width: 4.3rem;
-    height: 4.3rem;
-    border-bottom: var(--rule);
-    border-left: var(--rule);
-    background: color-mix(in oklch, var(--bg-main) 82%, var(--annotation) 9%);
-    content: "";
-    clip-path: polygon(100% 0, 100% 100%, 0 0);
-  }
-
-  .hero-slip::after {
-    position: absolute;
-    top: 1.05rem;
-    left: 1.05rem;
-    width: 5rem;
-    height: 1.9rem;
-    border: 1px solid color-mix(in oklch, var(--annotation) 52%, transparent);
-    border-radius: 50%;
-    content: "";
-    opacity: 0.32;
-    transform: rotate(-8deg);
-  }
-
-  .hero-slip:hover {
+  .hero-slip:is(:hover, :focus-visible) {
     border-color: var(--accent);
   }
 
   .slip-label,
-  .slip-date,
-  .slip-margin {
+  .slip-date {
     font-family: var(--font-sans);
-    font-variation-settings: "MONO" 1, "CASL" 0;
-    font-weight: 740;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-variation-settings: "MONO" 0, "CASL" 0;
+    font-weight: 550;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .slip-label {
-    position: absolute;
-    top: 1.1rem;
-    left: 1.1rem;
+    margin-bottom: 0.25rem;
     color: var(--annotation);
-    font-size: 0.68rem;
+    font-size: 0.8125rem;
   }
 
   .slip-date {
-    width: fit-content;
-    padding: 0.18rem 0.42rem;
-    border: 1px solid color-mix(in oklch, var(--border-color) 72%, transparent);
-    border-radius: var(--radius-chip);
-    color: var(--text-faint);
-    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
   }
 
   .hero-slip strong {
-    max-width: 14ch;
+    max-width: 24ch;
     color: var(--text-primary);
-    font-family: var(--font-serif);
-    font-size: clamp(2.05rem, 5vw, 3.85rem);
-    line-height: 0.95;
+    font-family: var(--font-sans);
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    font-weight: 600;
+    line-height: 1.25;
   }
 
   .slip-copy {
     max-width: 34rem;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     font-size: clamp(1rem, 1.6vw, 1.16rem);
     line-height: 1.55;
   }
 
-  .slip-margin {
-    max-width: 18rem;
-    margin-top: 0.35rem;
-    color: var(--annotation);
-    font-size: 0.7rem;
-    line-height: 1.45;
-  }
-
-  .note-meta,
   .ledger-marker,
   .note-strip-link span {
     color: var(--annotation);
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
-    font-weight: 740;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-variation-settings: "MONO" 0, "CASL" 0;
+    font-weight: 550;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .section-heading {
     display: grid;
     gap: 0.8rem;
-    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
   }
 
   .section-heading h2 {
-    max-width: 18ch;
+    max-width: 30ch;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.12;
+    overflow-wrap: anywhere;
   }
 
   .section-heading p:not(.section-kicker) {
@@ -352,8 +303,8 @@ const contactLinks = [
 
   .note-columns p {
     color: var(--text-primary);
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    line-height: 1.52;
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    line-height: 1.65;
   }
 
   .ledger-list {
@@ -366,54 +317,47 @@ const contactLinks = [
     gap: var(--spacing-md);
     padding: clamp(1.25rem, 3.5vw, 2.25rem) 0;
     border-bottom: var(--rule);
+    overflow-wrap: anywhere;
   }
 
   .ledger-number {
-    color: var(--text-faint);
+    color: var(--text-secondary);
     font-family: var(--font-sans);
     font-size: 0.9rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-variation-settings: "MONO" 0, "CASL" 0;
   }
 
   .ledger-role {
     color: var(--text-primary);
   }
 
-  .note-strip,
-  .contact-grid {
+  .note-strip {
     display: grid;
     gap: var(--spacing-md);
   }
 
+  .note-strip {
+    gap: 0;
+    border-top: var(--rule);
+  }
+
   .note-strip-link {
-    position: relative;
     display: grid;
     grid-template-columns: 96px minmax(0, 1fr);
     gap: 0.7rem 1rem;
     align-items: center;
     min-height: 112px;
-    padding: 0.7rem;
-    border: var(--rule);
-    border-radius: var(--radius-card);
-    background: color-mix(in oklch, var(--bg-surface) 82%, transparent);
+    padding-block: 1.25rem;
+    border-bottom: var(--rule);
     color: var(--text-primary);
     text-decoration: none;
   }
 
-  .note-strip-link::after {
-    position: absolute;
-    top: 0.55rem;
-    right: 0.55rem;
-    width: 1.2rem;
-    height: 1.2rem;
-    border-top: var(--rule);
-    border-right: var(--rule);
-    content: "";
-    opacity: 0.7;
-  }
-
-  .note-strip-link:hover {
-    border-color: var(--annotation);
+  .note-strip-link:is(:hover, :focus-visible) strong {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
   }
 
   .note-strip-link img {
@@ -422,33 +366,34 @@ const contactLinks = [
     height: 96px;
     border-radius: calc(var(--radius-card) - 0.1rem);
     object-fit: cover;
-    filter: saturate(0.78) contrast(1.04);
   }
 
   .note-strip-link strong {
     align-self: start;
     font-size: 1.2rem;
     line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
   }
 
   .contact-card {
-    display: flex;
-    min-height: 4.5rem;
+    display: inline-flex;
+    min-height: 2.75rem;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
-    border: var(--rule);
-    border-radius: var(--radius-card);
-    background: color-mix(in oklch, var(--bg-surface) 82%, transparent);
-    color: var(--text-primary);
+    gap: 0.5rem;
+    color: var(--accent);
     font-family: var(--font-sans);
-    font-weight: 700;
-    text-decoration: none;
+    font-weight: 550;
+    text-decoration: underline;
   }
 
-  .contact-card:hover {
-    border-color: var(--accent);
+  .contact-card:is(:hover, :focus-visible) {
+    text-decoration-thickness: 2px;
   }
 
   @media (min-width: 820px) {
@@ -456,36 +401,29 @@ const contactLinks = [
       grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.75fr);
     }
 
-    .note-columns,
-    .note-strip,
-    .contact-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .note-columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .note-strip-link {
+      grid-template-columns: 96px 8rem minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .note-strip-link img {
+      grid-row: auto;
+    }
+
+    .note-strip-link strong {
+      align-self: center;
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
     .ledger-entry {
       grid-template-columns: 4rem minmax(180px, 0.8fr) minmax(240px, 1fr) minmax(240px, 1.1fr);
       align-items: start;
-    }
-  }
-
-  @media (min-width: 1180px) {
-    .desk-hero {
-      width: min(calc(100vw - 4rem), 1360px);
-      margin-inline: 50%;
-      transform: translateX(-50%);
-      grid-template-columns: minmax(0, 1.22fr) minmax(360px, 0.78fr);
-    }
-  }
-
-  @media (min-width: 820px) and (max-width: 1020px) {
-    .desk-hero {
-      min-height: auto;
-      padding-block: clamp(3.25rem, 8vw, 5rem);
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.82fr);
-    }
-
-    .now-section {
-      padding-top: clamp(2.5rem, 7vw, 4rem);
     }
   }
 

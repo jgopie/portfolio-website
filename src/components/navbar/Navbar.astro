@@ -3,16 +3,15 @@ import { siteConfig } from '../../data/site';
 
 const pathname = Astro.url.pathname;
 const navLinks = [
-  { href: '/', label: 'Index', isCurrent: pathname === '/' },
-  { href: '/blog', label: 'Notes', isCurrent: pathname === '/blog' || pathname.startsWith('/blog/') },
-  { href: '/#work-ledger', label: 'Ledger', isCurrent: false },
-  { href: '/#contact', label: 'Signal', isCurrent: false },
+  { href: '/', label: 'Home', isCurrent: pathname === '/' },
+  { href: '/blog', label: 'Writing', isCurrent: pathname === '/blog' || pathname.startsWith('/blog/') },
+  { href: '/#work-ledger', label: 'Work', isCurrent: false },
+  { href: '/#contact', label: 'Contact', isCurrent: false },
 ];
 ---
 <nav class="navbar" aria-label="Primary">
     <a class="navbar-brand" href="/" aria-label="Jordan Gopie home">
         <span>JG</span>
-        <span>field notes</span>
     </a>
 
     <div class="navbar-actions">
@@ -62,7 +61,7 @@ const navLinks = [
                 ))
             }
             <li>
-                <a href={`mailto:${siteConfig.contactEmail}`}>Direct signal</a>
+                <a href={`mailto:${siteConfig.contactEmail}`}>Email</a>
             </li>
         </ul>
     </div>
@@ -167,31 +166,19 @@ const navLinks = [
 .navbar-brand {
     display: inline-flex;
     align-items: baseline;
-    gap: 0.65rem;
     color: var(--text-primary);
     text-decoration: none;
 }
 
-.navbar-brand span:first-child {
+.navbar-brand span {
     display: inline-grid;
     min-width: 2.35rem;
     min-height: 2.35rem;
     place-items: center;
-    border: var(--rule);
-    border-radius: 0.3rem;
-    color: var(--annotation);
-    font-family: var(--font-serif);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
     font-size: 1.05rem;
-    font-weight: 760;
-}
-
-.navbar-brand span:last-child {
-    color: var(--text-faint);
-    font-size: 0.78rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-weight: 550;
 }
 
 .navbar-actions {
@@ -210,9 +197,6 @@ const navLinks = [
     align-items: center;
     gap: 0.2rem;
     padding: 0.25rem;
-    border: var(--rule);
-    border-radius: var(--radius-pill);
-    background: color-mix(in oklch, var(--bg-surface) 76%, transparent);
 }
 
 .desktop-list a,
@@ -220,7 +204,7 @@ const navLinks = [
     display: inline-flex;
     color: var(--text-secondary);
     font-size: 0.82rem;
-    font-weight: 680;
+    font-weight: 550;
     text-decoration: none;
 }
 
@@ -229,7 +213,7 @@ const navLinks = [
     border-radius: var(--radius-pill);
 }
 
-.desktop-list a:hover,
+.desktop-list a:is(:hover, :focus-visible),
 .desktop-list a[aria-current="page"] {
     background: color-mix(in oklch, var(--accent) 12%, transparent);
     color: var(--text-primary);
@@ -248,8 +232,8 @@ const navLinks = [
     cursor: pointer;
 }
 
-.theme-toggle:hover,
-.mobile-menu-btn:hover {
+.theme-toggle:is(:hover, :focus-visible),
+.mobile-menu-btn:is(:hover, :focus-visible) {
     border-color: var(--accent);
 }
 
@@ -263,7 +247,7 @@ const navLinks = [
     box-shadow: inset -0.3rem -0.15rem 0 var(--bg-surface);
 }
 
-[data-theme="light"] .theme-toggle__mark {
+:global([data-theme="light"]) .theme-toggle__mark {
     border-color: var(--accent);
     background: transparent;
     box-shadow: inset 0.32rem 0 0 var(--accent);
@@ -312,10 +296,6 @@ const navLinks = [
         padding-top: 0.75rem;
     }
 
-    .navbar-brand span:last-child {
-        display: none;
-    }
-
     .desktop-list {
         display: none;
     }
@@ -352,7 +332,7 @@ const navLinks = [
         border-radius: var(--radius-button);
     }
 
-    .mobile-list a:hover,
+    .mobile-list a:is(:hover, :focus-visible),
     .mobile-list a[aria-current="page"] {
         background: color-mix(in oklch, var(--accent) 12%, transparent);
         color: var(--text-primary);

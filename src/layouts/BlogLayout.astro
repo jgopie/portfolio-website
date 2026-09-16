@@ -27,18 +27,18 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   description={description}
   canonicalUrl={canonicalUrl}
   ogImage={ogImage}
-  ogImageAlt={ogImageAlt ?? `${title} - Jordan Gopie field note.`}
+  ogImageAlt={ogImageAlt ?? `${title} - Jordan Gopie.`}
   ogType="article"
 >
   <article class="blog-article">
     <header class="post-intro">
-      <a href="/blog" class="back-link">Notes index</a>
-      <p class="post-eyebrow">Field note</p>
+      <a href="/blog" class="back-link">All writing</a>
+      <p class="post-eyebrow">Article</p>
       <h1>{title}</h1>
       <p class="post-description">{description}</p>
     </header>
-    <aside class="post-rail" aria-label="Post filing details">
-      <span class="rail-label">Filed note</span>
+    <aside class="post-rail" aria-label="Article details">
+      <span class="rail-label">Published</span>
       <div class="post-meta">
         <span>{author}</span>
         <span aria-hidden="true">/</span>
@@ -64,31 +64,33 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
     gap: clamp(1.35rem, 4vw, 3rem);
     width: min(100%, 68rem);
     margin: 0 auto;
-    padding-block: clamp(2rem, 5vw, 4.5rem);
+    padding-block: clamp(1.5rem, 4vw, 3rem);
   }
 
   .post-intro {
     display: grid;
+    min-width: 0;
     gap: clamp(0.75rem, 2vw, var(--spacing-md));
   }
 
   .back-link {
     width: fit-content;
-    color: var(--text-faint);
+    color: var(--text-secondary);
     font-family: var(--font-sans);
     font-size: 0.82rem;
     font-weight: 700;
     text-decoration: none;
   }
 
-  .back-link:hover {
-    color: var(--annotation);
+  .back-link:is(:hover, :focus-visible) {
+    color: var(--accent);
   }
 
   .post-intro h1 {
-    max-width: 11ch;
-    font-size: clamp(2.6rem, 8vw, 5.7rem);
-    line-height: 0.95;
+    max-width: 24ch;
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
   }
 
   .post-description {
@@ -99,49 +101,32 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
   }
 
   .post-rail {
-    position: relative;
     display: grid;
+    min-width: 0;
     gap: var(--spacing-md);
-    overflow: hidden;
-    padding: var(--spacing-md);
-    border: var(--rule);
-    border-radius: var(--radius-card);
-    background:
-      linear-gradient(color-mix(in oklch, var(--border-color) 18%, transparent) 1px, transparent 1px) 0 0 / 100% 2rem,
-      color-mix(in oklch, var(--bg-surface) 84%, transparent);
-  }
-
-  .post-rail::after {
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-bottom: var(--rule);
-    border-left: var(--rule);
-    background: color-mix(in oklch, var(--bg-main) 80%, var(--annotation) 8%);
-    content: "";
-    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    padding-block: var(--spacing-md);
+    border-block: var(--rule);
+    overflow-wrap: anywhere;
   }
 
   .rail-label {
     color: var(--annotation);
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
-    font-weight: 760;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-variation-settings: "MONO" 0, "CASL" 0;
+    font-weight: 550;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .post-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
-    color: var(--text-faint);
+    color: var(--text-secondary);
     font-family: var(--font-sans);
     font-size: 0.86rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-variation-settings: "MONO" 0, "CASL" 0;
   }
 
   .post-tags {
@@ -163,16 +148,18 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
     background: color-mix(in oklch, var(--bg-surface) 76%, transparent);
     color: var(--text-secondary);
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
+    font-size: 0.8125rem;
+    font-variation-settings: "MONO" 0, "CASL" 0;
     font-weight: 690;
-    letter-spacing: 0.05em;
+    letter-spacing: 0;
     line-height: 1.2;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .prose {
+    min-width: 0;
     width: min(100%, 48rem);
+    overflow-wrap: anywhere;
   }
 
   @media (min-width: 920px) {
@@ -291,6 +278,5 @@ const formattedDate = new Intl.DateTimeFormat('en-US', {
     .prose img {
         border: var(--rule);
         border-radius: var(--radius-card);
-        filter: saturate(0.82) contrast(1.03);
     }
 </style>

@@ -92,6 +92,65 @@
   --paper-shadow: 0 1.2rem 3rem oklch(45% 0.035 84 / 0.13);
 }
 
+/* The public theme is scoped so the private Valentine page keeps its palette. */
+:root.public-site {
+  --bg-main: oklch(18% 0.005 155);
+  --bg-surface: oklch(22% 0.005 155);
+  --bg-raised: oklch(26% 0.005 155);
+  --bg-inset: oklch(15% 0.005 155);
+  --text-primary: oklch(94% 0.005 155);
+  --text-secondary: oklch(74% 0.005 155);
+  --text-faint: var(--text-secondary);
+  --border-color: oklch(34% 0.005 155);
+  --border-strong: oklch(48% 0.005 155);
+  --annotation: var(--text-secondary);
+  --annotation-muted: var(--border-color);
+  --paper-shadow: none;
+}
+
+:root.public-site[data-theme="light"] {
+  --bg-main: oklch(97% 0.005 155);
+  --bg-surface: oklch(99% 0.005 155);
+  --bg-raised: oklch(95% 0.005 155);
+  --bg-inset: oklch(93% 0.005 155);
+  --text-primary: oklch(23% 0.005 155);
+  --text-secondary: oklch(45% 0.005 155);
+  --border-color: oklch(83% 0.005 155);
+  --border-strong: oklch(65% 0.005 155);
+}
+
+.public-site body {
+  background: var(--bg-main);
+  font-family: var(--font-sans);
+  font-variation-settings: "MONO" 0, "CASL" 0;
+}
+
+.public-site h1,
+.public-site h2,
+.public-site h3 {
+  font-family: var(--font-sans);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.public-site .hero-tagline,
+.public-site .post-eyebrow {
+  font-variation-settings: "MONO" 0, "CASL" 0;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.public-site code,
+.public-site pre {
+  font-variation-settings: "MONO" 1, "CASL" 0;
+}
+
+.public-site a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html.theme-transition,
   html.theme-transition *,
@@ -229,10 +288,10 @@ code {
 .post-eyebrow {
   color: var(--annotation);
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   font-variation-settings: "MONO" 1, "CASL" 0;
   font-weight: 760;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   line-height: 1.2;
   text-transform: uppercase;
 }

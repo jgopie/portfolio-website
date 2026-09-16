@@ -7,7 +7,7 @@ export const siteConfig = {
   defaultOgImage:
     'https://jgopie.com/og-default.png',
   defaultOgImageAlt:
-    'Jordan Gopie - Late-night field notes on software, shipping, and practical engineering.',
+    'Software projects and writing by Jordan Gopie.',
   defaultOgImageWidth: 1200,
   defaultOgImageHeight: 630,
 } as const;

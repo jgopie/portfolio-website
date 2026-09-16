@@ -10,17 +10,15 @@ const publishedPosts = blogPosts
   .sort((a, b) => b.data.publishedDate.getTime() - a.data.publishedDate.getTime());
 ---
 <BaseLayout
-  title="Notes"
-  description="Jordan Gopie's field notes on full-stack work, automation, client constraints, deployment pain, and practical engineering lessons."
+  title="Writing"
+  description="Writing by Jordan Gopie about software development, automation, and lessons from building projects."
   canonicalUrl={buildCanonicalUrl('/blog')}
 >
     <div class="notes-container">
         <header class="notes-header">
-            <p class="blog-eyebrow">Notes index</p>
-            <h1>Things I learned while trying to make the software behave.</h1>
+            <h1>Writing</h1>
             <p class="notes-subtitle">
-                Some posts are polished. Some are old enough to show the awkward phase. That is the point:
-                a record of shipped work, stuck work, and the judgment that accumulates between them.
+                Posts about software development and what I've learned from building projects.
             </p>
         </header>
 
@@ -47,8 +45,8 @@ const publishedPosts = blogPosts
 <style>
     .notes-container {
         display: grid;
-        gap: clamp(1.4rem, 3.5vw, 2.75rem);
-        padding-block: clamp(2rem, 5vw, 4.5rem);
+        gap: clamp(1rem, 2.5vw, 2rem);
+        padding-block: clamp(1.5rem, 4vw, 3rem);
     }
 
     .notes-header {
@@ -60,21 +58,22 @@ const publishedPosts = blogPosts
     }
 
     .notes-header h1 {
-        max-width: 13ch;
-        font-size: clamp(3.4rem, 7.4vw, 6.25rem);
-        line-height: 0.94;
+        max-width: 24ch;
+        font-size: clamp(2.25rem, 5vw, 4rem);
+        line-height: 1.1;
+        overflow-wrap: anywhere;
     }
 
     .notes-subtitle {
         color: var(--text-primary);
-        max-width: 56rem;
+        max-width: 65ch;
         font-size: clamp(1.02rem, 1.55vw, 1.28rem);
         line-height: 1.55;
     }
 
     .notes-list {
         display: grid;
-        gap: 0.75rem;
+        gap: 0;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -84,10 +83,4 @@ const publishedPosts = blogPosts
         list-style: none;
     }
 
-    @media (max-width: 640px) {
-        .notes-header h1 {
-            max-width: 9ch;
-            font-size: clamp(3.25rem, 15vw, 4.9rem);
-        }
-    }
 </style>

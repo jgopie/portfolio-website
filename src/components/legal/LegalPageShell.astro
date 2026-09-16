@@ -86,11 +86,11 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
     width: fit-content;
     color: var(--annotation);
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
-    font-weight: 760;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-variation-settings: "MONO" 0, "CASL" 0;
+    font-weight: 550;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .legal-hero-grid,
@@ -106,12 +106,15 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
 
   .legal-copy {
     display: grid;
+    min-width: 0;
     gap: var(--spacing-md);
   }
 
   .legal-copy h1 {
-    max-width: 11ch;
-    font-size: clamp(3rem, 8vw, 6rem);
+    max-width: 24ch;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
   }
 
   .legal-copy p {
@@ -149,56 +152,35 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
     color: var(--accent);
   }
 
-  .legal-meta-panel,
-  .legal-section,
-  .legal-aside-card {
-    position: relative;
-    overflow: hidden;
+  :global(.legal-section),
+  :global(.legal-aside-card) {
     border: var(--rule);
     border-radius: var(--radius-card);
-    background:
-      linear-gradient(color-mix(in oklch, var(--border-color) 13%, transparent) 1px, transparent 1px) 0 0 / 100% 2.15rem,
-      color-mix(in oklch, var(--bg-surface) 86%, transparent);
-  }
-
-  .legal-meta-panel::after,
-  :global(.legal-section)::after,
-  :global(.legal-aside-card)::after {
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    width: 2.35rem;
-    height: 2.35rem;
-    border-bottom: var(--rule);
-    border-left: var(--rule);
-    background: color-mix(in oklch, var(--bg-main) 82%, var(--annotation) 7%);
-    content: "";
-    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    background: var(--bg-surface);
   }
 
   .legal-meta-panel {
     display: grid;
-    gap: 0.7rem;
-    padding: var(--spacing-md);
+    min-width: 0;
+    border-top: var(--rule);
   }
 
   .legal-metric {
     display: grid;
     gap: 0.25rem;
-    padding: 0.85rem;
-    border: 1px solid color-mix(in oklch, var(--border-color) 70%, transparent);
-    border-radius: calc(var(--radius-card) - 0.12rem);
-    background: color-mix(in oklch, var(--bg-inset) 46%, transparent);
+    padding-block: 0.85rem;
+    border-bottom: var(--rule);
+    overflow-wrap: anywhere;
   }
 
   .legal-metric-label {
     color: var(--annotation);
     font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-variation-settings: "MONO" 1, "CASL" 0;
-    font-weight: 740;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-variation-settings: "MONO" 0, "CASL" 0;
+    font-weight: 550;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .legal-metric-value {
@@ -217,8 +199,10 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   .legal-main,
   .legal-aside {
     display: grid;
+    min-width: 0;
     gap: var(--spacing-lg);
     align-content: start;
+    overflow-wrap: anywhere;
   }
 
   .legal-footer {
@@ -228,7 +212,7 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   }
 
   .legal-footer p {
-    color: var(--text-faint);
+    color: var(--text-secondary);
     font-family: var(--font-sans);
     font-size: 0.88rem;
   }
