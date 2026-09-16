@@ -2,13 +2,11 @@
 
 This file is superseded by `PRODUCT.md` and `DESIGN.md`.
 
-The current design language is the late-night field notebook system:
+The current direction is understated and direct:
 
-- Graphite surfaces, oxidized green signals, and dull amber annotations.
-- `Literata` for reading and display type.
-- `Recursive` for navigation, metadata, labels, and code-adjacent UI.
-- Writing-first homepage and notes index.
-- Compact work ledger instead of case-study cards.
-- Legal pages keep their compliance copy and use sober document panels.
-
-Do not reintroduce the previous neon gradient portfolio language.
+- Dark-first neutral charcoal, off-white text, gray metadata, and green interactive accents.
+- Proportional Recursive for headings and interface text; Literata for article prose.
+- Plain navigation and introductory framing.
+- Flat writing lists, compact project summaries, and lightweight contact links.
+- No notebook ornament, graph-paper backgrounds, stamps, or folded corners.
+- Preserve article content, project descriptions, images, legal text, and private Valentine component styling.

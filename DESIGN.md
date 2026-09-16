@@ -2,58 +2,43 @@
 
 ## Design Direction
 
-Late-night engineering field notebook. The site should feel like reading marked-up notes beside a running build: tactile, low-glare, authored, and slightly worn without becoming messy.
+Understated and direct. Use typography, spacing, and the actual content to establish hierarchy. No notebook metaphor, decorative stamps, folded corners, graph-paper backgrounds, or paper shadows.
 
-The public portfolio does not use a self-portrait as a primary artifact. Personality should come from authored writing, note structure, metadata, and sparse physical-paper marks rather than a headshot or generated avatar.
+## Theme and Color
 
-## Theme
+Dark mode is the default; retain a complete light theme and remember manual choices. A reader can browse articles or projects comfortably in either setting.
 
-The lead scene is a late-night bench: a peer is reading notes and project traces in a dim room, with enough warmth to keep the site human. Dark mode is the primary expression. Light mode remains fully designed as a daylight notebook counterpart.
+Scope the public theme with the `public-site` class on the document root. The private Valentine route omits this class and retains the legacy palette.
 
-## Color Strategy
+Use OKLCH tokens:
 
-Use OKLCH tokens. Replace the current electric blue, vibrant purple, and brand gradient with:
-
-- Graphite neutrals for page and surface color.
-- Oxidized green for live/work signals, links, focus, and quiet positive emphasis.
-- Dull amber for annotations, metadata, and warmth.
-- Muted red only for error states.
-
-Avoid pure `#000` and `#fff`. Avoid gradient text, glow-heavy hover states, decorative glassmorphism, and blue/purple SaaS accents.
+- Dark: charcoal at 18% lightness, surfaces at 22%, off-white primary text at 94%, muted text at 74%.
+- Light: background at 97%, surfaces at 99%, primary text at 23%, muted text at 45%.
+- Neutral tokens use chroma 0.005 and hue 155.
+- Retain green for links, focus, and interactive emphasis. Metadata uses neutral gray rather than amber.
+- Keep contrast suitable for normal-size text in both themes.
 
 ## Typography
 
-Use free fonts:
+- Recursive, proportional and non-casual (`MONO` 0, `CASL` 0), for public headings, navigation, and interface text.
+- Literata for article prose. Code retains Recursive with `MONO` 1.
+- Homepage name: fluid 3-5rem. Supporting homepage headings: 1.75-2.5rem. Article titles: 2.25-3.5rem.
+- Use natural case, restrained weights and tracking, and metadata of at least 0.8125rem.
+- Let full titles wrap naturally. Never truncate content to fit a layout.
 
-- `Literata` for reading, prose, and major display moments.
-- `Recursive` for navigation, metadata, technical labels, compact UI, and code-adjacent text.
+## Layout and Components
 
-Use strong contrast between headings, body, and labels. Body copy should stay within comfortable reading measure.
+- Align the homepage introduction with the rest of the page. Pair it with a simple featured-article text block separated by a rule.
+- Writing follows the introduction, using flat entries, existing thumbnails, dates, and titles.
+- Projects remain a compact list; stack entries below 1024px.
+- Contact and footer links are lightweight text links.
+- Legal pages use sober document styling; preserve all legal text.
+- Maintain visible keyboard focus, mobile navigation, skip links, and comfortable article measure.
 
-## Layout
+## Imagery and Motion
 
-Use a desk-index structure rather than a centered hero brochure:
+Keep existing images without decorative desaturation filters. Do not introduce generated imagery, a self-portrait, or new animations. Respect reduced-motion preferences.
 
-- First viewport: name, compact identity statement, featured note, and quick routing.
-- Projects: compact work ledger, not case-study cards.
-- Blog: notes index with article artifacts and readable metadata.
-- Articles: essay-first layout with strong reading rhythm.
-- Legal pages: sober document panels using the shared notebook system.
+## Content Boundaries
 
-Cards are allowed for individual entries and legal document blocks, but avoid nested cards and repeated identical grids.
-
-Use a sparse physical field-slip grammar for expressive surfaces: ruled lines, stamp-like labels, clipped or worn corners, small pinned artifacts, and dry marginal notes. Keep the marks restrained so the site feels handled, not scrapbooked.
-
-## Motion
-
-Restrained motion only: subtle reveals, hover states, and focus changes. Do not animate layout properties. Respect `prefers-reduced-motion`.
-
-## Imagery
-
-Use existing site images as cropped or pinned artifacts. Do not introduce generated imagery for this redesign.
-
-Do not ship or render a self-portrait on the public site. Existing blog images remain historical post artifacts.
-
-## Copy Boundaries
-
-Homepage, blog index framing, titles, excerpts, and article intros may be sharpened. Blog bodies remain historical artifacts. Legal body text is not rewritten.
+Use plain framing such as Home, Writing, Work, Contact, Latest post, and About this site. Preserve article titles, excerpts, bodies, project descriptions, dates, tags, image assets, and legal text. Shared navigation and footer use the new framing; the private Valentine component stays unchanged.

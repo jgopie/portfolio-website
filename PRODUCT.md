@@ -6,33 +6,33 @@ brand
 
 ## Product Purpose
 
-Jordan Gopie's portfolio is a peer-facing personal site for writing, memory, and technical presence. It should feel like an authored late-night engineering field notebook rather than a client-sales portfolio or generic developer landing page.
+Jordan Gopie's personal website presents his writing and software work to peers and potential collaborators. The experience should feel understated, direct, and comfortable to read. Let the actual work and writing establish personality without a themed persona.
 
-The primary success action is for a peer, collaborator, or creative technical contact to remember the site and read one note. Contact remains easy to find, but it is secondary and non-transactional.
+The primary success action is to read an article. Projects provide context and credibility; contact is easy to find without becoming a sales funnel.
 
 ## Audience
 
 - Peers in software, product engineering, automation, and creative technical work.
-- People who value candid writing about shipping, constraints, messy projects, and practical engineering judgment.
-- Visitors who may later become collaborators, referrers, or friends of the work.
+- Readers interested in practical experience building and maintaining software.
+- Potential collaborators, referrers, and people who want to follow Jordan's work.
 
 ## Brand Voice
 
-Candid but composed. The site may sound personal, dry, practical, and occasionally funny, but every homepage and index line should feel edited. It should not sound like a pitch deck, resume summary, or AI-generated SaaS copy.
+Plain, personal, and composed. Use familiar navigation and concrete descriptions. Avoid elaborate metaphors, slogans, theatrical engineering language, and generic sales copy.
 
 ## Strategic Principles
 
-- Writing leads. Projects support credibility, but the reading path is the main experience.
-- The work can be technical without pretending to be a terminal.
-- Keep routes stable and preserve public content contracts.
-- Legal pages must keep their compliance meaning intact.
-- The private Valentine page is visually isolated and should continue to work as its own novelty route.
+- Writing leads; projects and contact support it.
+- Keep the homepage order: introduction, writing, about this site, selected work, contact.
+- Keep routes, links, and anchor IDs stable, including `#work-ledger`.
+- Preserve article titles, excerpts, bodies, project descriptions, dates, tags, images, and legal text.
+- Navigation, introductory framing, and site-level metadata may use plain wording.
+- The private Valentine component retains its existing presentation and behavior.
 
 ## Anti-References
 
-- Neon blue/purple developer portfolios.
-- Gradient hero text and glowing cards.
-- Repeated icon-heading-description card grids.
-- Generic "full-stack developer who ships scalable solutions" positioning.
-- Overly clever navigation that hides where links go.
-- Sales-funnel CTAs dominating the first viewport.
+- Notebook, field-slip, stamp, graph-paper, terminal, or worn-paper styling.
+- Amber technical labels, all-caps metadata, and monospace used as a developer persona.
+- Neon gradients, glowing cards, decorative glass, and sales-funnel CTAs.
+- Clever navigation labels that hide their destination.
+- Generic full-stack positioning or exaggerated claims.
