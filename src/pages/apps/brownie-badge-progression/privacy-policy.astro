@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LegalPageShell from '../../../components/legal/LegalPageShell.astro';
+import { brownieLegal as legal } from '../../../data/brownieBadgeProgressionLegal';
+const contact = `mailto:${legal.supportEmail}`;
+---
+
+<BaseLayout title={`${legal.appName} Privacy Policy`} description="How Brownie Badge Progression handles adult accounts, children's unit records, badge progress, certificates, and privacy requests." canonicalUrl={legal.privacyUrl}>
+  <LegalPageShell eyebrow="Privacy Policy" title={`Privacy policy for ${legal.appName}`}
+    summary="An app for authorized adults to manage Brownie units, badge progress, and certificates. This policy explains what information is handled and how to request access, correction, or deletion."
+    metaItems={[
+      { label: 'Effective date', value: legal.effectiveDate },
+      { label: 'Publisher', value: legal.publisher },
+      { label: 'Privacy contact', value: legal.supportEmail, href: contact },
+    ]}
+    relatedLinks={[{ label: 'Account and data deletion', href: legal.deletionUrl }]}
+    footerNote={`${legal.appName} · Effective ${legal.effectiveDate}`}>
+
+    <article class="legal-section">
+      <h2>Who operates the app</h2>
+      <p>{legal.publisher} provides {legal.appName} and is the contact for privacy requests concerning information handled by the app. Authorized adult leaders enter and manage their units' records. Android and iOS use a shared cloud service; desktop versions store records locally.</p>
+      <p>The app is operated by adults. Children do not create app accounts, although an adult may show a child her achievements.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Information we handle</h2>
+      <ul>
+        <li><strong>Adult accounts:</strong> Google account name, email, account identifier, verified sign-in information, approval status, role, and assigned units or divisions. Google and Firebase handle sign-in credentials; the app does not receive your Google password. Firebase may retain profile information supplied by Google, such as a profile image URL.</li>
+        <li><strong>Brownie records:</strong> names, unit/division/Six membership, badge checklists, progress, notes, awards, and activity dates and name snapshots.</li>
+        <li><strong>Unit and adult directory:</strong> operating schools, unit and Six names, adult Guider names, positions, training levels, and Unit Badge definitions.</li>
+        <li><strong>Certificates:</strong> recipient and badge details, division/unit snapshots, district, remarks, dates, and drawn signatures.</li>
+        <li><strong>Operation data:</strong> record identifiers, synchronization timestamps, change receipts, deletion markers, and pending offline edits used to maintain consistent records.</li>
+        <li><strong>Device information:</strong> local copies of accessible records, theme and selected-Guider preferences, and temporary export files. Desktop users may also select badge artwork files stored locally.</li>
+        <li><strong>Requests:</strong> account-deletion requests and information you choose to send in support or privacy correspondence.</li>
+      </ul>
+      <p>The app has no dedicated fields for children's dates of birth, addresses, health information, or contact details. Please do not enter unnecessary sensitive information in notes or remarks.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Why information is used</h2>
+      <p>We use this information to authenticate adults, administer access, maintain unit records, track achievements, generate certificates and reports, synchronize authorized devices, prevent conflicting changes, and respond to support and privacy requests.</p>
+      <p>The app does not include advertising, advertising identifiers, cross-app tracking, Google Analytics, or Firebase Crashlytics. We do not sell personal information or use unit records for advertising. Authentication and cloud providers may process technical information such as IP addresses and service logs to operate and secure their services.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Children's information</h2>
+      <p>The app deliberately handles children's information entered by authorized adults. Leaders must have their organization's authorization and obtain any parent or guardian permission required for recording and sharing it. They should enter only information needed for unit administration.</p>
+      <p>Parents or guardians can contact their unit leader or <a href={contact}>{legal.supportEmail}</a> to request access, correction, or permanent erasure of their child's records. We may verify the requester's identity and relationship to the child before disclosing or deleting records. Do not email passwords or unnecessary identity documents.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Who can access information</h2>
+      <p>Approved leaders access their assigned units. Approved Division Commissioners have read-only access to assigned divisions, including reports and exports. Administrators can manage records across units and administer access. The publisher's authorized technical operator can access information when needed to operate the service or handle privacy requests.</p>
+      <p>Google Firebase Authentication and Cloud Firestore provide sign-in and shared storage. See <a href="https://firebase.google.com/support/privacy">Firebase privacy and security information</a> and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+      <p>When an adult exports a CSV or PDF, the selected sharing application and recipients receive that file. They control their copies under their own policies. Information may also be disclosed when required by applicable law or necessary to protect the service or people's rights.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Storage, security, and international processing</h2>
+      <p>Mobile records are stored in Firestore in the United States (us-east1) and copied to authorized devices for offline use. Google authentication and service operations may involve processing in other countries. Desktop records and uploaded artwork remain on the device unless you export or back them up.</p>
+      <p>Mobile access uses Google authentication, administrator approval, and server-enforced permissions. Cloud connections use encrypted transport. Local SQLite files are not separately encrypted by the app; device protection and operating-system security remain important. No storage or transmission system can guarantee complete security.</p>
+      <p>Signing out stops synchronization and hides records but is not secure erasure. A disconnected device may retain previously authorized information until it reconnects. Device backups and previously exported copies may also remain outside the app's control.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Retention and deletion</h2>
+      <p>Account and shared unit records have no automatic expiry. Unit records remain available for ongoing administration until removed or a verified permanent-erasure request is fulfilled.</p>
+      <p>Ordinary Delete actions remove records from normal use but can retain their contents in cloud synchronization records. Deleting a Brownie does not automatically delete separate certificate snapshots. Archiving a badge preserves its history. Use a permanent-erasure request when you want personal information removed from these retained records.</p>
+      <p>You can initiate account deletion inside the app or use our <a href={legal.deletionUrl}>account and data deletion page</a>. We complete account deletion within 30 days of receiving an authenticated request, or verification of a request submitted outside the app, and send confirmation. This removes the app login, access assignments, operation receipts, and account-linked technical metadata. It does not delete your Google account.</p>
+      <p>Children's and other adults' shared organizational records are not owned by the person who entered them and are not automatically erased when that person's login is deleted. Requests concerning your own Guider information or signatures are reviewed separately. Verified requests to erase a member's records are fulfilled within 30 days, including related personal snapshots and retained deleted copies. Minimal markers without names, notes, or signatures may remain to prevent stale devices from recreating erased records.</p>
+      <p>Request contact details are removed from the processing queue after completion notification. Support correspondence is retained only while needed to answer or resolve the request. Any legally required exception to erasure will be explained to the requester. We cannot recall files already shared with recipients or remotely erase a disconnected device or its backups.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Your choices and rights</h2>
+      <p>You can ask for access, correction, deletion, or information about the handling of your personal data by emailing <a href={contact}>{legal.supportEmail}</a>. Depending on applicable law, you may have additional rights to restrict or object to processing, withdraw consent, or complain to a relevant authority. Withdrawing permission does not undo processing already carried out.</p>
+      <p>Protect your device and share exports only with appropriate recipients. Clearing app storage removes local working data but does not erase shared cloud records, external exports, or backups. Uninstalling is not an account-deletion request.</p>
+    </article>
+    <article class="legal-section">
+      <h2>Policy changes and contact</h2>
+      <p>We update this policy when the app or its data practices change and revise the effective date. Material changes will be communicated through an appropriate app or service notice.</p>
+      <p>Contact {legal.publisher} at <a href={contact}>{legal.supportEmail}</a>. Include “Brownie Badge Progression privacy” in your subject and only the information necessary to explain your request.</p>
+    </article>
+    <Fragment slot="aside">
+      <article class="legal-aside-card"><h2>At a glance</h2><ul><li>For authorized adult leaders</li><li>Children's records entered by adults</li><li>Google sign-in and Firebase on mobile</li><li>No advertising or analytics SDKs</li><li>Account deletion within 30 days</li></ul></article>
+      <article class="legal-aside-card"><h2>Need records erased?</h2><p>Ordinary Delete and signing out do not permanently erase all copies.</p><p><a href={legal.deletionUrl}>Account and data deletion options</a></p></article>
+    </Fragment>
+  </LegalPageShell>
+</BaseLayout>
