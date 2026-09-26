@@ -1,17 +1,19 @@
 ---
-import { siteConfig } from '../../data/site';
 
 const pathname = Astro.url.pathname;
 const navLinks = [
-  { href: '/', label: 'Home', isCurrent: pathname === '/' },
+  { href: '/work', label: 'Work', isCurrent: pathname.startsWith('/work') || pathname.startsWith('/apps/') },
   { href: '/blog', label: 'Writing', isCurrent: pathname === '/blog' || pathname.startsWith('/blog/') },
-  { href: '/#work-ledger', label: 'Work', isCurrent: false },
-  { href: '/#contact', label: 'Contact', isCurrent: false },
+  { href: '/#about', label: 'About', isCurrent: false },
 ];
 ---
 <nav class="navbar" aria-label="Primary">
     <a class="navbar-brand" href="/" aria-label="Jordan Gopie home">
-        <span>JG</span>
+        <svg class="navbar-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="8" />
+            <path d="M12.5 8.5v10.25a4.25 4.25 0 0 1-8.5 0M27 11.3a6.75 6.75 0 1 0 0 9.4V16h-4.5" />
+        </svg>
+        <span>Jordan Gopie</span>
     </a>
 
     <div class="navbar-actions">
@@ -26,6 +28,8 @@ const navLinks = [
                 ))
             }
         </ul>
+
+        <a href="/#contact" class="navbar-cta">Contact</a>
 
         <button
             type="button"
@@ -61,7 +65,7 @@ const navLinks = [
                 ))
             }
             <li>
-                <a href={`mailto:${siteConfig.contactEmail}`}>Email</a>
+                <a href="/#contact">Contact</a>
             </li>
         </ul>
     </div>
@@ -159,26 +163,60 @@ const navLinks = [
     justify-content: space-between;
     gap: var(--spacing-lg);
     margin: 0 auto;
-    padding: 1rem 0 0.25rem;
+    padding: 1.1rem 0 0.25rem;
     font-family: var(--font-sans);
 }
 
 .navbar-brand {
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 2.65rem;
     color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     text-decoration: none;
 }
 
-.navbar-brand span {
-    display: inline-grid;
-    min-width: 2.35rem;
-    min-height: 2.35rem;
-    place-items: center;
+.navbar-brand:hover {
     color: var(--text-primary);
-    font-family: var(--font-sans);
-    font-size: 1.05rem;
-    font-weight: 550;
+}
+
+.navbar-mark {
+    width: 2rem;
+    height: 2rem;
+}
+
+.navbar-mark rect {
+    fill: var(--accent);
+}
+
+.navbar-mark path {
+    fill: none;
+    stroke: var(--on-accent);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+}
+
+.navbar-cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.65rem;
+    padding: 0 1rem;
+    border-radius: var(--radius-pill);
+    background: var(--text-primary);
+    color: var(--bg-main);
+    font-size: 0.875rem;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.navbar-cta:hover {
+    background: var(--accent);
+    color: var(--on-accent);
 }
 
 .navbar-actions {
@@ -203,7 +241,7 @@ const navLinks = [
 .mobile-list a {
     display: inline-flex;
     color: var(--text-secondary);
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     font-weight: 550;
     text-decoration: none;
 }
@@ -241,9 +279,9 @@ const navLinks = [
     display: block;
     width: 0.9rem;
     height: 0.9rem;
-    border: 2px solid var(--annotation);
+    border: 2px solid var(--text-secondary);
     border-radius: var(--radius-pill);
-    background: var(--annotation);
+    background: var(--text-secondary);
     box-shadow: inset -0.3rem -0.15rem 0 var(--bg-surface);
 }
 
@@ -296,7 +334,8 @@ const navLinks = [
         padding-top: 0.75rem;
     }
 
-    .desktop-list {
+    .desktop-list,
+    .navbar-cta {
         display: none;
     }
 
@@ -314,7 +353,7 @@ const navLinks = [
         border: var(--rule);
         border-radius: var(--radius-card);
         background: var(--bg-surface);
-        box-shadow: var(--paper-shadow);
+        box-shadow: var(--elevation);
     }
 
     .mobile-panel.open {

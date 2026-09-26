@@ -1,100 +1,85 @@
 ---
-import { Image } from 'astro:assets';
-import githubIcon from '/public/github.svg';
-import linkedinIcon from '/public/linkedin.svg';
 import { siteConfig } from '../../data/site';
+
+const year = new Date().getFullYear();
 ---
 <footer class="footer">
     <div class="footer-copy">
-        <p class="footer-kicker">Jordan Gopie</p>
-        <p>
-            Software projects and writing by Jordan Gopie.
-        </p>
+        <p class="footer-name">Jordan Gopie</p>
+        <p>Mobile apps, backend systems, and automations.</p>
     </div>
 
     <nav class="footer-links" aria-label="Footer">
+        <a href="/work">Work</a>
         <a href="/blog">Writing</a>
-        <a href={`mailto:${siteConfig.contactEmail}`}>Contact</a>
-        <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer">
-            <Image src={githubIcon} alt="" width={18} height={18} aria-hidden="true" />
-            GitHub
-        </a>
-        <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">
-            <Image src={linkedinIcon} alt="" width={18} height={18} aria-hidden="true" />
-            LinkedIn
-        </a>
+        <a href={`mailto:${siteConfig.contactEmail}`}>Email</a>
+        <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+        <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
     </nav>
 
-    <p class="footer-fineprint">&copy; Jordan Gopie {new Date().getFullYear()}</p>
+    <p class="footer-fineprint">&copy; {year} Jordan Gopie · Viridian Software</p>
 </footer>
 
 <style>
 .footer {
     display: grid;
     width: min(100% - 2rem, 1180px);
-    gap: var(--spacing-lg);
+    gap: 1.25rem 2rem;
     margin: var(--spacing-xl) auto 0;
-    padding: var(--spacing-xl) 0;
+    padding: 2.5rem 0 3rem;
     border-top: var(--rule);
 }
 
 .footer-copy {
     display: grid;
-    gap: 0.45rem;
+    gap: 0.3rem;
 }
 
-.footer-kicker {
-    color: var(--annotation);
+.footer-name {
+    color: var(--text-primary);
     font-family: var(--font-sans);
-    font-size: 0.8125rem;
-    font-variation-settings: "MONO" 0, "CASL" 0;
-    font-weight: 550;
-    letter-spacing: 0;
-    text-transform: none;
+    font-weight: 700;
 }
 
-.footer-copy p:not(.footer-kicker) {
-    max-width: 40rem;
+.footer-copy p:not(.footer-name) {
+    font-size: 0.92rem;
 }
 
 .footer-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem 1.5rem;
+    gap: 0.25rem 1.5rem;
 }
 
 .footer-links a {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
     min-height: 2.4rem;
-    padding-block: 0.45rem;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     font-family: var(--font-sans);
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     font-weight: 550;
     text-decoration: none;
 }
 
 .footer-links a:is(:hover, :focus-visible) {
     color: var(--accent);
-    text-decoration: underline;
-}
-
-.footer-links img {
-    width: 1.1rem;
-    height: 1.1rem;
-    filter: none;
-    opacity: 0.72;
-}
-
-:global([data-theme="light"]) .footer-links img {
-    filter: invert(1);
 }
 
 .footer-fineprint {
-    color: var(--text-secondary);
+    color: var(--text-faint);
     font-family: var(--font-sans);
     font-size: 0.8125rem;
+}
+
+@media (min-width: 860px) {
+    .footer {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+    }
+
+    .footer-fineprint {
+        grid-column: 1 / -1;
+    }
 }
 </style>

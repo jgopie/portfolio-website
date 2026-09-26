@@ -2,7 +2,7 @@ import { siteConfig } from './site';
 
 export const viridianCostManagerLegal = {
   appName: 'Viridian Cost Manager',
-  publisher: 'jgopie.com / Jordan',
+  publisher: 'Jordan Gopie / jgopie.com',
   supportEmail: siteConfig.contactEmail,
   effectiveDate: 'March 2, 2026',
   deletionTurnaround: 'within 10 business days',

@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import type { AppProject } from '../../data/projects';
+
+interface Props {
+  app: AppProject;
+  featured?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { app, featured = false, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+const previewShots = app.screenshots.slice(0, 3);
+---
+
+<article class:list={['app-card', { 'app-card--featured': featured }]}>
+  <div class="app-card__body">
+    <div class="app-card__title">
+      {app.icon ? (
+        <Image src={app.icon} alt="" width={64} height={64} class="app-card__icon" />
+      ) : (
+        <span class="app-card__icon app-card__icon--placeholder" aria-hidden="true">
+          {app.name.charAt(0)}
+        </span>
+      )}
+      <div>
+        <Heading>
+          <a href={`/apps/${app.slug}`} class="app-card__link">{app.name}</a>
+        </Heading>
+        <p class="app-card__platforms">{app.platforms.join(' · ')}</p>
+      </div>
+    </div>
+
+    <span class="status" data-status={app.status}>{app.statusLabel}</span>
+    <p class="app-card__tagline">{app.tagline}</p>
+    {featured && <p class="app-card__summary">{app.summary}</p>}
+
+    <ul class="chips" aria-label="Technologies">
+      {app.stack.map((item) => <li class="chip">{item}</li>)}
+    </ul>
+
+    <div class="app-card__actions">
+      {featured && app.storeLinks.map((link) => (
+        <a href={link.href} class="btn-primary" target="_blank" rel="noreferrer">
+          {link.label}
+        </a>
+      ))}
+      <a href={`/apps/${app.slug}`} class:list={[featured ? 'btn-secondary' : 'text-link']}>
+        View project <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  {featured && previewShots.length > 0 && (
+    <div class="app-card__shots" aria-hidden="true">
+      {previewShots.map((shot, index) => (
+        <Image
+          src={shot.src}
+          alt=""
+          width={440}
+          widths={[220, 440]}
+          sizes="(min-width: 960px) 13rem, 30vw"
+          class:list={['app-card__shot', `app-card__shot--${index + 1}`]}
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
+      ))}
+    </div>
+  )}
+</article>
+
+<style>
+  .app-card {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: var(--rule);
+    border-radius: var(--radius-card);
+    background: var(--bg-surface);
+    transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .app-card:hover,
+  .app-card:focus-within {
+    border-color: var(--border-strong);
+  }
+
+  .app-card--featured {
+    overflow: hidden;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background:
+      radial-gradient(ellipse 60% 80% at 100% 100%, var(--accent-muted), transparent 70%),
+      var(--bg-surface);
+    box-shadow: var(--elevation);
+  }
+
+  .app-card__body {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .app-card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .app-card__icon {
+    flex: none;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 22%;
+    border: var(--rule);
+  }
+
+  .app-card--featured .app-card__icon {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .app-card__icon--placeholder {
+    display: grid;
+    place-items: center;
+    background: var(--bg-inset);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 1.35rem;
+    font-weight: 750;
+  }
+
+  .app-card h2,
+  .app-card h3 {
+    font-size: clamp(1.25rem, 2vw, 1.45rem);
+    line-height: 1.15;
+  }
+
+  .app-card--featured :is(h2, h3) {
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  }
+
+  .app-card__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Stretch the title link over the whole card for a single, large hit target. */
+  .app-card:not(.app-card--featured) .app-card__link::after {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    content: "";
+  }
+
+  .app-card__link:hover {
+    color: inherit;
+  }
+
+  .app-card__platforms {
+    margin-top: 0.2rem;
+    color: var(--text-faint);
+    font-size: 0.875rem;
+  }
+
+  .app-card__tagline {
+    color: var(--text-primary);
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+
+  .app-card--featured .app-card__tagline {
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    font-weight: 550;
+  }
+
+  .app-card__summary {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .app-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .app-card:not(.app-card--featured) .app-card__actions {
+    margin-top: auto;
+  }
+
+  .app-card__shots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: 0.75rem;
+  }
+
+  .app-card__shot {
+    width: 100%;
+    height: auto;
+    border: var(--rule);
+    border-radius: 0.85rem;
+    box-shadow: var(--elevation);
+  }
+
+  .app-card__shot--2 {
+    transform: translateY(-1.25rem);
+  }
+
+  @media (min-width: 960px) {
+    .app-card--featured {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .app-card__shots {
+      margin-block: 0 -4.5rem;
+    }
+  }
+</style>
