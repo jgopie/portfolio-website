@@ -1,0 +1,276 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { apps, type AppProject } from '../../../data/projects';
+import { buildCanonicalUrl, siteConfig } from '../../../data/site';
+
+export function getStaticPaths() {
+  return apps.map((app) => ({ params: { slug: app.slug }, props: { app } }));
+}
+
+const { app } = Astro.props as { app: AppProject };
+---
+<BaseLayout
+  title={app.name}
+  description={`${app.name}: ${app.tagline}`}
+  canonicalUrl={buildCanonicalUrl(`/apps/${app.slug}`)}
+>
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/work">Work</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">{app.name}</span>
+  </nav>
+
+  <header class="app-hero">
+    <div class="app-hero__title">
+      {app.icon ? (
+        <Image src={app.icon} alt="" width={96} height={96} class="app-hero__icon" loading="eager" />
+      ) : (
+        <span class="app-hero__icon app-hero__icon--placeholder" aria-hidden="true">
+          {app.name.charAt(0)}
+        </span>
+      )}
+      <div>
+        <h1>{app.name}</h1>
+        <p class="app-hero__platforms">{app.platforms.join(' · ')}</p>
+      </div>
+    </div>
+    <span class="status" data-status={app.status}>{app.statusLabel}</span>
+    <p class="app-hero__tagline">{app.tagline}</p>
+    <p class="app-hero__summary">{app.summary}</p>
+    {app.storeLinks.length > 0 && (
+      <div class="app-hero__actions">
+        {app.storeLinks.map((link) => (
+          <a href={link.href} class="btn-primary" target="_blank" rel="noreferrer">
+            {link.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </header>
+
+  {app.screenshots.length > 0 && (
+    <section class="shots" aria-label="Screenshots">
+      <ul class="shots__rail" role="list">
+        {app.screenshots.map((shot, index) => (
+          <li>
+            <Image
+              src={shot.src}
+              alt={shot.alt}
+              width={520}
+              widths={[260, 520]}
+              sizes="16rem"
+              loading={index < 3 ? 'eager' : 'lazy'}
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <div class="app-details">
+    <section aria-labelledby="highlights-title">
+      <h2 id="highlights-title">What I built</h2>
+      <ul class="highlights">
+        {app.highlights.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <aside class="app-aside" aria-label="Project details">
+      <div>
+        <h2>Technology</h2>
+        <ul class="chips">
+          {app.stack.map((item) => <li class="chip">{item}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Documents</h2>
+        <ul class="doc-links">
+          {app.relatedLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <p><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
+      </div>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .crumbs {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--text-faint);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+  }
+
+  .crumbs a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  .crumbs a:hover {
+    color: var(--accent);
+  }
+
+  .app-hero {
+    display: grid;
+    justify-items: start;
+    gap: 1.1rem;
+    max-width: 48rem;
+    padding-block: clamp(1.5rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+  }
+
+  .app-hero__title {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .app-hero__icon {
+    flex: none;
+    width: clamp(4rem, 10vw, 6rem);
+    height: clamp(4rem, 10vw, 6rem);
+    border: var(--rule);
+    border-radius: 22%;
+  }
+
+  .app-hero__icon--placeholder {
+    display: grid;
+    place-items: center;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    font-weight: 750;
+  }
+
+  .app-hero h1 {
+    font-size: clamp(2.2rem, 5.5vw, 3.75rem);
+    line-height: 1.05;
+  }
+
+  .app-hero__platforms {
+    margin-top: 0.3rem;
+    color: var(--text-faint);
+    font-family: var(--font-sans);
+  }
+
+  .app-hero__tagline {
+    color: var(--text-primary);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: 550;
+    line-height: 1.45;
+  }
+
+  .app-hero__summary {
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .app-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .shots {
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .shots__rail {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    list-style: none;
+    scroll-snap-type: x mandatory;
+  }
+
+  .shots__rail li {
+    flex: none;
+    width: min(16rem, 62vw);
+    scroll-snap-align: start;
+  }
+
+  .shots__rail img {
+    width: 100%;
+    height: auto;
+    border: var(--rule);
+    border-radius: 1rem;
+  }
+
+  .app-details {
+    display: grid;
+    gap: 2.5rem;
+    padding-top: clamp(2rem, 5vw, 3rem);
+    border-top: var(--rule);
+  }
+
+  .app-details h2 {
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
+  }
+
+  .highlights {
+    display: grid;
+    gap: 0.85rem;
+    list-style: none;
+  }
+
+  .highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+
+  .highlights li::before {
+    position: absolute;
+    top: 0.62em;
+    left: 0.15rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 0.1rem;
+    background: var(--accent);
+    content: "";
+  }
+
+  .app-aside {
+    display: grid;
+    align-content: start;
+    gap: 2rem;
+  }
+
+  .app-aside h2 {
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 650;
+    letter-spacing: 0;
+  }
+
+  .doc-links {
+    display: grid;
+    gap: 0.4rem;
+    list-style: none;
+  }
+
+  .doc-links a {
+    font-family: var(--font-sans);
+    font-weight: 550;
+  }
+
+  @media (min-width: 900px) {
+    .app-details {
+      grid-template-columns: minmax(0, 1fr) 18rem;
+      gap: 4rem;
+    }
+  }
+</style>

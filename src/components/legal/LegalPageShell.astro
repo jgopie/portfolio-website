@@ -1,4 +1,6 @@
 ---
+import { getApp } from '../../data/projects';
+
 interface MetaItem {
   label: string;
   value: string;
@@ -21,7 +23,20 @@ interface Props {
 
 const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   Astro.props as Props;
+
+const appSlug = Astro.url.pathname.split('/')[2];
+const app = appSlug ? getApp(appSlug) : undefined;
 ---
+
+{app && (
+  <nav class="legal-crumbs" aria-label="Breadcrumb">
+    <a href="/work">Work</a>
+    <span aria-hidden="true">/</span>
+    <a href={`/apps/${app.slug}`}>{app.name}</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">{eyebrow}</span>
+  </nav>
+)}
 
 <section class="legal-hero" aria-labelledby="legal-page-title">
   <span class="legal-eyebrow">{eyebrow}</span>
@@ -74,6 +89,25 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
 </footer>
 
 <style>
+  .legal-crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--text-faint);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+  }
+
+  .legal-crumbs a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  .legal-crumbs a:hover {
+    color: var(--accent);
+  }
+
   .legal-hero {
     display: grid;
     gap: var(--spacing-lg);
@@ -84,7 +118,7 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
   .legal-eyebrow {
     display: inline-flex;
     width: fit-content;
-    color: var(--annotation);
+    color: var(--accent);
     font-family: var(--font-sans);
     font-size: 0.8125rem;
     font-variation-settings: "MONO" 0, "CASL" 0;
@@ -258,9 +292,9 @@ const { eyebrow, title, summary, metaItems, relatedLinks, footerNote } =
 
   :global(.legal-callout) {
     padding: 1rem;
-    border: 1px solid color-mix(in oklch, var(--annotation) 42%, var(--border-color));
+    border: 1px solid color-mix(in oklch, var(--accent) 35%, var(--border-color));
     border-radius: var(--radius-card);
-    background: color-mix(in oklch, var(--annotation) 11%, var(--bg-surface));
+    background: var(--accent-muted);
     color: var(--text-primary);
   }
 

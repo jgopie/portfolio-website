@@ -1,0 +1,53 @@
+---
+import type { ClientProject } from '../../data/projects';
+
+interface Props {
+  project: ClientProject;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="client-card">
+  <p class="eyebrow">{project.category}</p>
+  <h3>{project.title}</h3>
+  <p class="client-card__summary">{project.summary}</p>
+  <p class="client-card__role">{project.role}</p>
+  <ul class="chips" aria-label="Technologies">
+    {project.stack.map((item) => <li class="chip">{item}</li>)}
+  </ul>
+</article>
+
+<style>
+  .client-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: var(--rule);
+    border-radius: var(--radius-card);
+    background: var(--bg-surface);
+  }
+
+  .client-card h3 {
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+    line-height: 1.2;
+  }
+
+  .client-card__summary {
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .client-card__role {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .client-card .chips {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+</style>

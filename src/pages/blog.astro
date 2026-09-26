@@ -14,73 +14,53 @@ const publishedPosts = blogPosts
   description="Writing by Jordan Gopie about software development, automation, and lessons from building projects."
   canonicalUrl={buildCanonicalUrl('/blog')}
 >
-    <div class="notes-container">
-        <header class="notes-header">
-            <h1>Writing</h1>
-            <p class="notes-subtitle">
-                Posts about software development and what I've learned from building projects.
-            </p>
-        </header>
+  <header class="page-head">
+    <p class="eyebrow">Writing</p>
+    <h1>Notes from building software</h1>
+    <p>
+      Project write-ups, post-mortems, and what I've learned from client work, solo builds, and
+      getting things into production.
+    </p>
+  </header>
 
-        <ul class="notes-list">
-        {
-            publishedPosts.map((post, index) => (
-                <li>
-                    <BlogCard
-                      title={post.data.title}
-                      excerpt={post.data.excerpt}
-                      image={post.data.image}
-                      publishedDate={post.data.publishedDate}
-                      slug={post.id}
-                      tags={post.data.tags}
-                      index={index + 1}
-                    />
-                </li>
-            ))
-        }
-        </ul>
-    </div>
+  <ul class="posts" role="list">
+    {
+      publishedPosts.map((post) => (
+        <li>
+          <BlogCard
+            title={post.data.title}
+            excerpt={post.data.excerpt}
+            image={post.data.image}
+            publishedDate={post.data.publishedDate}
+            slug={post.id}
+            tags={post.data.tags}
+          />
+        </li>
+      ))
+    }
+  </ul>
 </BaseLayout>
 
 <style>
-    .notes-container {
-        display: grid;
-        gap: clamp(1rem, 2.5vw, 2rem);
-        padding-block: clamp(1.5rem, 4vw, 3rem);
-    }
+  .posts {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+  }
 
-    .notes-header {
-        display: grid;
-        gap: clamp(0.8rem, 2vw, var(--spacing-md));
-        max-width: 68rem;
-        padding-bottom: clamp(1.1rem, 3vw, 2rem);
-        border-bottom: var(--rule);
-    }
+  .posts li {
+    display: grid;
+  }
 
-    .notes-header h1 {
-        max-width: 24ch;
-        font-size: clamp(2.25rem, 5vw, 4rem);
-        line-height: 1.1;
-        overflow-wrap: anywhere;
+  @media (min-width: 720px) {
+    .posts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+  }
 
-    .notes-subtitle {
-        color: var(--text-primary);
-        max-width: 65ch;
-        font-size: clamp(1.02rem, 1.55vw, 1.28rem);
-        line-height: 1.55;
+  @media (min-width: 1024px) {
+    .posts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-
-    .notes-list {
-        display: grid;
-        gap: 0;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .notes-list li {
-        list-style: none;
-    }
-
+  }
 </style>

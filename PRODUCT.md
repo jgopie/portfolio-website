@@ -6,33 +6,33 @@ brand
 
 ## Product Purpose
 
-Jordan Gopie's personal website presents his writing and software work to peers and potential collaborators. The experience should feel understated, direct, and comfortable to read. Let the actual work and writing establish personality without a themed persona.
+jgopie.com presents Jordan Gopie as an independent software developer who builds mobile apps, backend systems, and automations, with Viridian Software as the business context for client work. The site should make it obvious within one screen what Jordan builds, show real evidence of it, and make getting in touch easy.
 
-The primary success action is to read an article. Projects provide context and credibility; contact is easy to find without becoming a sales funnel.
+Primary success action: a prospective client emails Jordan. Secondary: an employer or collaborator reviews the work and writing and reaches out.
 
 ## Audience
 
-- Peers in software, product engineering, automation, and creative technical work.
-- Readers interested in practical experience building and maintaining software.
-- Potential collaborators, referrers, and people who want to follow Jordan's work.
+1. **Clients first:** founders, small businesses, and teams who need an app, backend, or automation built and maintained.
+2. **Employers and recruiters:** people evaluating Jordan for a role.
+3. **Peers and readers:** people following Jordan's writing about building software.
 
 ## Brand Voice
 
-Plain, personal, and composed. Use familiar navigation and concrete descriptions. Avoid elaborate metaphors, slogans, theatrical engineering language, and generic sales copy.
+Confident, concrete, and personal. Say what was built, for whom, and what it made possible. Avoid slogans, buzzwords, inflated claims, and invented metrics. Every claim on the site should be something Jordan can back up in conversation.
 
 ## Strategic Principles
 
-- Writing leads; projects and contact support it.
-- Keep the homepage order: introduction, writing, about this site, selected work, contact.
-- Keep routes, links, and anchor IDs stable, including `#work-ledger`.
-- Preserve article titles, excerpts, bodies, project descriptions, dates, tags, images, and legal text.
-- Navigation, introductory framing, and site-level metadata may use plain wording.
-- The private Valentine component retains its existing presentation and behavior.
+- Positioning leads: the homepage opens with what Jordan builds, followed by evidence.
+- Homepage order: hero, capabilities, apps, client work (`#work-ledger`), writing, about, contact.
+- Apps are presented honestly by status (`live`, `in-development`, `unreleased`). Only live apps get store links.
+- Writing stays prominent; posts and their content are preserved.
+- Project data lives in `src/data/projects.ts` and is shared by the homepage, `/work`, and `/apps/[slug]`.
+- Keep routes stable, especially `/apps/*/privacy-policy`, `/apps/*/support`, and account-deletion pages linked from store listings, as well as `/app-ads.txt`.
+- Preserve legal text. The private `/supersecret` Valentine page keeps its own presentation.
 
 ## Anti-References
 
-- Notebook, field-slip, stamp, graph-paper, terminal, or worn-paper styling.
-- Amber technical labels, all-caps metadata, and monospace used as a developer persona.
-- Neon gradients, glowing cards, decorative glass, and sales-funnel CTAs.
+- Neon gradients, glassmorphism, glowing cards, and template "agency" landing pages.
+- Terminal cosplay, fake code snippets, and monospace used as a persona. Mono is only for tech-stack chips and code.
+- Fake testimonials, logo walls, or metrics that aren't real.
 - Clever navigation labels that hide their destination.
-- Generic full-stack positioning or exaggerated claims.

@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import { getPostImage } from '../../data/postImages';
+
 interface Props {
   title: string;
   excerpt: string;
@@ -6,148 +9,108 @@ interface Props {
   publishedDate: Date;
   slug: string;
   tags: string[];
-  index: number;
+  headingLevel?: 'h2' | 'h3';
 }
 
-const { title, excerpt, image, publishedDate, slug, tags, index } = Astro.props;
+const { title, excerpt, image, publishedDate, slug, tags, headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
+const postImage = getPostImage(image);
 const formattedDate = new Intl.DateTimeFormat('en-US', {
   month: 'short',
-  day: 'numeric',
   year: 'numeric',
 }).format(publishedDate);
 ---
-<a href={`/blog/${slug}`} class="note-card-link">
-    <article class="note-card">
-        <span class="note-index">{String(index).padStart(2, '0')}</span>
-        <div class="note-copy">
-            <div class="note-meta">
-                <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
-                <span>{tags.slice(0, 2).join(' / ')}</span>
-            </div>
-            <h2>{title}</h2>
-            <p>{excerpt}</p>
-        </div>
-        {image && (
-            <img
-                class="note-image"
-                src={`/${image}`}
-                alt=""
-                width="140"
-                height="110"
-                loading="lazy"
-                aria-hidden="true"
-            />
-        )}
-    </article>
-</a>
+<article class="post-card">
+  {postImage && (
+    <Image
+      class="post-card__image"
+      src={postImage}
+      alt=""
+      width={720}
+      widths={[360, 720]}
+      sizes="(min-width: 960px) 22rem, 100vw"
+      loading="lazy"
+    />
+  )}
+  <div class="post-card__body">
+    <p class="post-card__meta">
+      <time datetime={publishedDate.toISOString()}>{formattedDate}</time>
+      {tags[0] && <span aria-hidden="true">·</span>}
+      {tags[0] && <span>{tags[0]}</span>}
+    </p>
+    <Heading class="post-card__title">
+      <a href={`/blog/${slug}`}>{title}</a>
+    </Heading>
+    <p class="post-card__excerpt">{excerpt}</p>
+  </div>
+</article>
 
 <style>
-.note-card-link {
-    display: block;
-    color: inherit;
-    text-decoration: none;
+.post-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--bg-surface);
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.note-card {
-    display: grid;
-    gap: var(--spacing-md);
-    align-items: start;
-    padding-block: clamp(1.25rem, 3vw, 2rem);
-    border-bottom: var(--rule);
+.post-card:hover,
+.post-card:focus-within {
+  border-color: var(--border-strong);
 }
 
-.note-card-link:is(:hover, :focus-visible) .note-copy h2 {
-    color: var(--accent);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
+.post-card__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: var(--rule);
 }
 
-.note-card-link:is(:hover, :focus-visible) .note-image {
-    border-color: var(--accent);
+.post-card__body {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.25rem 1.35rem 1.5rem;
+  overflow-wrap: anywhere;
 }
 
-.note-index {
-    width: fit-content;
-    padding-top: 0.14rem;
-    color: var(--text-secondary);
-    font-family: var(--font-sans);
-    font-size: 0.8125rem;
-    font-variation-settings: "MONO" 0, "CASL" 0;
-    font-weight: 550;
+.post-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  color: var(--text-faint);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 550;
 }
 
-.note-image {
-    width: 100%;
-    max-width: 140px;
-    aspect-ratio: 14 / 11;
-    border: var(--rule);
-    border-radius: calc(var(--radius-card) - 0.12rem);
-    object-fit: cover;
+.post-card__title {
+  font-size: 1.25rem;
+  line-height: 1.25;
 }
 
-.note-copy {
-    display: grid;
-    min-width: 0;
-    gap: 0.5rem;
-    overflow-wrap: anywhere;
+.post-card__title a {
+  color: var(--text-primary);
+  text-decoration: none;
 }
 
-.note-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    color: var(--annotation);
-    font-family: var(--font-sans);
-    font-size: 0.8125rem;
-    font-variation-settings: "MONO" 0, "CASL" 0;
-    font-weight: 550;
-    letter-spacing: 0;
-    text-transform: none;
+/* Stretch the title link over the whole card. */
+.post-card__title a::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
 }
 
-.note-copy h2 {
-    max-width: 32ch;
-    font-size: clamp(1.45rem, 2.5vw, 2rem);
-    line-height: 1.15;
-    transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+.post-card:hover .post-card__title a {
+  color: var(--accent);
 }
 
-.note-copy p {
-    max-width: 56rem;
-    font-size: 1.02rem;
-}
-
-@media (min-width: 760px) {
-    .note-card {
-        grid-template-columns: 3rem minmax(0, 1fr) 132px;
-    }
-}
-
-@media (max-width: 759px) {
-    .note-card {
-        grid-template-columns: 2.5rem minmax(0, 1fr);
-        gap: 0.75rem;
-    }
-
-    .note-image {
-        grid-column: 2;
-        width: min(9rem, 44vw);
-        max-width: none;
-        margin-top: 0.25rem;
-    }
-
-    .note-copy {
-        grid-column: 2;
-    }
-
-    .note-copy h2 {
-        font-size: clamp(1.45rem, 4vw, 1.85rem);
-    }
-
-    .note-copy p {
-        font-size: 0.98rem;
-        line-height: 1.6;
-    }
+.post-card__excerpt {
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 </style>

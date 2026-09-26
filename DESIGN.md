@@ -2,43 +2,45 @@
 
 ## Design Direction
 
-Understated and direct. Use typography, spacing, and the actual content to establish hierarchy. No notebook metaphor, decorative stamps, folded corners, graph-paper backgrounds, or paper shadows.
+"Independent studio, personal voice." Bold, confident typography with a single brand-green accent, card-based evidence (app screenshots, project cards), and generous spacing. It should feel like a working developer's studio: polished but not corporate.
 
 ## Theme and Color
 
-Dark mode is the default; retain a complete light theme and remember manual choices. A reader can browse articles or projects comfortably in either setting.
+Dark is the default. The light theme is complete, and manual choices are remembered in `localStorage`. The public theme is scoped with the `public-site` class on `<html>`; `/supersecret` omits it and keeps the legacy palette and aliases.
 
-Scope the public theme with the `public-site` class on the document root. The private Valentine route omits this class and retains the legacy palette.
+Tokens live in `src/styles/global.css` (OKLCH):
 
-Use OKLCH tokens:
-
-- Dark: charcoal at 18% lightness, surfaces at 22%, off-white primary text at 94%, muted text at 74%.
-- Light: background at 97%, surfaces at 99%, primary text at 23%, muted text at 45%.
-- Neutral tokens use chroma 0.005 and hue 155.
-- Retain green for links, focus, and interactive emphasis. Metadata uses neutral gray rather than amber.
-- Keep contrast suitable for normal-size text in both themes.
+- **Dark:** background 16.5% L, surfaces 20.5%, raised 24.5%, text 95%, secondary 75%, and faint 64%, with a slight green tint (hue 165).
+- **Light:** warm off-white background (97.5%), white surfaces, text 21%, and secondary 44%.
+- **Accent (`--accent`):** brand green, `oklch(80% 0.15 158)` in dark and `oklch(50% 0.13 158)` in light. Used for the primary button, links, focus, eyebrows, and the mark. `--on-accent` is the text color used on accent fills.
+- **Warm (`--warm`):** reserved for "in development" and "unreleased" status pills. Don't use it decoratively.
+- Soft accent radial glows are allowed on the featured app card and the contact panel only.
 
 ## Typography
 
-- Recursive, proportional and non-casual (`MONO` 0, `CASL` 0), for public headings, navigation, and interface text.
-- Literata for article prose. Code retains Recursive with `MONO` 1.
-- Homepage name: fluid 3-5rem. Supporting homepage headings: 1.75-2.5rem. Article titles: 2.25-3.5rem.
-- Use natural case, restrained weights and tracking, and metadata of at least 0.8125rem.
-- Let full titles wrap naturally. Never truncate content to fit a layout.
+- **Recursive** (`MONO 0`, `CASL 0`) for headings and UI. Headings are weight 750 with -0.03em tracking.
+- **Recursive `MONO 1`** only for `.chip` tech tags and code.
+- **Literata** for article prose and the About paragraphs.
+- Homepage hero: fluid 2.6–5rem, with the second clause in secondary text color. Page titles: 2.4–4rem. Section titles: 2–3rem.
 
-## Layout and Components
+## Brand Mark
 
-- Align the homepage introduction with the rest of the page. Pair it with a simple featured-article text block separated by a rule.
-- Writing follows the introduction, using flat entries, existing thumbnails, dates, and titles.
-- Projects remain a compact list; stack entries below 1024px.
-- Contact and footer links are lightweight text links.
-- Legal pages use sober document styling; preserve all legal text.
-- Maintain visible keyboard focus, mobile navigation, skip links, and comfortable article measure.
+A "JG" monogram, stroked in `--on-accent` on a rounded accent square (`public/favicon.svg`, and inline in `Navbar.astro`). The OG image (`public/og-default.png`, 1200×630) repeats the mark and hero line.
 
-## Imagery and Motion
+## Components
 
-Keep existing images without decorative desaturation filters. Do not introduce generated imagery, a self-portrait, or new animations. Respect reduced-motion preferences.
+- Shared utilities in `global.css`: `.eyebrow`, `.section`, `.section-head`, `.section-head-row`, `.page-head`, `.chips`/`.chip`, `.status[data-status]`, `.text-link`, `.btn-primary`, `.btn-secondary`.
+- `components/projects/AppCard.astro`: the featured variant shows three screenshots and store links; the compact variant is a fully clickable card.
+- `components/projects/ClientProjectCard.astro`: client case studies.
+- `components/blog-card/BlogCard.astro`: image-topped post card, used on the homepage and `/blog`.
+- Legal pages use `LegalPageShell.astro`, which adds a Work › App › Page breadcrumb automatically for `/apps/<slug>/…` routes.
 
-## Content Boundaries
+## Imagery
 
-Use plain framing such as Home, Writing, Work, Contact, Latest post, and About this site. Preserve article titles, excerpts, bodies, project descriptions, dates, tags, image assets, and legal text. Shared navigation and footer use the new framing; the private Valentine component stays unchanged.
+- App screenshots live in `src/assets/apps/<slug>/` and are served through `astro:assets` `<Image>` with capped widths.
+- Blog images stay in `/public` (OG tags link to them) and are also imported through `src/data/postImages.ts` for resized listings.
+- No generated or stock hero imagery.
+
+## Accessibility and Motion
+
+Keep the skip link, visible focus rings, mobile menu with Escape-to-close, and `prefers-reduced-motion` handling. Maintain normal-text contrast in both themes. Card links stretch over the card with a pseudo-element rather than wrapping block content in `<a>`.
