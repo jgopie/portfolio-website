@@ -26,6 +26,7 @@ export interface AppProject {
   summary: string;
   platforms: string[];
   highlights: string[];
+  facts?: { label: string; value: string }[];
   stack: string[];
   icon?: ImageMetadata;
   screenshots: Screenshot[];
@@ -49,16 +50,22 @@ export const apps: AppProject[] = [
     statusLabel: 'Live on the App Store',
     tagline: 'A physics merge puzzle built for quick sessions and satisfying chains.',
     summary:
-      'Drop slimes, match identical tiers, and watch them evolve. Slimefall Arcade is a free iPhone and iPad game I designed, built, and shipped on my own, from physics and progression to leaderboards, ads, and store release.',
+      'A free iPhone and iPad physics merge game I built solo in TypeScript on Phaser 4 and Matter physics, then shipped natively through Capacitor. It runs entirely on-device, with no backend to operate.',
     platforms: ['iPhone', 'iPad'],
     highlights: [
-      'Three modes: timed Arcade, a seeded Daily challenge with a global leaderboard, and an untimed Cozy run.',
-      'Game Center leaderboards with offline score queuing that retries when the player reconnects.',
-      'Earnable Bits, collectible theme packs with ten evolution tiers each, and Starburst and Prism Shift powerups.',
-      'Rewarded and interstitial ads through Google AdMob, with in-game privacy options.',
-      'All progress stored on-device, with no account required to play.',
+      'Three modes: a timed Arcade run with a ramping drop clock, an untimed Cozy run, and a seeded Daily challenge that every player gets on a shared 07:00 UTC reset.',
+      'Physics merge rules with ten evolution tiers per theme, progression-weighted drops, danger-line timing, and pity-weighted Starburst and Prism Shift powerups.',
+      'Capacitor iOS shell with Game Center leaderboards and offline score queuing; progress, Bits, and themes are stored locally.',
+      'Consent-gated AdMob rewarded and interstitial ads, with interstitials paced by active play time and capped per hour.',
+      'Vitest simulation tests and Playwright browser, visual-contact, and frame-pacing performance suites running in CI and nightly.',
+      'Scripted release tooling for TestFlight uploads, App Store Connect metadata, and Game Center leaderboard provisioning.',
     ],
-    stack: ['iOS', 'iPadOS', 'Game Center', 'Google AdMob'],
+    facts: [
+      { label: 'Released', value: 'Sep 2026 · v1.0.5' },
+      { label: 'Team', value: 'Solo build' },
+      { label: 'Backend', value: 'None, all on-device' },
+    ],
+    stack: ['TypeScript', 'Phaser 4', 'Matter.js', 'Capacitor', 'Tone.js', 'Game Center', 'AdMob'],
     icon: slimefallIcon,
     screenshots: [
       { src: slimefallShot1, alt: 'Slimefall Arcade: drop, match, evolve.' },
@@ -157,7 +164,7 @@ export const capabilities = [
     title: 'Mobile apps',
     body:
       'iOS and Android apps taken from first build through store review and release, including auth, offline data, sync, leaderboards, and ads.',
-    stack: ['Flutter', 'Dart', 'Riverpod', 'Firebase', 'SQLite'],
+    stack: ['Flutter', 'Capacitor', 'TypeScript', 'Firebase', 'SQLite'],
   },
   {
     title: 'Backend systems',

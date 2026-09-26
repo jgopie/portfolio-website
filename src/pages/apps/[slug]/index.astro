@@ -77,6 +77,19 @@ const { app } = Astro.props as { app: AppProject };
     </section>
 
     <aside class="app-aside" aria-label="Project details">
+      {app.facts && (
+        <div>
+          <h2>At a glance</h2>
+          <dl class="facts">
+            {app.facts.map((fact) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
       <div>
         <h2>Technology</h2>
         <ul class="chips">
@@ -254,6 +267,31 @@ const { app } = Astro.props as { app: AppProject };
     font-size: 0.9rem;
     font-weight: 650;
     letter-spacing: 0;
+  }
+
+  .facts {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .facts div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: var(--rule);
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+  }
+
+  .facts dt {
+    color: var(--text-secondary);
+  }
+
+  .facts dd {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
   }
 
   .doc-links {
