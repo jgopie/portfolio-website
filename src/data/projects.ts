@@ -6,6 +6,9 @@ import slimefallShot3 from '../assets/apps/slimefall/03-beat-the-drop-clock.jpg'
 import slimefallShot4 from '../assets/apps/slimefall/04-blast-a-path.jpg';
 import slimefallShot5 from '../assets/apps/slimefall/05-choose-your-next-drop.jpg';
 import slimefallShot6 from '../assets/apps/slimefall/06-play-your-style.jpg';
+import slimefallStackShot1 from '../assets/apps/slimefall/stack-01-100-merge-puzzles.jpg';
+import slimefallStackShot2 from '../assets/apps/slimefall/stack-02-plan-every-move.jpg';
+import slimefallStackShot3 from '../assets/apps/slimefall/stack-03-earn-three-stars.jpg';
 import { brownieLegal } from './brownieBadgeProgressionLegal';
 import { slimefallArcadeLegal } from './slimefallArcadeLegal';
 import { viridianCostManagerLegal } from './viridianCostManagerLegal';
@@ -48,26 +51,32 @@ export const apps: AppProject[] = [
     name: slimefallArcadeLegal.appName,
     status: 'live',
     statusLabel: 'Live on the App Store',
-    tagline: 'A physics merge puzzle built for quick sessions and satisfying chains.',
+    tagline: 'A slime merge game with 100 handcrafted stack puzzles and quick physics drop modes.',
     summary:
-      'A free iPhone and iPad physics merge game I built solo in TypeScript on Phaser 4 and Matter physics, then shipped natively through Capacitor. It runs entirely on-device, with no backend to operate.',
+      'A free iPhone and iPad merge game I built solo in TypeScript on Phaser 4 and Matter physics, then shipped natively through Capacitor. It pairs a 100-stage Slime Stack puzzle campaign with physics drop modes, and keeps all player progress on-device, with no backend to operate.',
     platforms: ['iPhone', 'iPad'],
     highlights: [
-      'Three modes: a timed Arcade run with a ramping drop clock, an untimed Cozy run, and a seeded Daily challenge that every player gets on a shared 07:00 UTC reset.',
+      'Slime Stack: a 100-stage, ten-chapter merge-puzzle campaign on three pegs, with move limits, one-move merge cascades, and star ratings. Boards are authored by hand; a solver proves every par move count.',
+      'Three physics drop modes: a timed Arcade run with a ramping drop clock, an untimed Cozy run, and a seeded Daily challenge that every player gets on a shared 07:00 UTC reset.',
       'Physics merge rules with ten evolution tiers per theme, progression-weighted drops, danger-line timing, and pity-weighted Starburst and Prism Shift powerups.',
       'Capacitor iOS shell with Game Center leaderboards and offline score queuing; progress, Bits, and themes are stored locally.',
-      'Consent-gated AdMob rewarded and interstitial ads, with interstitials paced by active play time and capped per hour.',
-      'Vitest simulation tests and Playwright browser, visual-contact, and frame-pacing performance suites running in CI and nightly.',
-      'Scripted release tooling for TestFlight uploads, App Store Connect metadata, and Game Center leaderboard provisioning.',
+      'Consent-gated AdMob ads paced by active play time, plus consent-based Firebase Analytics and Apple Ads attribution that work without ATT or the advertising identifier.',
+      'Localized into 15 languages, from the in-game interface to the App Store listing.',
+      'Vitest simulation tests, release checks that enforce the privacy configuration, and a Playwright-tested MRAID playable ad.',
+      'Scripted release tooling for TestFlight uploads, App Store Connect metadata and screenshots, and Game Center leaderboard provisioning.',
     ],
     facts: [
-      { label: 'Released', value: 'Sep 2026 · v1.0.5' },
+      { label: 'Released', value: 'Sep 2026' },
+      { label: 'Current version', value: '1.0.6' },
       { label: 'Team', value: 'Solo build' },
-      { label: 'Backend', value: 'None, all on-device' },
+      { label: 'Backend', value: 'None, progress stays on-device' },
     ],
-    stack: ['TypeScript', 'Phaser 4', 'Matter.js', 'Capacitor', 'Tone.js', 'Game Center', 'AdMob'],
+    stack: ['TypeScript', 'Phaser 4', 'Matter.js', 'Capacitor', 'Tone.js', 'Game Center', 'AdMob', 'Firebase Analytics'],
     icon: slimefallIcon,
     screenshots: [
+      { src: slimefallStackShot1, alt: 'Slimefall Arcade: 100 merge puzzles in Slime Stack.' },
+      { src: slimefallStackShot2, alt: 'Slimefall Arcade: plan every move across three pegs in Slime Stack.' },
+      { src: slimefallStackShot3, alt: 'Slimefall Arcade: earn three stars on every Slime Stack stage.' },
       { src: slimefallShot1, alt: 'Slimefall Arcade: drop, match, evolve.' },
       { src: slimefallShot2, alt: 'Slimefall Arcade: build bigger slimes.' },
       { src: slimefallShot3, alt: 'Slimefall Arcade: beat the drop clock in Arcade mode.' },
