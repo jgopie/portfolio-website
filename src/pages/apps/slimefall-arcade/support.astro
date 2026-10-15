@@ -53,7 +53,7 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
       <ul>
         <li>Your device model and Android or iOS/iPadOS version.</li>
         <li>The Slimefall Arcade app version and build number.</li>
-        <li>The game mode you were playing: Arcade, Daily, or Cozy.</li>
+        <li>The game mode you were playing: Slime Stack (with the stage number), Arcade, Daily, or Cozy.</li>
         <li>The steps that led to the issue and whether it happens repeatedly.</li>
         <li>A screenshot or screen recording, when it can be shared safely.</li>
       </ul>
@@ -88,7 +88,7 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
     </article>
 
     <article class="legal-section">
-      <h2>Ads and privacy options</h2>
+      <h2>Ads, analytics, and privacy options</h2>
       <p>
         Slimefall Arcade uses rewarded and interstitial ads and requests
         non-personalized ads for the current release. Where privacy options are
@@ -96,8 +96,15 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
         granted only after the rewarded ad reports successful completion.
       </p>
       <p>
+        From version 1.0.7 on Apple devices, usage statistics can be turned
+        on or off with the Share usage stats switch in
+        Settings. In regions where consent is required, they stay off unless
+        you choose Allow.
+      </p>
+      <p>
         Read the <a href={slimefallArcadePrivacyPolicyUrl}>privacy policy</a> for
-        details about AdMob, Google Play Games, Game Center, and local game data.
+        details about AdMob, Google Analytics for Firebase, Apple Ads
+        attribution, Google Play Games, Game Center, and local game data.
       </p>
     </article>
 
@@ -114,6 +121,7 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
       <article class="legal-aside-card">
         <h2>Supported play modes</h2>
         <ul>
+          <li>Slime Stack (100 puzzle stages)</li>
           <li>Arcade</li>
           <li>Daily Challenge</li>
           <li>Cozy</li>

@@ -12,7 +12,7 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
 
 <BaseLayout
   title={`${slimefallArcadeLegal.appName} Privacy Policy`}
-  description={`Privacy policy for ${slimefallArcadeLegal.appName}, including local game data, platform leaderboards, and Google AdMob disclosures.`}
+  description={`Privacy policy for ${slimefallArcadeLegal.appName}, including local game data, platform leaderboards, Google AdMob, Google Analytics for Firebase, and Apple Ads attribution disclosures.`}
   canonicalUrl={slimefallArcadePrivacyPolicyUrl}
 >
   <LegalPageShell
@@ -38,10 +38,11 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
       <h2>Overview</h2>
       <p>
         {slimefallArcadeLegal.appName} is a game for Android and Apple devices.
-        The publisher does not require or operate a first-party user account,
-        backend profile database, or analytics service for the current release.
-        The game uses device-local storage, optional platform leaderboard
-        services, and Google AdMob advertising as described below.
+        The publisher does not require or operate a first-party user account or
+        backend profile database. The game uses device-local storage, optional
+        platform leaderboard services, Google AdMob advertising, and, from
+        version 1.0.7 on Apple devices, consent-based usage statistics through
+        Google Analytics for Firebase, as described below.
       </p>
       <div class="legal-callout">
         The publisher does not sell your personal information.
@@ -60,10 +61,11 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
     </article>
 
     <article class="legal-section">
-      <h2>Platform and advertising services</h2>
+      <h2>Platform, advertising, and analytics services</h2>
       <p>
-        If you use rankings or view an advertisement, Google or Apple may
-        process information under their own privacy policies. The categories
+        If you use rankings, view an advertisement, or allow usage statistics,
+        Google or Apple may process information under their own privacy
+        policies. The categories
         involved depend on your device, region, account, consent choices, and
         privacy settings.
       </p>
@@ -78,6 +80,18 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
         not request permission to track you across other companies' apps and
         websites.
       </p>
+      <p>
+        Usage statistics help the publisher understand how the game is played
+        and which Apple Ads campaigns bring new players. They are sent to
+        Google Analytics for Firebase only when your analytics choice allows
+        it: in regions where consent is required, nothing is sent unless you
+        choose Allow; elsewhere statistics are on by default and can be turned
+        off in Settings. Analytics data is not linked to your identity, is not
+        used for advertising or to track you across other companies' apps and
+        websites, and is collected without the advertising identifier. Google's
+        advertising signals and ad personalization are switched off for this
+        data.
+      </p>
     </article>
 
     <article class="legal-section">
@@ -87,6 +101,7 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
         <li>Authenticate an optional platform gaming profile.</li>
         <li>Submit scores and display native leaderboards.</li>
         <li>Deliver rewarded and interstitial advertisements.</li>
+        <li>Understand how the game is played and measure which Apple Ads campaigns lead to installs, when analytics is allowed.</li>
         <li>Protect advertising services against abuse and technical failures.</li>
         <li>Respond when you voluntarily send a support or privacy email.</li>
       </ul>
@@ -102,8 +117,15 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
         obligations.
       </p>
       <p>
+        Usage statistics are kept in the publisher's Google Analytics property
+        for no longer than its configured retention period, which is at most 14
+        months. The in-app reset in Settings resets the analytics identifier,
+        so later statistics are not connected to earlier ones.
+      </p>
+      <p>
         Google and Apple control retention and deletion for information handled
-        by AdMob, Google Play Games, and Game Center. Use the privacy and account
+        by AdMob, Google Analytics for Firebase, Google Play Games, and Game
+        Center. Use the privacy and account
         controls supplied by the relevant provider to manage that information.
       </p>
     </article>
@@ -116,7 +138,8 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
       <p>
         Where required, the game uses Google's User Messaging Platform to
         collect or update advertising privacy choices. You can reopen the
-        available privacy options from the game's Settings screen.
+        available privacy options from the game's Settings screen. Usage
+        statistics have their own Share usage stats switch in Settings.
       </p>
       <p>
         Depending on where you live, privacy law may provide additional rights
@@ -177,6 +200,8 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
           <li>Google Play Games on Android</li>
           <li>Apple Game Center on Apple devices</li>
           <li>Google AdMob advertising</li>
+          <li>Google Analytics for Firebase (Apple devices, version 1.0.7+, consent-based)</li>
+          <li>Apple Ads attribution (AdServices)</li>
         </ul>
       </article>
 
@@ -185,7 +210,7 @@ const supportHref = `mailto:${slimefallArcadeLegal.supportEmail}`;
         <ul>
           <li>No first-party player accounts</li>
           <li>No publisher-operated cloud save</li>
-          <li>No first-party analytics SDK</li>
+          <li>No cross-app tracking or advertising identifier</li>
           <li>No location, camera, or microphone access</li>
           <li>No in-app purchases in the current release</li>
         </ul>
